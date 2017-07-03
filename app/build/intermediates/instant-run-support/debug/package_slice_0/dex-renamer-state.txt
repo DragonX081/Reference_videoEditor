@@ -1,4 +1,0 @@
-#Tue May 16 15:03:18 CST 2017
-base.0=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_commonAS_github\\LanSoEditor_common\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_0
-renamed.0=classes.dex
-file.0=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_commonAS_github\\LanSoEditor_common\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_0\\classes.dex

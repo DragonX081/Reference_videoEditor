@@ -1,7 +1,0 @@
-#Fri Jun 02 08:59:03 CST 2017
-base.0=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_commonAS_github\\LanSoEditor_common\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_c8a8dbfca159ce631c5ed54321245bd38693a9df
-renamed.1=classes.dex
-renamed.0=classes2.dex
-file.1=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_commonAS_github\\LanSoEditor_common\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_375ceeb5edaac6404f2a650f76b382c8ea77cd71\\classes.dex
-base.1=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_commonAS_github\\LanSoEditor_common\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_375ceeb5edaac6404f2a650f76b382c8ea77cd71
-file.0=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_commonAS_github\\LanSoEditor_common\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_c8a8dbfca159ce631c5ed54321245bd38693a9df\\classes.dex

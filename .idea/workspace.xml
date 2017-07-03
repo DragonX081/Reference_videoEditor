@@ -11,20 +11,112 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="69714839-0d04-43f4-a9a4-cb457ea6fd87" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-16-10-25-29-362.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-16-10-25-33-544.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-16-10-27-58-251.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-16-10-30-32-623.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-16-13-54-50-306.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-16-13-54-54-977.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-17-09-09-46-603.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-17-09-10-06-573.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-17-09-10-22-625.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-17-09-10-47-076.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-17-09-13-36-322.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-17-09-14-39-068.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-17-10-39-38-922.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-17-10-39-43-764.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-21-12-32-04-594.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-21-12-32-10-774.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-21-16-17-03-444.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-21-16-17-08-335.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-11-16-19-114.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-11-16-27-948.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-28-09-09-15-668.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-28-09-09-23-319.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-28-09-17-10-556.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-28-09-17-21-274.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-02-15-01-47-225.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-02-15-01-48-769.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-02-15-03-08-914.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-02-15-03-52-681.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-02-15-04-38-094.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-02-15-05-43-187.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-02-15-06-49-282.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-03-14-43-46-639.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-03-14-43-53-171.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-03-14-45-47-716.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-03-14-49-09-736.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-03-14-49-15-973.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-04-15-55-00-976.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-04-15-55-07-178.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-16-14-24-56-071.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-16-14-25-04-575.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-16-14-25-06-507.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-16-14-32-43-608.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-16-14-34-45-915.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-16-14-35-19-314.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-16-14-52-50-663.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-16-15-02-43-599.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-16-15-03-10-626.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-16-15-05-39-248.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-16-18-24-10-535.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-05-16-18-24-20-728.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-06-02-08-58-31-783.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-06-02-08-58-38-484.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-06-02-08-59-01-912.rawproto" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/generated/mockable-android-23.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/杭州蓝松科技--短视频处理SDK常见问答.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/短视频处理LanSoEditor-SDK之DrawPad画板的API方法说明.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/短视频处理LanSoEditor-SDK之Layer图层的方法说明.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/短视频处理LanSoEditor-SDK之下载地址和集成说明.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/短视频处理LanSoEditor-SDK之画板和图层架构 .pdf" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/VideoEditor$EventHandler.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/VideoEditor$EventHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/VideoEditor.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/VideoEditor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/VideoEditor$EventHandler.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/VideoEditor$EventHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/VideoEditor.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/VideoEditor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-resources/resources-debug.ir.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-resources/resources-debug.ir.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/jniLibs/debug/armeabi-v7a/libffmpegeditor.so" afterPath="$PROJECT_DIR$/app/build/intermediates/jniLibs/debug/armeabi-v7a/libffmpegeditor.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/split-apk/debug/slices/slice_2.apk" afterPath="$PROJECT_DIR$/app/build/intermediates/split-apk/debug/slices/slice_2.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2/classes.dex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/VideoEditor$EventHandler.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/VideoEditor$EventHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/VideoEditor.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/VideoEditor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/VideoEditor$EventHandler.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/VideoEditor$EventHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/VideoEditor.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/VideoEditor.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/armeabi-v7a/libffmpegeditor.so" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/armeabi-v7a/libffmpegeditor.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/stripDebugSymbol/debug/folders/2000/1f/main/lib/armeabi-v7a/libffmpegeditor.so" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/stripDebugSymbol/debug/folders/2000/1f/main/lib/armeabi-v7a/libffmpegeditor.so" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/jniLibs/armeabi-v7a/libffmpegeditor.so" afterPath="$PROJECT_DIR$/app/src/main/jniLibs/armeabi-v7a/libffmpegeditor.so" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/layout.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/layout.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAndroidTestResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAndroidTestResources/compile-file-map.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/dex-renamer-state.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/file-input-save-data.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/file-input-save-data.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageInstantRunResourcesDebug/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageInstantRunResourcesDebug/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageInstantRunResourcesDebug/file-input-save-data.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageInstantRunResourcesDebug/file-input-save-data.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_dependencies/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_dependencies/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_0/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_0/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_1/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_1/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_2/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_2/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_3/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_3/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_4/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_4/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_5/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_5/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_6/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_6/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_7/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_7/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_8/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_8/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_9/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_9/dex-renamer-state.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/restart-dex/debug/build-info.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/restart-dex/debug/build-info.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/VideoEditor.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/VideoEditor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
     </list>
     <ignored path="LanSoEditor_common-master.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -56,16 +148,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/commonDemo/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="221" column="12" selection-start-line="221" selection-start-column="12" selection-end-line="221" selection-end-column="12" />
-              <folding>
-                <element signature="e#3256#3291#0" expanded="true" />
-                <element signature="e#3292#3329#0" expanded="true" />
-                <element signature="e#5195#5221#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="390">
+              <caret line="199" column="5" selection-start-line="199" selection-start-column="5" selection-end-line="199" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -75,16 +163,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="5538">
               <caret line="241" column="57" selection-start-line="241" selection-start-column="57" selection-end-line="241" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="R.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/lansoeditor/demo/R.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10192">
-              <caret line="397" column="32" selection-start-line="397" selection-start-column="32" selection-end-line="397" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -110,19 +188,85 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VideoEditor.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="VideoEditor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/VideoEditor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66222">
-              <caret line="2563" column="22" selection-start-line="2563" selection-start-column="22" selection-end-line="2563" selection-end-column="22" />
+            <state relative-caret-position="563">
+              <caret line="633" column="3" selection-start-line="633" selection-start-column="3" selection-end-line="633" selection-end-column="3" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3375#3376#0" expanded="true" />
-                <element signature="e#3401#3402#0" expanded="true" />
-                <element signature="e#86120#86121#0" expanded="true" />
-                <element signature="e#86145#86146#0" expanded="true" />
-                <element signature="e#86249#86250#0" expanded="true" />
-                <element signature="e#86274#86275#0" expanded="true" />
+                <element signature="e#3498#3499#0" expanded="true" />
+                <element signature="e#3524#3525#0" expanded="true" />
+                <element signature="e#3527#3554#0" expanded="true" />
+                <element signature="e#4514#4522#0" expanded="true" />
+                <element signature="e#6072#6080#0" expanded="true" />
+                <element signature="e#7344#7352#0" expanded="true" />
+                <element signature="e#8323#8331#0" expanded="true" />
+                <element signature="e#9417#9425#0" expanded="true" />
+                <element signature="e#10464#10472#0" expanded="true" />
+                <element signature="e#11443#11451#0" expanded="true" />
+                <element signature="e#12809#12817#0" expanded="true" />
+                <element signature="e#16748#16756#0" expanded="true" />
+                <element signature="e#17511#17519#0" expanded="true" />
+                <element signature="e#18469#18477#0" expanded="true" />
+                <element signature="e#19719#19727#0" expanded="true" />
+                <element signature="e#20885#20893#0" expanded="true" />
+                <element signature="e#22061#22069#0" expanded="true" />
+                <element signature="e#23093#23101#0" expanded="true" />
+                <element signature="e#24134#24142#0" expanded="true" />
+                <element signature="e#25651#25659#0" expanded="true" />
+                <element signature="e#26936#26944#0" expanded="true" />
+                <element signature="e#28387#28395#0" expanded="true" />
+                <element signature="e#29714#29722#0" expanded="true" />
+                <element signature="e#31422#31430#0" expanded="true" />
+                <element signature="e#32594#32602#0" expanded="true" />
+                <element signature="e#34044#34052#0" expanded="true" />
+                <element signature="e#36007#36015#0" expanded="true" />
+                <element signature="e#37158#37166#0" expanded="true" />
+                <element signature="e#38096#38104#0" expanded="true" />
+                <element signature="e#38796#38804#0" expanded="true" />
+                <element signature="e#40401#40409#0" expanded="true" />
+                <element signature="e#41573#41581#0" expanded="true" />
+                <element signature="e#42395#42403#0" expanded="true" />
+                <element signature="e#44236#44244#0" expanded="true" />
+                <element signature="e#45494#45502#0" expanded="true" />
+                <element signature="e#46759#46767#0" expanded="true" />
+                <element signature="e#49170#49178#0" expanded="true" />
+                <element signature="e#51886#51894#0" expanded="true" />
+                <element signature="e#53506#53514#0" expanded="true" />
+                <element signature="e#56926#56934#0" expanded="true" />
+                <element signature="e#57892#57900#0" expanded="true" />
+                <element signature="e#59304#59312#0" expanded="true" />
+                <element signature="e#61371#61379#0" expanded="true" />
+                <element signature="e#63292#63300#0" expanded="true" />
+                <element signature="e#65635#65643#0" expanded="true" />
+                <element signature="e#66821#66829#0" expanded="true" />
+                <element signature="e#68120#68128#0" expanded="true" />
+                <element signature="e#69263#69271#0" expanded="true" />
+                <element signature="e#71178#71186#0" expanded="true" />
+                <element signature="e#72516#72524#0" expanded="true" />
+                <element signature="e#73732#73740#0" expanded="true" />
+                <element signature="e#74940#74948#0" expanded="true" />
+                <element signature="e#75968#75976#0" expanded="true" />
+                <element signature="e#76993#77001#0" expanded="true" />
+                <element signature="e#78047#78055#0" expanded="true" />
+                <element signature="e#79030#79038#0" expanded="true" />
+                <element signature="e#80222#80230#0" expanded="true" />
+                <element signature="e#81304#81312#0" expanded="true" />
+                <element signature="e#82728#82736#0" expanded="true" />
+                <element signature="e#83690#83698#0" expanded="true" />
+                <element signature="e#84778#84786#0" expanded="true" />
+                <element signature="e#86115#86123#0" expanded="true" />
+                <element signature="e#87242#87250#0" expanded="true" />
+                <element signature="e#88158#88166#0" expanded="true" />
+                <element signature="e#89478#89486#0" expanded="true" />
+                <element signature="e#91619#91627#0" expanded="true" />
+                <element signature="e#92741#92749#0" expanded="true" />
+                <element signature="e#94284#94292#0" expanded="true" />
+                <element signature="e#95307#95308#0" expanded="true" />
+                <element signature="e#95332#95333#0" expanded="true" />
+                <element signature="e#95436#95437#0" expanded="true" />
+                <element signature="e#95461#95462#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1797,10 +1941,10 @@
       <list>
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout2.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/MediaInfo.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/VideoEditor.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/commonDemo/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/commonDemo/AVEditorDemoActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/VideoEditor.java" />
       </list>
     </option>
   </component>
@@ -1835,6 +1979,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="PackagesPane">
         <subPane />
       </pane>
@@ -1880,7 +2025,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1896,6 +2040,178 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="LanSoEditor_common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jniLibs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="armeabi-v7a" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lansosdk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lansosdk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="videoeditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commonDemo" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2245,7 +2561,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2329,12 +2645,78 @@
           <caret line="2563" column="22" selection-start-line="2563" selection-start-column="22" selection-end-line="2563" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3375#3376#0" expanded="true" />
-            <element signature="e#3401#3402#0" expanded="true" />
-            <element signature="e#86120#86121#0" expanded="true" />
-            <element signature="e#86145#86146#0" expanded="true" />
-            <element signature="e#86249#86250#0" expanded="true" />
-            <element signature="e#86274#86275#0" expanded="true" />
+            <element signature="e#3498#3499#0" expanded="true" />
+            <element signature="e#3524#3525#0" expanded="true" />
+            <element signature="e#3527#3554#0" expanded="true" />
+            <element signature="e#4514#4522#0" expanded="true" />
+            <element signature="e#6072#6080#0" expanded="true" />
+            <element signature="e#7344#7352#0" expanded="true" />
+            <element signature="e#8323#8331#0" expanded="true" />
+            <element signature="e#9417#9425#0" expanded="true" />
+            <element signature="e#10464#10472#0" expanded="true" />
+            <element signature="e#11443#11451#0" expanded="true" />
+            <element signature="e#12809#12817#0" expanded="true" />
+            <element signature="e#16748#16756#0" expanded="true" />
+            <element signature="e#17511#17519#0" expanded="true" />
+            <element signature="e#18469#18477#0" expanded="true" />
+            <element signature="e#19719#19727#0" expanded="true" />
+            <element signature="e#20885#20893#0" expanded="true" />
+            <element signature="e#22061#22069#0" expanded="true" />
+            <element signature="e#23093#23101#0" expanded="true" />
+            <element signature="e#24134#24142#0" expanded="true" />
+            <element signature="e#25651#25659#0" expanded="true" />
+            <element signature="e#26936#26944#0" expanded="true" />
+            <element signature="e#28387#28395#0" expanded="true" />
+            <element signature="e#29714#29722#0" expanded="true" />
+            <element signature="e#31422#31430#0" expanded="true" />
+            <element signature="e#32594#32602#0" expanded="true" />
+            <element signature="e#34044#34052#0" expanded="true" />
+            <element signature="e#36007#36015#0" expanded="true" />
+            <element signature="e#37158#37166#0" expanded="true" />
+            <element signature="e#38096#38104#0" expanded="true" />
+            <element signature="e#38796#38804#0" expanded="true" />
+            <element signature="e#40401#40409#0" expanded="true" />
+            <element signature="e#41573#41581#0" expanded="true" />
+            <element signature="e#42395#42403#0" expanded="true" />
+            <element signature="e#44236#44244#0" expanded="true" />
+            <element signature="e#45494#45502#0" expanded="true" />
+            <element signature="e#46759#46767#0" expanded="true" />
+            <element signature="e#49170#49178#0" expanded="true" />
+            <element signature="e#51886#51894#0" expanded="true" />
+            <element signature="e#53506#53514#0" expanded="true" />
+            <element signature="e#56926#56934#0" expanded="true" />
+            <element signature="e#57892#57900#0" expanded="true" />
+            <element signature="e#59304#59312#0" expanded="true" />
+            <element signature="e#61371#61379#0" expanded="true" />
+            <element signature="e#63292#63300#0" expanded="true" />
+            <element signature="e#65635#65643#0" expanded="true" />
+            <element signature="e#66821#66829#0" expanded="true" />
+            <element signature="e#68120#68128#0" expanded="true" />
+            <element signature="e#69263#69271#0" expanded="true" />
+            <element signature="e#71178#71186#0" expanded="true" />
+            <element signature="e#72516#72524#0" expanded="true" />
+            <element signature="e#73732#73740#0" expanded="true" />
+            <element signature="e#74940#74948#0" expanded="true" />
+            <element signature="e#75968#75976#0" expanded="true" />
+            <element signature="e#76993#77001#0" expanded="true" />
+            <element signature="e#78047#78055#0" expanded="true" />
+            <element signature="e#79030#79038#0" expanded="true" />
+            <element signature="e#80222#80230#0" expanded="true" />
+            <element signature="e#81304#81312#0" expanded="true" />
+            <element signature="e#82728#82736#0" expanded="true" />
+            <element signature="e#83690#83698#0" expanded="true" />
+            <element signature="e#84778#84786#0" expanded="true" />
+            <element signature="e#86115#86123#0" expanded="true" />
+            <element signature="e#87242#87250#0" expanded="true" />
+            <element signature="e#88158#88166#0" expanded="true" />
+            <element signature="e#89478#89486#0" expanded="true" />
+            <element signature="e#91619#91627#0" expanded="true" />
+            <element signature="e#92741#92749#0" expanded="true" />
+            <element signature="e#94284#94292#0" expanded="true" />
+            <element signature="e#95307#95308#0" expanded="true" />
+            <element signature="e#95332#95333#0" expanded="true" />
+            <element signature="e#95436#95437#0" expanded="true" />
+            <element signature="e#95461#95462#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2343,11 +2725,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3256#3291#0" expanded="true" />
-            <element signature="e#3292#3329#0" expanded="true" />
-            <element signature="e#5195#5221#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2355,11 +2733,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3256#3291#0" expanded="true" />
-            <element signature="e#3292#3329#0" expanded="true" />
-            <element signature="e#5195#5221#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2367,11 +2741,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3256#3291#0" expanded="true" />
-            <element signature="e#3292#3329#0" expanded="true" />
-            <element signature="e#5195#5221#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2379,11 +2749,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3256#3291#0" expanded="true" />
-            <element signature="e#3292#3329#0" expanded="true" />
-            <element signature="e#5195#5221#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2391,11 +2757,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3256#3291#0" expanded="true" />
-            <element signature="e#3292#3329#0" expanded="true" />
-            <element signature="e#5195#5221#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2423,11 +2785,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3256#3291#0" expanded="true" />
-            <element signature="e#3292#3329#0" expanded="true" />
-            <element signature="e#5195#5221#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2455,11 +2813,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3256#3291#0" expanded="true" />
-            <element signature="e#3292#3329#0" expanded="true" />
-            <element signature="e#5195#5221#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2487,11 +2841,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3256#3291#0" expanded="true" />
-            <element signature="e#3292#3329#0" expanded="true" />
-            <element signature="e#5195#5221#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2519,11 +2869,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8112">
           <caret line="370" column="56" selection-start-line="370" selection-start-column="56" selection-end-line="370" selection-end-column="56" />
-          <folding>
-            <element signature="e#3256#3291#0" expanded="true" />
-            <element signature="e#3292#3329#0" expanded="true" />
-            <element signature="e#5195#5221#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2577,11 +2923,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8112">
           <caret line="370" column="56" selection-start-line="370" selection-start-column="56" selection-end-line="370" selection-end-column="56" />
-          <folding>
-            <element signature="e#3256#3291#0" expanded="true" />
-            <element signature="e#3292#3329#0" expanded="true" />
-            <element signature="e#5195#5221#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2614,11 +2956,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8112">
           <caret line="370" column="56" selection-start-line="370" selection-start-column="56" selection-end-line="370" selection-end-column="56" />
-          <folding>
-            <element signature="e#3256#3291#0" expanded="true" />
-            <element signature="e#3292#3329#0" expanded="true" />
-            <element signature="e#5195#5221#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2651,11 +2989,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4524">
           <caret line="232" column="13" selection-start-line="232" selection-start-column="13" selection-end-line="232" selection-end-column="13" />
-          <folding>
-            <element signature="e#3256#3291#0" expanded="true" />
-            <element signature="e#3292#3329#0" expanded="true" />
-            <element signature="e#5195#5221#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2663,11 +2997,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3256#3291#0" expanded="true" />
-            <element signature="e#3292#3329#0" expanded="true" />
-            <element signature="e#5195#5221#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2792,30 +3122,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/lansoeditor/demo/R.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10192">
-          <caret line="397" column="32" selection-start-line="397" selection-start-column="32" selection-end-line="397" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/VideoEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66222">
-          <caret line="2563" column="22" selection-start-line="2563" selection-start-column="22" selection-end-line="2563" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3375#3376#0" expanded="true" />
-            <element signature="e#3401#3402#0" expanded="true" />
-            <element signature="e#86120#86121#0" expanded="true" />
-            <element signature="e#86145#86146#0" expanded="true" />
-            <element signature="e#86249#86250#0" expanded="true" />
-            <element signature="e#86274#86275#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/lansoeditor/demo/R.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/commonDemo/AVEditorDemoActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5538">
@@ -2834,12 +3141,90 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/commonDemo/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="221" column="12" selection-start-line="221" selection-start-column="12" selection-end-line="221" selection-end-column="12" />
+        <state relative-caret-position="390">
+          <caret line="199" column="5" selection-start-line="199" selection-start-column="5" selection-end-line="199" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/VideoEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="563">
+          <caret line="633" column="3" selection-start-line="633" selection-start-column="3" selection-end-line="633" selection-end-column="3" />
           <folding>
-            <element signature="e#3256#3291#0" expanded="true" />
-            <element signature="e#3292#3329#0" expanded="true" />
-            <element signature="e#5195#5221#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#3498#3499#0" expanded="true" />
+            <element signature="e#3524#3525#0" expanded="true" />
+            <element signature="e#3527#3554#0" expanded="true" />
+            <element signature="e#4514#4522#0" expanded="true" />
+            <element signature="e#6072#6080#0" expanded="true" />
+            <element signature="e#7344#7352#0" expanded="true" />
+            <element signature="e#8323#8331#0" expanded="true" />
+            <element signature="e#9417#9425#0" expanded="true" />
+            <element signature="e#10464#10472#0" expanded="true" />
+            <element signature="e#11443#11451#0" expanded="true" />
+            <element signature="e#12809#12817#0" expanded="true" />
+            <element signature="e#16748#16756#0" expanded="true" />
+            <element signature="e#17511#17519#0" expanded="true" />
+            <element signature="e#18469#18477#0" expanded="true" />
+            <element signature="e#19719#19727#0" expanded="true" />
+            <element signature="e#20885#20893#0" expanded="true" />
+            <element signature="e#22061#22069#0" expanded="true" />
+            <element signature="e#23093#23101#0" expanded="true" />
+            <element signature="e#24134#24142#0" expanded="true" />
+            <element signature="e#25651#25659#0" expanded="true" />
+            <element signature="e#26936#26944#0" expanded="true" />
+            <element signature="e#28387#28395#0" expanded="true" />
+            <element signature="e#29714#29722#0" expanded="true" />
+            <element signature="e#31422#31430#0" expanded="true" />
+            <element signature="e#32594#32602#0" expanded="true" />
+            <element signature="e#34044#34052#0" expanded="true" />
+            <element signature="e#36007#36015#0" expanded="true" />
+            <element signature="e#37158#37166#0" expanded="true" />
+            <element signature="e#38096#38104#0" expanded="true" />
+            <element signature="e#38796#38804#0" expanded="true" />
+            <element signature="e#40401#40409#0" expanded="true" />
+            <element signature="e#41573#41581#0" expanded="true" />
+            <element signature="e#42395#42403#0" expanded="true" />
+            <element signature="e#44236#44244#0" expanded="true" />
+            <element signature="e#45494#45502#0" expanded="true" />
+            <element signature="e#46759#46767#0" expanded="true" />
+            <element signature="e#49170#49178#0" expanded="true" />
+            <element signature="e#51886#51894#0" expanded="true" />
+            <element signature="e#53506#53514#0" expanded="true" />
+            <element signature="e#56926#56934#0" expanded="true" />
+            <element signature="e#57892#57900#0" expanded="true" />
+            <element signature="e#59304#59312#0" expanded="true" />
+            <element signature="e#61371#61379#0" expanded="true" />
+            <element signature="e#63292#63300#0" expanded="true" />
+            <element signature="e#65635#65643#0" expanded="true" />
+            <element signature="e#66821#66829#0" expanded="true" />
+            <element signature="e#68120#68128#0" expanded="true" />
+            <element signature="e#69263#69271#0" expanded="true" />
+            <element signature="e#71178#71186#0" expanded="true" />
+            <element signature="e#72516#72524#0" expanded="true" />
+            <element signature="e#73732#73740#0" expanded="true" />
+            <element signature="e#74940#74948#0" expanded="true" />
+            <element signature="e#75968#75976#0" expanded="true" />
+            <element signature="e#76993#77001#0" expanded="true" />
+            <element signature="e#78047#78055#0" expanded="true" />
+            <element signature="e#79030#79038#0" expanded="true" />
+            <element signature="e#80222#80230#0" expanded="true" />
+            <element signature="e#81304#81312#0" expanded="true" />
+            <element signature="e#82728#82736#0" expanded="true" />
+            <element signature="e#83690#83698#0" expanded="true" />
+            <element signature="e#84778#84786#0" expanded="true" />
+            <element signature="e#86115#86123#0" expanded="true" />
+            <element signature="e#87242#87250#0" expanded="true" />
+            <element signature="e#88158#88166#0" expanded="true" />
+            <element signature="e#89478#89486#0" expanded="true" />
+            <element signature="e#91619#91627#0" expanded="true" />
+            <element signature="e#92741#92749#0" expanded="true" />
+            <element signature="e#94284#94292#0" expanded="true" />
+            <element signature="e#95307#95308#0" expanded="true" />
+            <element signature="e#95332#95333#0" expanded="true" />
+            <element signature="e#95436#95437#0" expanded="true" />
+            <element signature="e#95461#95462#0" expanded="true" />
           </folding>
         </state>
       </provider>
