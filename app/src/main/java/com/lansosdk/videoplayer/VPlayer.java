@@ -103,6 +103,18 @@ public class VPlayer {
    {
 		mMediaPlayer.setSurface(surface);
    }
+   public void setSpeedEnable()
+   {
+	   if(mMediaPlayer!=null){
+		   mMediaPlayer.setSpeedEnable();   
+	   }
+   }
+   public void setSpeed(float speed)
+   {
+	   if(mMediaPlayer!=null){
+		   mMediaPlayer.setSpeed(speed);   
+	   }
+   }
     public void prepareAsync() {
         if (mUri == null) {
         	Log.e(TAG,"mUri==mull, open video error.");
@@ -334,17 +346,6 @@ public class VPlayer {
         } else {
             mSeekWhenPrepared = msec;
         }
-    }
-    public void seekBack(){
-    	if (isInPlaybackState()) {
-    		 mMediaPlayer.seekback100();
-        } 
-    }
-    public void seekFront()
-    {
-    	if (isInPlaybackState()) {
-   		 mMediaPlayer.seekfront100();
-       } 
     }
     public int getVideoWidth()
     {

@@ -9,9 +9,9 @@ public class LoadLanSongSdk {
         if (isLoaded)
             return;
         Log.d("lansoeditor","load libraries......");
-    	System.loadLibrary("ffmpegeditor");
-    	System.loadLibrary("lsdisplay");
-    	System.loadLibrary("lsplayer");
+    	System.loadLibrary("LanSongffmpeg");
+    	System.loadLibrary("LanSongdisplay");
+    	System.loadLibrary("LanSongplayer");
     	
 	    isLoaded=true;
 	}

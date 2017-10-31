@@ -443,16 +443,39 @@ public class VideoPlayer  {
 
     private native void _pause() throws IllegalStateException;
     
-    
-    public void seekback100() throws IllegalStateException {
-        stayAwake(false);
-        _seekback100();
+    /**
+     * [新增]
+     */
+    public void setSpeedEnable()
+    {
+    	_setSpeedEnable();
     }
     
-    public void seekfront100() throws IllegalStateException {
-        stayAwake(false);
-        _seekfront100();
+    public void setSpeedPitchEnable()
+    {
+    	_setSpeedPitchEnable();
     }
+    public void setSpeed(float rate)
+    {
+    	_setSpeed(rate);
+    }
+    /**
+     * 是否使能 播放速度, 
+     * 
+     */
+    private native void _setSpeedEnable();
+    /**
+     * 是否在 播放速度 ,加减速的时候, 变调.
+     */
+    private native void _setSpeedPitchEnable();
+    /**
+     * 范围是0.5---2.0;
+     * 0.5是最慢
+     * 2.0是最快.
+     * @param rate
+     */
+    private native void _setSpeed(float rate);
+    
     private native void _seekback100() throws IllegalStateException;
     private native void _seekfront100() throws IllegalStateException;
     
@@ -541,6 +564,10 @@ public class VideoPlayer  {
 
     public native long getCurrentPosition();
 
+    /**
+     * 视频的总长度, 单位毫秒.
+     * @return
+     */
     public native long getDuration();
 
     public void release() {

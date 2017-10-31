@@ -1,14 +1,10 @@
 # LanSoEditor_common  ---android平台的视频编辑SDK
 
-### 我们有可以实现类似秒拍,快手,美拍等APP的大部分功能的高级版本
+### 我们有基于【容器和图层架构】的专业版本
  https://github.com/LanSoSdk/LanSoEditor_advance
- 欢迎您的使用,高级版本采用类似photoshop一样的图层架构， 各种视频， 图片，文字， UI等都被处理成一个个的图层 增加到DrawPad（工作区）中。可以实现滤镜, 叠加,混合,标记,涂鸦,贴纸等各种视频编辑效果.
+ 欢迎您的使用,专业版本采用类似photoshop一样的图层架构， 各种视频， 图片，文字， UI等都被处理成一个个的图层 增加到DrawPad（容器）中。可以实现滤镜, 叠加,混合,标记,涂鸦,贴纸等各种视频编辑效果.
 
-### 工程为Eclipse,修改为Android Studio的步骤
-*  选择AS中的file--->import project ,选择项目的路径名，（注意，一定要是当前项目的根文件夹），点击Ok，会弹出对话框，让您选择需要保存的路径， 选择后点击Next,会弹出3个按钮都选中的对话框，直接点击Finish，导入完成。
-*  可联系我们,为您转换成Android Studio版本工程, 并提供技术支持(联系方式见下面). 
-
-### 当前版本是LanSoEditor-2.5.5
+### 当前版本是LanSoEditor-2.7.2
 *   优化分段录制功能
 *   优化GPU缩放的速度处理.
 *   增加取消 视频处理方法.
@@ -28,7 +24,7 @@
 *  
 *  此SDK采用低价收费授权,公司性质的合作,为了您项目更好的进行,欢迎和我们联系.谢谢!
 
-### 我们的高级版本下载地址：
+### 我们的专业版本下载地址：
 *	https://github.com/LanSoSdk/LanSoEditor_advance
 
 ### 举例功能的界面展示
@@ -42,9 +38,6 @@
 *   Email:support@lansongtech.com
 *   Phone:0571-89052701
 *   网址:www.lansongtech.com
-
-### 直接下载获取APK:
-   下载整个项目后, app\build\outputs\apk文件夹下后apk, 直接安装后即可演示.
 
 ### 本SDK的编解码有:
 *  软解码器H264
