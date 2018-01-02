@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="videoscalesdk_hx">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/videoscalesdk_hx.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
