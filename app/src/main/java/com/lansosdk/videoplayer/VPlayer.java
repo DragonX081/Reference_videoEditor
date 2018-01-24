@@ -115,6 +115,12 @@ public class VPlayer {
 		   mMediaPlayer.setSpeed(speed);   
 	   }
    }
+   public void setExactlySeekEnable(boolean is)
+   {
+	   if(mMediaPlayer!=null){
+		   mMediaPlayer.setExactlySeekEnable(is);
+	   }
+   }
     public void prepareAsync() {
         if (mUri == null) {
         	Log.e(TAG,"mUri==mull, open video error.");
@@ -339,9 +345,16 @@ public class VPlayer {
         return 0;
     }
 
+    public int getCurrentFramePosition() {
+        if (isInPlaybackState()) {
+            return (int) mMediaPlayer.getCurrentFramePosition();
+        }
+        return 0;
+    }
     public void seekTo(int msec) {
         if (isInPlaybackState()) {
             mMediaPlayer.seekTo(msec);
+            Log.i(TAG,"seek to  time is:"+msec);
             mSeekWhenPrepared = 0;
         } else {
             mSeekWhenPrepared = msec;

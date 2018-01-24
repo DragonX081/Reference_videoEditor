@@ -42,31 +42,36 @@ public class VideoPlayer  {
 
     int MEDIA_INFO_UNKNOWN = 1;
     static int MEDIA_INFO_STARTED_AS_NEXT = 2;
-    int MEDIA_INFO_VIDEO_RENDERING_START = 3;
-    int MEDIA_INFO_VIDEO_TRACK_LAGGING = 700;
-    int MEDIA_INFO_BUFFERING_START = 701;
-    int MEDIA_INFO_BUFFERING_END = 702;
-    int MEDIA_INFO_NETWORK_BANDWIDTH = 703;
-    int MEDIA_INFO_BAD_INTERLEAVING = 800;
-    int MEDIA_INFO_NOT_SEEKABLE = 801;
-    int MEDIA_INFO_METADATA_UPDATE = 802;
-    int MEDIA_INFO_TIMED_TEXT_ERROR = 900;
-    int MEDIA_INFO_UNSUPPORTED_SUBTITLE = 901;
-    int MEDIA_INFO_SUBTITLE_TIMED_OUT = 902;
+    static  int MEDIA_INFO_VIDEO_RENDERING_START = 3;
+    static int MEDIA_INFO_VIDEO_TRACK_LAGGING = 700;
+    static int MEDIA_INFO_BUFFERING_START = 701;
+    static int MEDIA_INFO_BUFFERING_END = 702;
+    static int MEDIA_INFO_NETWORK_BANDWIDTH = 703;
+    static int MEDIA_INFO_BAD_INTERLEAVING = 800;
+    static int MEDIA_INFO_NOT_SEEKABLE = 801;
+    static int MEDIA_INFO_METADATA_UPDATE = 802;
+    static int MEDIA_INFO_TIMED_TEXT_ERROR = 900;
+    static int MEDIA_INFO_UNSUPPORTED_SUBTITLE = 901;
+    static int MEDIA_INFO_SUBTITLE_TIMED_OUT = 902;
 
-    int MEDIA_INFO_VIDEO_ROTATION_CHANGED = 10001;
-    int MEDIA_INFO_AUDIO_RENDERING_START = 10002;
+    static int MEDIA_INFO_VIDEO_ROTATION_CHANGED = 10001;
+    static int MEDIA_INFO_AUDIO_RENDERING_START = 10002;
 
-    int MEDIA_ERROR_UNKNOWN = 1;
-    int MEDIA_ERROR_SERVER_DIED = 100;
-    int MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK = 200;
-    int MEDIA_ERROR_IO = -1004;
-    int MEDIA_ERROR_MALFORMED = -1007;
-    int MEDIA_ERROR_UNSUPPORTED = -1010;
-    int MEDIA_ERROR_TIMED_OUT = -110;
+    static int MEDIA_INFO_MEDIA_ACCURATE_SEEK_COMPLETE = 10100;
+    		
+    static int MEDIA_ERROR_UNKNOWN = 1;
+    static int MEDIA_ERROR_SERVER_DIED = 100;
+    static int MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK = 200;
+    static int MEDIA_ERROR_IO = -1004;
+    static int MEDIA_ERROR_MALFORMED = -1007;
+    static int MEDIA_ERROR_UNSUPPORTED = -1010;
+    static int MEDIA_ERROR_TIMED_OUT = -110;
     
     private static final int MEDIA_NOP = 0; // interface test message
     private static final int MEDIA_PREPARED = 1;
+    /**
+     * read_thread读取到文件结束的时候, 发出complete,但read_thread不会退出
+     */
     private static final int MEDIA_PLAYBACK_COMPLETE = 2;
     private static final int MEDIA_BUFFERING_UPDATE = 3;
     private static final int MEDIA_SEEK_COMPLETE = 4;
@@ -77,7 +82,6 @@ public class VideoPlayer  {
     
     private static final int VIDEOEDIT_EVENT_COMPLETE=8001;
     
-
     protected static final int MEDIA_SET_VIDEO_SAR = 10001;
 
     //----------------------------------------
@@ -159,7 +163,9 @@ public class VideoPlayer  {
     public  interface OnPlayerSeekCompleteListener {
         void onSeekComplete(VideoPlayer mp);
     }
-
+    public  interface OnPlayerExactlySeekCompleteListener {
+        void onExactlySeekComplete(VideoPlayer mp);
+    }
     public  interface OnPlayerVideoSizeChangedListener {
         void onVideoSizeChanged(VideoPlayer mp, int width, int height,
                                 int sar_num, int sar_den);
@@ -177,6 +183,10 @@ public class VideoPlayer  {
     private OnPlayerCompletionListener mOnCompletionListener;
     private OnPlayerBufferingUpdateListener mOnBufferingUpdateListener;
     private OnPlayerSeekCompleteListener mOnSeekCompleteListener;
+    
+    
+    private OnPlayerExactlySeekCompleteListener mOnExactlySeekCompleteListener;
+    
     private OnPlayerVideoSizeChangedListener mOnVideoSizeChangedListener;
     private OnPlayerErrorListener mOnErrorListener;
     private OnPlayerInfoListener mOnInfoListener;
@@ -197,6 +207,11 @@ public class VideoPlayer  {
     public final void setOnSeekCompleteListener(OnPlayerSeekCompleteListener listener) {
         mOnSeekCompleteListener = listener;
     }
+    
+    public final void setOnExactlySeekCompleteListener(OnPlayerExactlySeekCompleteListener listener) {
+    	mOnExactlySeekCompleteListener = listener;
+    }
+    
 
     public final void setOnVideoSizeChangedListener(
             OnPlayerVideoSizeChangedListener listener) {
@@ -230,6 +245,11 @@ public class VideoPlayer  {
     protected final void notifyOnSeekComplete() {
         if (mOnSeekCompleteListener != null)
             mOnSeekCompleteListener.onSeekComplete(this);
+    }
+    
+    protected final void notifyOnExactlySeekComplete() {
+        if (mOnExactlySeekCompleteListener != null)
+            mOnExactlySeekCompleteListener.onExactlySeekComplete(this);
     }
 
     protected final void notifyOnVideoSizeChanged(int width, int height,
@@ -444,6 +464,15 @@ public class VideoPlayer  {
     private native void _pause() throws IllegalStateException;
     
     /**
+     * 设置是否精确seek;
+     * @param is
+     */
+    public void setExactlySeekEnable(boolean is)
+    {
+    	int en=is?1:0;
+    	_setAccurateSeekEnable(en, 5000);
+    }
+    /**
      * [新增]
      */
     public void setSpeedEnable()
@@ -459,6 +488,28 @@ public class VideoPlayer  {
     {
     	_setSpeed(rate);
     }
+    /**
+     * 获取当前画面位置,单位微秒;
+     * 
+     * @return 
+     */
+    public long getCurrentFramePosition()
+    {
+    	return getCurrentVideoFramePts();
+    }
+    /**
+     * 获取当前正在显示这一帧画面的时间戳.
+     * 
+     * 此时间戳为视频本身这一帧的原始时间戳, 不随播放快慢影响;
+     * @return  时间戳, 单位毫秒 1s=1000ms
+     */
+    private native long getCurrentVideoFramePts();
+    /**
+     * 是否加速seek, 
+     * @param selected 0不加速, 1加速;
+     * @param seektimeOut  加速seek的超时时间;默认最大5000ms;
+     */
+    private native void _setAccurateSeekEnable(int selected,int seektimeOut);
     /**
      * 是否使能 播放速度, 
      * 
@@ -505,8 +556,7 @@ public class VideoPlayer  {
     public void setScreenOnWhilePlaying(boolean screenOn) {
         if (mScreenOnWhilePlaying != screenOn) {
             if (screenOn && mSurfaceHolder == null) {
-                Log.w(TAG,
-                        "setScreenOnWhilePlaying(true) is ineffective without a SurfaceHolder");
+                Log.w(TAG,"setScreenOnWhilePlaying(true) is ineffective without a SurfaceHolder");
             }
             mScreenOnWhilePlaying = screenOn;
             updateSurfaceScreenOn();
@@ -562,8 +612,16 @@ public class VideoPlayer  {
 
     public native void seekTo(long msec) throws IllegalStateException;
 
+    /**
+     * 获取当前播放器进度. 单位微秒
+     * 此时间进度, 会随着设置加减速而变化.
+     * 如果您想获取到视频本身的原始时间戳, 则通过 {@link #getCurrentFramePosition()}来得到;
+     * 比如:视频本身20s, 加速一倍播放, 则最终播放的时间点是10s左右;
+     * @return
+     */
     public native long getCurrentPosition();
 
+    
     /**
      * 视频的总长度, 单位毫秒.
      * @return
@@ -723,8 +781,6 @@ public class VideoPlayer  {
                 return;
 
             case MEDIA_SEEK_COMPLETE:
-            	Log.i(TAG,"seek 完成====================>");
-            	
                 player.notifyOnSeekComplete();
                 return;
 
@@ -744,7 +800,12 @@ public class VideoPlayer  {
                 return;
 
             case MEDIA_INFO:
-                player.notifyOnInfo(msg.arg1, msg.arg2);
+            	Log.i(TAG,"mediaInfo msg.arg1:"+msg.arg1);
+            	if(msg.arg1==MEDIA_INFO_MEDIA_ACCURATE_SEEK_COMPLETE){
+            		  player.notifyOnExactlySeekComplete();
+            	}else{
+                    player.notifyOnInfo(msg.arg1, msg.arg2);
+            	}
                 return;
             case MEDIA_TIMED_TEXT:
                 // do nothing
