@@ -3857,7 +3857,9 @@ public static int checkSuggestBitRate(int wxh, int bitrate)
 			Log.e(TAG, "Unable to find an appropriate codec for " + MIME_TYPE_AVC);
 			return "yuv420p";
 		}
-		return selectColorFormat(codecInfo, MIME_TYPE_AVC);
+		String str=selectColorFormat(codecInfo, MIME_TYPE_AVC);
+		Log.i(TAG,"video editor color format use ID:--->"+str);
+		return str;
 	}
 	private static MediaCodecInfo selectCodec(String mimeType) {
 		int numCodecs = MediaCodecList.getCodecCount();
@@ -3881,14 +3883,18 @@ public static int checkSuggestBitRate(int wxh, int bitrate)
 		MediaCodecInfo.CodecCapabilities capabilities = codecInfo.getCapabilitiesForType(mimeType);
 		for (int i = 0; i < capabilities.colorFormats.length; i++) {
 			int colorFormat = capabilities.colorFormats[i];
-
-			if (MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420SemiPlanar==colorFormat)  //NV12
-			{
-				return "nv21";
-			}
-			if (MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420Planar==colorFormat)  //yuv420
+			if (19==colorFormat)
 			{
 				return "yuv420p";
+			}
+		}
+
+		for (int i = 0; i < capabilities.colorFormats.length; i++) {
+			int colorFormat = capabilities.colorFormats[i];
+
+			if (21==colorFormat)  //NV12
+			{
+				return "nv21";
 			}
 		}
 		Log.w(TAG,"not find nv21 or yuv420p. default return yuv420p");

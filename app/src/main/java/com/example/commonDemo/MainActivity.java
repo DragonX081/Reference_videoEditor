@@ -275,7 +275,6 @@ public class MainActivity extends Activity{
 	    }
 	    @Override
 	    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    	// TODO Auto-generated method stub
 	    	super.onActivityResult(requestCode, resultCode, data);
 	    	switch (resultCode) {
 			case RESULT_OK:
@@ -313,8 +312,6 @@ public class MainActivity extends Activity{
 	    			if(ret==false){
 	    				showHintDialog(R.string.sdk_checkerror);
 	    			}
-	    	      //  Log.i(TAG,"info:"+info.toString());
-	    	        
 	    			return ret;
 	    		}
 	    	}
