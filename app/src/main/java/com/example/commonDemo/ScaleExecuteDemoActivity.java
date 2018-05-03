@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,12 +34,12 @@ public class ScaleExecuteDemoActivity extends Activity{
 
 	String videoPath=null;
 	ProgressDialog  mProgressDialog;
-	int videoDuration;
-	boolean isRuned=false;
-	MediaInfo   mInfo;
-	TextView tvProgressHint;
-	TextView tvSelectFile;
-	/**
+	 int videoDuration;
+	 boolean isRuned=false;
+	 MediaInfo   mInfo;
+	 TextView tvProgressHint;
+	 TextView tvSelectFile;
+	 /**
 	 * 视频缩放中用到的临时文件路径.
 	 */
 	private String editTmpPath=null;
@@ -123,6 +124,7 @@ public class ScaleExecuteDemoActivity extends Activity{
 	}
 	 //--------------------------------------------------
 	private boolean isExecuting=false;
+	private  long startTime=0;
 	private void testScaleEdit()
 	{
 		if(isExecuting)
@@ -184,21 +186,19 @@ public class ScaleExecuteDemoActivity extends Activity{
 						dstPath=editTmpPath;
 					}
 				}
+				Log.i(TAG,"耗时时间是:"+(System.currentTimeMillis() -startTime));
+
 				findViewById(R.id.id_video_scale_play).setEnabled(true);
 			}
 		});
 		vScale.start();
+		startTime=System.currentTimeMillis();
 	}
 	
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
-		 if(SDKFileUtils.fileExist(dstPath)){
 			 SDKFileUtils.deleteFile(dstPath);
-	       }
-	       if(SDKFileUtils.fileExist(editTmpPath)){
 	    	   SDKFileUtils.deleteFile(editTmpPath);
-	       } 
 	}
 }	
