@@ -48,6 +48,7 @@
 
         <activity
             android:name="com.example.commonDemo.MainActivity">
+
         </activity>
         <activity android:name="com.example.commonDemo.VideoLayoutDemoActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"

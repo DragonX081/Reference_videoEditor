@@ -24,7 +24,7 @@ public class VideoLayout extends VideoEditor {
     /**
      * 是否使用软件解码器
      */
-    public static boolean isUseSoftDecoder=true;
+    public static boolean isUseSoftDecoder=false;
     /**
      * 两个视频合并;
      * <p>
@@ -62,7 +62,8 @@ public class VideoLayout extends VideoEditor {
         	  cmdList.add("-vcodec");
               cmdList.add("lansoh264_dec");
         }
-
+        cmdList.add("-threads");
+        cmdList.add(String.valueOf(16));
 
         cmdList.add("-i");
         cmdList.add(v1);
@@ -189,13 +190,15 @@ public class VideoLayout extends VideoEditor {
 
         String filter = String.format(Locale.getDefault(),
                 "nullsrc=size=%dx%d [base];"+
-                        "[0:v] scale=%dx%d [scale0]; " +
-                        "[1:v] scale=%dx%d [scale1]; " +
-                        "[2:v] scale=%dx%d [scale2]; " +
+                        "[0:v] scale=%dx%d [scale0];" +
+                        "[1:v] scale=%dx%d [scale1];" +
+                        "[2:v] scale=%dx%d [scale2];" +
                         "[base][scale0] overlay=x=%d:y=%d [over1];"+
                         "[over1][scale1] overlay=x=%d:y=%d [over2];"+
-                        "[over2][scale2] overlay=x=%d:y=%d;"+
+                        "[over2][scale2] overlay=x=%d:y=%d",
                         outW, outH,p1.scaleW, p1.scaleH, p2.scaleW, p2.scaleH,p3.scaleW, p3.scaleH, p1.x, p1.y,p2.x, p2.y,p3.x, p3.y);
+
+
 
         List<String> cmdList = new ArrayList<String>();
 
@@ -296,7 +299,7 @@ public class VideoLayout extends VideoEditor {
                         "[base][scale0] overlay=x=%d:y=%d [over1];"+
                         "[over1][scale1] overlay=x=%d:y=%d [over2];"+
                         "[over2][scale2] overlay=x=%d:y=%d [over3];"+
-                        "[over3][scale3] overlay=x=%d:y=%d;"+
+                        "[over3][scale3] overlay=x=%d:y=%d",
                         outW, outH,p1.scaleW,
                 p1.scaleH, p2.scaleW, p2.scaleH,p3.scaleW, p3.scaleH, p4.scaleW, p4.scaleH,
                 p1.x, p1.y,p2.x, p2.y,p3.x, p3.y,p4.x, p4.y);
@@ -308,7 +311,9 @@ public class VideoLayout extends VideoEditor {
         if(!isUseSoftDecoder){
         	  cmdList.add("-vcodec");
         	  cmdList.add("lansoh264_dec");
-          }	
+          }
+        cmdList.add("-threads");
+        cmdList.add(String.valueOf(16));
 
         cmdList.add("-i");
         cmdList.add(p1.video);
@@ -410,7 +415,7 @@ public class VideoLayout extends VideoEditor {
                         "[over1][scale1] overlay=x=%d:y=%d [over2];"+
                         "[over2][scale2] overlay=x=%d:y=%d [over3];"+
                         "[over3][scale3] overlay=x=%d:y=%d [over4];"+
-                        "[over4][scale4] overlay=x=%d:y=%d;"+
+                        "[over4][scale4] overlay=x=%d:y=%d",
                         outW, outH,p1.scaleW,
                 p1.scaleH, p2.scaleW, p2.scaleH,p3.scaleW, p3.scaleH, p4.scaleW, p4.scaleH, p5.scaleW, p5.scaleH,
                 p1.x, p1.y,p2.x, p2.y,p3.x, p3.y,p4.x, p4.y,p5.x, p5.y);
@@ -422,7 +427,9 @@ public class VideoLayout extends VideoEditor {
         if(!isUseSoftDecoder){
         	  cmdList.add("-vcodec");
         	  cmdList.add("lansoh264_dec");
-          }	
+          }
+        cmdList.add("-threads");
+        cmdList.add(String.valueOf(16));
 
         cmdList.add("-i");
         cmdList.add(p1.video);
@@ -537,7 +544,7 @@ public class VideoLayout extends VideoEditor {
                         "[over2][scale2] overlay=x=%d:y=%d [over3];"+
                         "[over3][scale3] overlay=x=%d:y=%d [over4];"+
                         "[over4][scale4] overlay=x=%d:y=%d [over5];"+
-                        "[over5][scale5] overlay=x=%d:y=%d;"+
+                        "[over5][scale5] overlay=x=%d:y=%d",
                         outW, outH,p1.scaleW,
                 p1.scaleH, p2.scaleW, p2.scaleH,p3.scaleW, p3.scaleH, p4.scaleW, p4.scaleH, p5.scaleW, p5.scaleH,p6.scaleW, p6.scaleH,
                 p1.x, p1.y,p2.x, p2.y,p3.x, p3.y,p4.x, p4.y,p5.x, p5.y,p6.x, p6.y);
@@ -802,33 +809,27 @@ public class VideoLayout extends VideoEditor {
             return 3500 * 1024;
         }
     }
-
-    //---------------------------------------------------------------------
-    /**
-     * 代码测试;
-     */
-    public static void test()
-    {
+    //-------------------------
+    private void test() {
         long time=System.currentTimeMillis();
 
         VideoLayout  layout=new VideoLayout();
 
         VideoLayoutParam p1= new VideoLayoutParam();
-        p1.video="/sdcard/p1080.jpg";
+        p1.video="/sdcard/d1.mp4";
         p1.x=0;
         p1.y=0;
         p1.scaleW=544/2;
         p1.scaleH=960/2;
 
         VideoLayoutParam p2= new VideoLayoutParam();
-        p2.video="/sdcard/shen2.mp4";
+        p2.video="/sdcard/d2.mp4";
         p2.x=p1.scaleW; //放到第一个视频的右边;
         p2.y=0;
         p2.scaleW=544/2;
         p2.scaleH=960/2;
-        layout.executeLayoutScale2Video(544,960/2,p1,p2,"/sdcard/dd2.mp4");
 
-//        layout.executeLayout2Video(544,480,"/sdcard/p1080.jpg",0,0,"/sdcard/shen1.mp4",280,0,"/sdcard/dx3.mp4");
+        layout.executeLayoutScale2Video(544,960,p1,p2,"/sdcard/dd2.mp4");
         Log.i(TAG,"测试video Layout  耗时:"+(System.currentTimeMillis() - time));
     }
 }
