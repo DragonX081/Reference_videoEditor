@@ -1,6 +1,5 @@
 package com.lansosdk.videoeditor;
 
-import android.graphics.Path;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -14,8 +13,9 @@ import java.util.Locale;
  * 
  * 支持软编码和硬件编码; 
  * 建议合成后的视频分辨率不要大于720*1280;
- * 
- * TODO:此方法可能临时使用,后期会合并到VideoEditor.java文件中.
+ *
+ * ffmpeg -i p1080.jpg -i d2.mp4 -filter_complex "overlay=0:0;[0:a][1:a]amix=inputs=2" dd12.mp4
+ *
  */
 public class VideoLayout extends VideoEditor {
 
@@ -26,20 +26,14 @@ public class VideoLayout extends VideoEditor {
      */
     public static boolean isUseSoftDecoder=true;
     /**
-     * 是否使用硬件编码器, 默认是使用.
-     * 注意这个是全局变量, 设置一次后, 一直有效;
-     */
-    public static boolean isUseSoftEncoder=true;
-    public static String  version="20180419V1";
-    /**
      * 两个视频合并;
      * <p>
      * 原理是:  设置一个输出视频画面的宽度和高度, 认为是一个区域, 然后把一个一个的输入视频完整的放到这个区域里; 区域的X,Y坐标是一个一个的像素点;
      * 比如设置宽度是1280, 宽度是720的一个区域; 则第一个视频A的宽高是640x360,开始坐标是0,0,则放到区域的左上角;
-     * <p>
+     *
      * 如果想第二个视频B放到第一个视频的下面,则B的x坐标和A视频的x坐标一致,Y坐标是A视频的高度; 如果想第二个视频和第一个视频有一定的间隔,则Y就等于A视频的高度+几个像素;
      * 如果想第三个视频C放到第一个视频的坐标,则C的Y坐标和A视频的Y坐标一致, x坐标是A视频的宽度; 如果中间有间隔,则x等于A视频的宽度+几个像素;
-     * <p>
+     *
      * 注意,代码里没有做 每个视频是否存在的判断, 没有做宽度和高度判断;
      *
      * @param outW
@@ -50,23 +44,25 @@ public class VideoLayout extends VideoEditor {
      * @param v2          第二个视频的完整路径
      * @param v2X         把第二个视频放到区域的哪个坐标上; xy坐标;
      * @param v2Y
-     * @param dstDuration 视频拼接后的最后长度, 用MediaInfo可以得到每个视频的长度, 可以设置为最短长度, 也可以设置几个视频的最大长度;
      * @param dstPath     拼接后的目标视频保存路径, 后缀是mp4格式, 内部采用h264 的硬件编码;
      * @return
      */
-    public int executeOverlay2Video(int outW, int outH,
+    public int executeLayout2Video(int outW, int outH,
                                     String v1, int v1X, int v1Y,
-                                    String v2, int v2X, int v2Y,
-                                    float dstDuration, String dstPath) {
-        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS [upperright]; [tmp1][upperright] overlay=x=%d:y=%d", outW, outH, v1X, v1Y, v2X, v2Y);
+                                    String v2, int v2X, int v2Y, String dstPath) {
+       // String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS [upperright]; [tmp1][upperright] overlay=x=%d:y=%d", outW, outH, v1X, v1Y, v2X, v2Y);
+
+        String filter = String.format(Locale.getDefault(), "nullsrc=size=%dx%d [base];[base][0:v] overlay=x=%d:y=%d [tmp1]; [tmp1][1:v] overlay=x=%d:y=%d", outW, outH, v1X, v1Y, v2X, v2Y);
 
         List<String> cmdList = new ArrayList<String>();
+
+        float duration = getMaxDuration(Arrays.asList(v1,v2));
 
         if(!isUseSoftDecoder){
         	  cmdList.add("-vcodec");
               cmdList.add("lansoh264_dec");
         }
-      
+
 
         cmdList.add("-i");
         cmdList.add(v1);
@@ -78,36 +74,30 @@ public class VideoLayout extends VideoEditor {
         cmdList.add(filter);
 
         cmdList.add("-t");
-        cmdList.add(String.valueOf(dstDuration));
+        cmdList.add(String.valueOf(duration));
 
-
-        cmdList.add("-vcodec");
-        if(isUseSoftEncoder){
-            cmdList.add("libx264");
-        }else{
-            cmdList.add("lansoh264_enc");
-            cmdList.add("-pix_fmt");
-            cmdList.add(getColorFormat());
+        int ret= doVideoLayout(cmdList,outW,outH,dstPath,true);
+        if(ret!=0){ //切换软编码
+            ret= doVideoLayout(cmdList,outW,outH,dstPath,false);
         }
-
-        cmdList.add("-b:v");
-        cmdList.add(checkBitRate(3 * 1024 * 1024));
-
-        cmdList.add("-y");
-        cmdList.add(dstPath);
-        String[] command = new String[cmdList.size()];
-        for (int i = 0; i < cmdList.size(); i++) {
-            command[i] = (String) cmdList.get(i);
-        }
-        return executeVideoEditor(command);
+        return ret;
     }
-
-    public int executeOverlayScale2Video(int outW, int outH,
+    public int executeLayoutScale2Video(int outW, int outH,
                                          VideoLayoutParam p1,
                                          VideoLayoutParam p2,
                                          String dstPath) {
 
-        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS, scale=%dx%d,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS, scale=%dx%d [upperright]; [tmp1][upperright] overlay=x=%d:y=%d", p1.scaleW, p1.scaleH,outW, outH, p1.x, p1.y,  p2.scaleW, p2.scaleH, p2.x, p2.y);
+//        String filter = String.format(Locale.getDefault(), "[0:v] scale=%dx%d,pad=%d:%d:%d:%d:White [tmp1]; " +
+//                "[1:v] scale=%dx%d [upperright]; [tmp1][upperright] overlay=x=%d:y=%d", p1.scaleW, p1.scaleH,outW, outH, p1.x, p1.y,  p2.scaleW, p2.scaleH, p2.x, p2.y);
+
+
+        String filter = String.format(Locale.getDefault(), "nullsrc=size=%dx%d [base];"+
+                "[0:v] scale=%dx%d [tmp1]; " +
+                "[1:v] scale=%dx%d [upperright]; " +
+                "[base][tmp1] overlay=x=%d:y=%d [tmp2];"+
+               "[tmp2][upperright] overlay=x=%d:y=%d",
+                outW, outH,p1.scaleW, p1.scaleH, p2.scaleW, p2.scaleH, p1.x, p1.y,p2.x, p2.y);
+
 
         float duration = getMaxDuration(Arrays.asList(p1.video, p2.video));
 
@@ -130,38 +120,36 @@ public class VideoLayout extends VideoEditor {
         cmdList.add("-t");
         cmdList.add(String.valueOf(duration));
 
-
-        cmdList.add("-vcodec");
-        if(isUseSoftEncoder){
-            cmdList.add("libx264");
-        }else{
-            cmdList.add("lansoh264_enc");
-            cmdList.add("-pix_fmt");
-            cmdList.add(getColorFormat());
+        int ret= doVideoLayout(cmdList,outW,outH,dstPath,true);
+        if(ret!=0){ //切换软编码
+            ret= doVideoLayout(cmdList,outW,outH,dstPath,false);
         }
-        cmdList.add("-b:v");
-        cmdList.add(checkBitRate(3 * 1024 * 1024));
-
-        cmdList.add("-y");
-        cmdList.add(dstPath);
-        String[] command = new String[cmdList.size()];
-        for (int i = 0; i < cmdList.size(); i++) {
-            command[i] = (String) cmdList.get(i);
-        }
-        return executeVideoEditor(command);
+        return ret;
     }
 
     /**
      * 3个视频合并
-     * 原理见 {@link #executeOverlay2Video(int, int, String, int, int, String, int, int, float, String)}
+     * 参数, 布局原理 见上面;
      * @return
      */
-    public int executeOverlay3Video(int outW, int outH,
+    public int executeLayout3Video(int outW, int outH,
                                     String v1, int v1X, int v1Y,
                                     String v2, int v2X, int v2Y,
                                     String v3, int v3X, int v3Y,
-                                    float dstDuration, String dstPath) {
-        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS [upperright];[2:v] setpts=PTS-STARTPTS [lowerleft]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d", outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y);
+                                     String dstPath) {
+
+        //String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS [upperright];[2:v] setpts=PTS-STARTPTS [lowerleft]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d", outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y);
+
+
+        String filter = String.format(Locale.getDefault(),
+                "nullsrc=size=%dx%d [base];" +
+                        "[base][0:v] overlay=x=%d:y=%d [tmp1];"+
+                        "[tmp1][1:v] overlay=x=%d:y=%d [tmp2];"+
+                        "[tmp2][2:v] overlay=x=%d:y=%d",outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y);
+
+
+
+
         List<String> cmdList = new ArrayList<String>();
 
         if(!isUseSoftDecoder){
@@ -181,36 +169,33 @@ public class VideoLayout extends VideoEditor {
         cmdList.add(filter);
 
         cmdList.add("-t");
-        cmdList.add(String.valueOf(dstDuration));
+        float duration = getMaxDuration(Arrays.asList(v1,v2,v3));
+        cmdList.add(String.valueOf(duration));
 
 
-        cmdList.add("-vcodec");
-        if(isUseSoftEncoder){
-            cmdList.add("libx264");
-        }else{
-            cmdList.add("lansoh264_enc");
-            cmdList.add("-pix_fmt");
-            cmdList.add(getColorFormat());
+        int ret= doVideoLayout(cmdList,outW,outH,dstPath,true);
+        if(ret!=0){ //切换软编码
+            ret= doVideoLayout(cmdList,outW,outH,dstPath,false);
         }
-        cmdList.add("-b:v");
-        cmdList.add(checkBitRate(4 * 1024 * 1024));
-
-
-        cmdList.add("-y");
-        cmdList.add(dstPath);
-        String[] command = new String[cmdList.size()];
-        for (int i = 0; i < cmdList.size(); i++) {
-            command[i] = (String) cmdList.get(i);
-        }
-        return executeVideoEditor(command);
+        return ret;
     }
 
-    public int executeOverlayScale3Video(int outW, int outH,
+    public int executeLayoutScale3Video(int outW, int outH,
                                          VideoLayoutParam p1,
                                          VideoLayoutParam p2,
                                          VideoLayoutParam p3,
                                          String dstPath) {
-        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS, scale=%dx%d,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS, scale=%dx%d [upperright];[2:v] setpts=PTS-STARTPTS, scale=%dx%d [lowerleft]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d", p1.scaleW, p1.scaleH,outW, outH, p1.x, p1.y,  p2.scaleW, p2.scaleH, p3.scaleW, p3.scaleH, p2.x, p2.y, p3.x, p3.y);
+//        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS, scale=%dx%d,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS, scale=%dx%d [upperright];[2:v] setpts=PTS-STARTPTS, scale=%dx%d [lowerleft]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d", p1.scaleW, p1.scaleH,outW, outH, p1.x, p1.y,  p2.scaleW, p2.scaleH, p3.scaleW, p3.scaleH, p2.x, p2.y, p3.x, p3.y);
+
+        String filter = String.format(Locale.getDefault(),
+                "nullsrc=size=%dx%d [base];"+
+                        "[0:v] scale=%dx%d [scale0]; " +
+                        "[1:v] scale=%dx%d [scale1]; " +
+                        "[2:v] scale=%dx%d [scale2]; " +
+                        "[base][scale0] overlay=x=%d:y=%d [over1];"+
+                        "[over1][scale1] overlay=x=%d:y=%d [over2];"+
+                        "[over2][scale2] overlay=x=%d:y=%d;"+
+                        outW, outH,p1.scaleW, p1.scaleH, p2.scaleW, p2.scaleH,p3.scaleW, p3.scaleH, p1.x, p1.y,p2.x, p2.y,p3.x, p3.y);
 
         List<String> cmdList = new ArrayList<String>();
 
@@ -236,40 +221,32 @@ public class VideoLayout extends VideoEditor {
         cmdList.add("-t");
         cmdList.add(String.valueOf(duration));
 
-        cmdList.add("-vcodec");
-        if(isUseSoftEncoder){
-            cmdList.add("libx264");
-        }else{
-            cmdList.add("lansoh264_enc");
-            cmdList.add("-pix_fmt");
-            cmdList.add(getColorFormat());
+        int ret= doVideoLayout(cmdList,outW,outH,dstPath,true);
+        if(ret!=0){ //切换软编码
+            ret= doVideoLayout(cmdList,outW,outH,dstPath,false);
         }
-        cmdList.add("-b:v");
-        cmdList.add(checkBitRate(4 * 1024 * 1024));
-
-        cmdList.add("-y");
-        cmdList.add(dstPath);
-        String[] command = new String[cmdList.size()];
-        for (int i = 0; i < cmdList.size(); i++) {
-            command[i] = (String) cmdList.get(i);
-        }
-        return executeVideoEditor(command);
+        return ret;
     }
 
     /**
      * 4个视频的合并
-     * 原理见 {@link #executeOverlay2Video(int, int, String, int, int, String, int, int, float, String)}
      */
-    public int executeOverlay4Video(int outW, int outH,
+    public int executeLayout4Video(int outW, int outH,
                                     String v1, int v1X, int v1Y,
                                     String v2, int v2X, int v2Y,
                                     String v3, int v3X, int v3Y,
-                                    String v4, int v4X, int v4Y,
-                                    float dstDuration, String dstPath) {
-        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS [upperright];[2:v] setpts=PTS-STARTPTS [lowerleft];[3:v] setpts=PTS-STARTPTS [lowerright]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d [tmp3]; [tmp3][lowerright] overlay=x=%d:y=%d", outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y, v4X, v4Y);
+                                    String v4, int v4X, int v4Y, String dstPath) {
+//        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS [upperright];[2:v] setpts=PTS-STARTPTS [lowerleft];[3:v] setpts=PTS-STARTPTS [lowerright]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d [tmp3]; [tmp3][lowerright] overlay=x=%d:y=%d", outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y, v4X, v4Y);
 
+        String filter = String.format(Locale.getDefault(),
+                "nullsrc=size=%dx%d [base];" +
+                        "[base][0:v] overlay=x=%d:y=%d [tmp1];"+
+                        "[tmp1][1:v] overlay=x=%d:y=%d [tmp2];"+
+                        "[tmp2][2:v] overlay=x=%d:y=%d [tmp3];"+
+                        "[tmp3][3:v] overlay=x=%d:y=%d",outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y,v4X,v4Y);
         List<String> cmdList = new ArrayList<String>();
 
+        float dstDuration=getMaxDuration(Arrays.asList(v1,v2,v3,v4));
         if(!isUseSoftDecoder){
         	  cmdList.add("-vcodec");
         	  cmdList.add("lansoh264_dec");
@@ -293,27 +270,13 @@ public class VideoLayout extends VideoEditor {
         cmdList.add("-t");
         cmdList.add(String.valueOf(dstDuration));
 
-        cmdList.add("-vcodec");
-        if(isUseSoftEncoder){
-            cmdList.add("libx264");
-        }else{
-            cmdList.add("lansoh264_enc");
-            cmdList.add("-pix_fmt");
-            cmdList.add(getColorFormat());
+        int ret= doVideoLayout(cmdList,outW,outH,dstPath,true);
+        if(ret!=0){ //切换软编码
+            ret= doVideoLayout(cmdList,outW,outH,dstPath,false);
         }
-        cmdList.add("-b:v");
-        cmdList.add(checkBitRate(4 * 1024 * 1024));
-
-
-        cmdList.add("-y");
-        cmdList.add(dstPath);
-        String[] command = new String[cmdList.size()];
-        for (int i = 0; i < cmdList.size(); i++) {
-            command[i] = (String) cmdList.get(i);
-        }
-        return executeVideoEditor(command);
+        return ret;
     }
-    public int executeOverlayScale4Video(int outW, int outH,
+    public int executeLayoutScale4Video(int outW, int outH,
                                     VideoLayoutParam p1,
                                     VideoLayoutParam p2,
                                     VideoLayoutParam p3,
@@ -321,8 +284,22 @@ public class VideoLayout extends VideoEditor {
                                          String dstPath)
     {
 
-        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS, scale=%dx%d, pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS, scale=%dx%d [upperright];[2:v] setpts=PTS-STARTPTS, scale=%dx%d [lowerleft];[3:v] setpts=PTS-STARTPTS, scale=%dx%d [lowerright]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d [tmp3]; [tmp3][lowerright] overlay=x=%d:y=%d", p1.scaleW,p1.scaleH,outW, outH,
-                p1.x,p1.y,p2.scaleW,p2.scaleH,p3.scaleW,p3.scaleH,p4.scaleW,p4.scaleH,p2.x,p2.y,p3.x,p3.y,p4.x,p4.y);
+//        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS, scale=%dx%d, pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS, scale=%dx%d [upperright];[2:v] setpts=PTS-STARTPTS, scale=%dx%d [lowerleft];[3:v] setpts=PTS-STARTPTS, scale=%dx%d [lowerright]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d [tmp3]; [tmp3][lowerright] overlay=x=%d:y=%d", p1.scaleW,p1.scaleH,outW, outH,
+//                p1.x,p1.y,p2.scaleW,p2.scaleH,p3.scaleW,p3.scaleH,p4.scaleW,p4.scaleH,p2.x,p2.y,p3.x,p3.y,p4.x,p4.y);
+
+        String filter = String.format(Locale.getDefault(),
+                "nullsrc=size=%dx%d [base];"+
+                        "[0:v] scale=%dx%d [scale0]; " +
+                        "[1:v] scale=%dx%d [scale1]; " +
+                        "[2:v] scale=%dx%d [scale2]; " +
+                        "[3:v] scale=%dx%d [scale3]; " +
+                        "[base][scale0] overlay=x=%d:y=%d [over1];"+
+                        "[over1][scale1] overlay=x=%d:y=%d [over2];"+
+                        "[over2][scale2] overlay=x=%d:y=%d [over3];"+
+                        "[over3][scale3] overlay=x=%d:y=%d;"+
+                        outW, outH,p1.scaleW,
+                p1.scaleH, p2.scaleW, p2.scaleH,p3.scaleW, p3.scaleH, p4.scaleW, p4.scaleH,
+                p1.x, p1.y,p2.x, p2.y,p3.x, p3.y,p4.x, p4.y);
 
         List<String> cmdList = new ArrayList<String>();
 
@@ -351,40 +328,31 @@ public class VideoLayout extends VideoEditor {
         cmdList.add("-t");
         cmdList.add(String.valueOf(dstDuration));
 
-
-        cmdList.add("-vcodec");
-        if(isUseSoftEncoder){
-            cmdList.add("libx264");
-        }else{
-            cmdList.add("lansoh264_enc");
-            cmdList.add("-pix_fmt");
-            cmdList.add(getColorFormat());
+        int ret= doVideoLayout(cmdList,outW,outH,dstPath,true);
+        if(ret!=0){ //切换软编码
+            ret= doVideoLayout(cmdList,outW,outH,dstPath,false);
         }
-        cmdList.add("-b:v");
-        cmdList.add(checkBitRate(4 * 1024 * 1024));
-
-
-        cmdList.add("-y");
-        cmdList.add(dstPath);
-        String[] command = new String[cmdList.size()];
-        for (int i = 0; i < cmdList.size(); i++) {
-            command[i] = (String) cmdList.get(i);
-        }
-        return executeVideoEditor(command);
+        return ret;
     }
 
     /**
      * 5个视频拼接
-     * 原理请见 {@link #executeOverlay2Video(int, int, String, int, int, String, int, int, float, String)}
      */
-    public int executeOverlay5Video(int outW, int outH,
+    public int executeLayout5Video(int outW, int outH,
                                     String v1, int v1X, int v1Y,
                                     String v2, int v2X, int v2Y,
                                     String v3, int v3X, int v3Y,
                                     String v4, int v4X, int v4Y,
-                                    String v5, int v5X, int v5Y,
-                                    float dstDuration, String dstPath) {
-        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS [upperright];[2:v] setpts=PTS-STARTPTS [lowerleft];[3:v] setpts=PTS-STARTPTS [lowerright]; [4:v] setpts=PTS-STARTPTS [lastone]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d [tmp3]; [tmp3][lowerright] overlay=x=%d:y=%d [tmp4]; [tmp4][lastone] overlay=x=%d:y=%d", outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y, v4X, v4Y, v5X, v5Y);
+                                    String v5, int v5X, int v5Y, String dstPath) {
+       // String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS [upperright];[2:v] setpts=PTS-STARTPTS [lowerleft];[3:v] setpts=PTS-STARTPTS [lowerright]; [4:v] setpts=PTS-STARTPTS [lastone]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d [tmp3]; [tmp3][lowerright] overlay=x=%d:y=%d [tmp4]; [tmp4][lastone] overlay=x=%d:y=%d", outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y, v4X, v4Y, v5X, v5Y);
+
+        String filter = String.format(Locale.getDefault(),
+                "nullsrc=size=%dx%d [base];" +
+                        "[base][0:v] overlay=x=%d:y=%d [tmp1];"+
+                        "[tmp1][1:v] overlay=x=%d:y=%d [tmp2];"+
+                        "[tmp2][2:v] overlay=x=%d:y=%d [tmp3];"+
+                        "[tmp3][3:v] overlay=x=%d:y=%d [tmp4];"+
+                        "[tmp4][4:v] overlay=x=%d:y=%d",outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y,v4X,v4Y,v5X,v5Y);
 
         List<String> cmdList = new ArrayList<String>();
 
@@ -412,31 +380,17 @@ public class VideoLayout extends VideoEditor {
         cmdList.add(filter);
 
         cmdList.add("-t");
+        float dstDuration=getMaxDuration(Arrays.asList(v1,v2,v3,v4,v5));
         cmdList.add(String.valueOf(dstDuration));
 
-
-        cmdList.add("-vcodec");
-        if(isUseSoftEncoder){
-            cmdList.add("libx264");
-        }else{
-            cmdList.add("lansoh264_enc");
-            cmdList.add("-pix_fmt");
-            cmdList.add(getColorFormat());
+        int ret= doVideoLayout(cmdList,outW,outH,dstPath,true);
+        if(ret!=0){ //切换软编码
+            ret= doVideoLayout(cmdList,outW,outH,dstPath,false);
         }
-        cmdList.add("-b:v");
-        cmdList.add(checkBitRate(4 * 1024 * 1024));
-
-
-        cmdList.add("-y");
-        cmdList.add(dstPath);
-        String[] command = new String[cmdList.size()];
-        for (int i = 0; i < cmdList.size(); i++) {
-            command[i] = (String) cmdList.get(i);
-        }
-        return executeVideoEditor(command);
+        return ret;
     }
 
-    public int executeOverlayScale5Video(int outW, int outH,
+    public int executeLayoutScale5Video(int outW, int outH,
                                     VideoLayoutParam p1,
                                     VideoLayoutParam p2,
                                     VideoLayoutParam p3,
@@ -444,7 +398,23 @@ public class VideoLayout extends VideoEditor {
                                     VideoLayoutParam p5,
                                          String dstPath) {
 
-        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,scale=%dx%d,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS, scale=%dx%d [upperright];[2:v] setpts=PTS-STARTPTS, scale=%dx%d [lowerleft];[3:v] setpts=PTS-STARTPTS, scale=%dx%d [lowerright]; [4:v] setpts=PTS-STARTPTS, scale=%dx%d [lastone]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d [tmp3]; [tmp3][lowerright] overlay=x=%d:y=%d [tmp4]; [tmp4][lastone] overlay=x=%d:y=%d", p1.scaleW,p1.scaleH,outW, outH,p1.x,p1.y,p2.scaleW,p2.scaleH,p3.scaleW,p3.scaleH,p4.scaleW,p4.scaleH,p5.scaleW,p5.scaleH,p2.x,p2.y,p3.x,p3.y,p4.x,p4.y,p5.x,p5.y);
+//        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,scale=%dx%d,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS, scale=%dx%d [upperright];[2:v] setpts=PTS-STARTPTS, scale=%dx%d [lowerleft];[3:v] setpts=PTS-STARTPTS, scale=%dx%d [lowerright]; [4:v] setpts=PTS-STARTPTS, scale=%dx%d [lastone]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d [tmp3]; [tmp3][lowerright] overlay=x=%d:y=%d [tmp4]; [tmp4][lastone] overlay=x=%d:y=%d", p1.scaleW,p1.scaleH,outW, outH,p1.x,p1.y,p2.scaleW,p2.scaleH,p3.scaleW,p3.scaleH,p4.scaleW,p4.scaleH,p5.scaleW,p5.scaleH,p2.x,p2.y,p3.x,p3.y,p4.x,p4.y,p5.x,p5.y);
+        String filter = String.format(Locale.getDefault(),
+                "nullsrc=size=%dx%d [base];"+
+                        "[0:v] scale=%dx%d [scale0]; " +
+                        "[1:v] scale=%dx%d [scale1]; " +
+                        "[2:v] scale=%dx%d [scale2]; " +
+                        "[3:v] scale=%dx%d [scale3]; " +
+                        "[4:v] scale=%dx%d [scale4]; " +
+                        "[base][scale0] overlay=x=%d:y=%d [over1];"+
+                        "[over1][scale1] overlay=x=%d:y=%d [over2];"+
+                        "[over2][scale2] overlay=x=%d:y=%d [over3];"+
+                        "[over3][scale3] overlay=x=%d:y=%d [over4];"+
+                        "[over4][scale4] overlay=x=%d:y=%d;"+
+                        outW, outH,p1.scaleW,
+                p1.scaleH, p2.scaleW, p2.scaleH,p3.scaleW, p3.scaleH, p4.scaleW, p4.scaleH, p5.scaleW, p5.scaleH,
+                p1.x, p1.y,p2.x, p2.y,p3.x, p3.y,p4.x, p4.y,p5.x, p5.y);
+
         List<String> cmdList = new ArrayList<String>();
 
         float dstDuration=getMaxDuration(Arrays.asList(p1.video,p2.video,p3.video,p4.video,p5.video));
@@ -476,41 +446,34 @@ public class VideoLayout extends VideoEditor {
         cmdList.add(String.valueOf(dstDuration));
 
 
-        cmdList.add("-vcodec");
-        if(isUseSoftEncoder){
-            cmdList.add("libx264");
-        }else{
-            cmdList.add("lansoh264_enc");
-            cmdList.add("-pix_fmt");
-            cmdList.add(getColorFormat());
+        int ret= doVideoLayout(cmdList,outW,outH,dstPath,true);
+        if(ret!=0){ //切换软编码
+            ret= doVideoLayout(cmdList,outW,outH,dstPath,false);
         }
-        cmdList.add("-b:v");
-        cmdList.add(checkBitRate(4 * 1024 * 1024));
-
-
-        cmdList.add("-y");
-        cmdList.add(dstPath);
-        String[] command = new String[cmdList.size()];
-        for (int i = 0; i < cmdList.size(); i++) {
-            command[i] = (String) cmdList.get(i);
-        }
-        return executeVideoEditor(command);
+        return ret;
     }
     /**
      * 6个视频拼接
-     * 原理请见 {@link #executeOverlay2Video(int, int, String, int, int, String, int, int, float, String)}
      * @return
      */
-    public int executeOverlay6Video(int outW, int outH,
+    public int executeLayout6Video(int outW, int outH,
                                     String v1, int v1X, int v1Y,
                                     String v2, int v2X, int v2Y,
                                     String v3, int v3X, int v3Y,
                                     String v4, int v4X, int v4Y,
                                     String v5, int v5X, int v5Y,
-                                    String v6, int v6X, int v6Y,
-                                    float dstDuration, String dstPath) {
+                                    String v6, int v6X, int v6Y, String dstPath) {
 
-        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS [upperright];[2:v] setpts=PTS-STARTPTS [lowerleft];[3:v] setpts=PTS-STARTPTS [lowerright]; [4:v] setpts=PTS-STARTPTS [input4]; [5:v] setpts=PTS-STARTPTS [input5]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d [tmp3]; [tmp3][lowerright] overlay=x=%d:y=%d [tmp4]; [tmp4][input4] overlay=x=%d:y=%d [tmp5]; [tmp5][input5] overlay=x=%d:y=%d", outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y, v4X, v4Y, v5X, v5Y, v6X, v6Y);
+       // String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS [upperright];[2:v] setpts=PTS-STARTPTS [lowerleft];[3:v] setpts=PTS-STARTPTS [lowerright]; [4:v] setpts=PTS-STARTPTS [input4]; [5:v] setpts=PTS-STARTPTS [input5]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d [tmp3]; [tmp3][lowerright] overlay=x=%d:y=%d [tmp4]; [tmp4][input4] overlay=x=%d:y=%d [tmp5]; [tmp5][input5] overlay=x=%d:y=%d", outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y, v4X, v4Y, v5X, v5Y, v6X, v6Y);
+
+        String filter = String.format(Locale.getDefault(),
+                "nullsrc=size=%dx%d [base];" +
+                        "[base][0:v] overlay=x=%d:y=%d [tmp1];"+
+                        "[tmp1][1:v] overlay=x=%d:y=%d [tmp2];"+
+                        "[tmp2][2:v] overlay=x=%d:y=%d [tmp3];"+
+                        "[tmp3][3:v] overlay=x=%d:y=%d [tmp4];"+
+                        "[tmp4][4:v] overlay=x=%d:y=%d [tmp5];"+
+                        "[tmp5][5:v] overlay=x=%d:y=%d",outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y,v4X,v4Y,v5X,v5Y,v6X,v6Y);
 
         List<String> cmdList = new ArrayList<String>();
 
@@ -541,31 +504,18 @@ public class VideoLayout extends VideoEditor {
         cmdList.add(filter);
 
         cmdList.add("-t");
+
+        float dstDuration=getMaxDuration(Arrays.asList(v1,v2,v3,v4,v5,v6));
         cmdList.add(String.valueOf(dstDuration));
 
-
-        cmdList.add("-vcodec");
-        if(isUseSoftEncoder){
-            cmdList.add("libx264");
-        }else{
-            cmdList.add("lansoh264_enc");
-            cmdList.add("-pix_fmt");
-            cmdList.add(getColorFormat());
+        int ret= doVideoLayout(cmdList,outW,outH,dstPath,true);
+        if(ret!=0){ //切换软编码
+            ret= doVideoLayout(cmdList,outW,outH,dstPath,false);
         }
-        cmdList.add("-b:v");
-        cmdList.add(checkBitRate(4 * 1024 * 1024));
-
-
-        cmdList.add("-y");
-        cmdList.add(dstPath);
-        String[] command = new String[cmdList.size()];
-        for (int i = 0; i < cmdList.size(); i++) {
-            command[i] = (String) cmdList.get(i);
-        }
-        return executeVideoEditor(command);
+        return ret;
     }
 
-    public int executeOverlayScale6Video(int outW, int outH,
+    public int executeLayoutScale6Video(int outW, int outH,
                                     VideoLayoutParam p1,
                                     VideoLayoutParam p2,
                                     VideoLayoutParam p3,
@@ -574,9 +524,23 @@ public class VideoLayout extends VideoEditor {
                                     VideoLayoutParam p6,
                                          String dstPath) {
 
-        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,scale=%dx%d,pad=%d:%d:%d:%d:White [tmp1]; [1:v] setpts=PTS-STARTPTS,scale=%dx%d [upperright];[2:v] setpts=PTS-STARTPTS,scale=%dx%d [lowerleft];[3:v] setpts=PTS-STARTPTS,scale=%dx%d [lowerright]; [4:v] setpts=PTS-STARTPTS,scale=%dx%d [input4]; [5:v] setpts=PTS-STARTPTS,scale=%dx%d [input5]; [tmp1][upperright] overlay=x=%d:y=%d [tmp2]; [tmp2][lowerleft] overlay=x=%d:y=%d [tmp3]; [tmp3][lowerright] overlay=x=%d:y=%d [tmp4]; [tmp4][input4] overlay=x=%d:y=%d [tmp5]; [tmp5][input5] overlay=x=%d:y=%d",
-                p1.scaleW,p1.scaleH,outW, outH,p1.x,p1.y,p2.scaleW,p2.scaleH,p3.scaleW,p3.scaleH,p4.scaleW,p4.scaleH,p5.scaleW,p5.scaleH,p6.scaleW,p6.scaleH,p2.x,p2.y,p3.x,p3.y,p4.x,p4.y,p5.x,p5.y,p6.x,p6.y);
-
+        String filter = String.format(Locale.getDefault(),
+                "nullsrc=size=%dx%d [base];"+
+                        "[0:v] scale=%dx%d [scale0]; " +
+                        "[1:v] scale=%dx%d [scale1]; " +
+                        "[2:v] scale=%dx%d [scale2]; " +
+                        "[3:v] scale=%dx%d [scale3]; " +
+                        "[4:v] scale=%dx%d [scale4]; " +
+                        "[5:v] scale=%dx%d [scale5]; " +
+                        "[base][scale0] overlay=x=%d:y=%d [over1];"+
+                        "[over1][scale1] overlay=x=%d:y=%d [over2];"+
+                        "[over2][scale2] overlay=x=%d:y=%d [over3];"+
+                        "[over3][scale3] overlay=x=%d:y=%d [over4];"+
+                        "[over4][scale4] overlay=x=%d:y=%d [over5];"+
+                        "[over5][scale5] overlay=x=%d:y=%d;"+
+                        outW, outH,p1.scaleW,
+                p1.scaleH, p2.scaleW, p2.scaleH,p3.scaleW, p3.scaleH, p4.scaleW, p4.scaleH, p5.scaleW, p5.scaleH,p6.scaleW, p6.scaleH,
+                p1.x, p1.y,p2.x, p2.y,p3.x, p3.y,p4.x, p4.y,p5.x, p5.y,p6.x, p6.y);
         List<String> cmdList = new ArrayList<String>();
 
         float dstDuration=getMaxDuration(Arrays.asList(p1.video,p2.video,p3.video, p4.video,p5.video,p6.video));
@@ -610,31 +574,17 @@ public class VideoLayout extends VideoEditor {
         cmdList.add("-t");
         cmdList.add(String.valueOf(dstDuration));
 
-        cmdList.add("-vcodec");
-        if(isUseSoftEncoder){
-            cmdList.add("libx264");
-        }else{
-            cmdList.add("lansoh264_enc");
-            cmdList.add("-pix_fmt");
-            cmdList.add(getColorFormat());
+        int ret= doVideoLayout(cmdList,outW,outH,dstPath,true);
+        if(ret!=0){ //切换软编码
+            ret= doVideoLayout(cmdList,outW,outH,dstPath,false);
         }
-        cmdList.add("-b:v");
-        cmdList.add(checkBitRate(4 * 1024 * 1024));
-
-        cmdList.add("-y");
-        cmdList.add(dstPath);
-        String[] command = new String[cmdList.size()];
-        for (int i = 0; i < cmdList.size(); i++) {
-            command[i] = (String) cmdList.get(i);
-        }
-        return executeVideoEditor(command);
+        return ret;
     }
     /**
      * 9个视频拼接
-     * 原理见 {@link #executeOverlay2Video(int, int, String, int, int, String, int, int, float, String)}
      * @return
      */
-    public int executeOverlay9Video(int outW, int outH,
+    public int executeLayout9Video(int outW, int outH,
                                     String v1, int v1X, int v1Y,
                                     String v2, int v2X, int v2Y,
                                     String v3, int v3X, int v3Y,
@@ -643,10 +593,21 @@ public class VideoLayout extends VideoEditor {
                                     String v6, int v6X, int v6Y,
                                     String v7, int v7X, int v7Y,
                                     String v8, int v8X, int v8Y,
-                                    String v9, int v9X, int v9Y,
-                                    float dstDuration, String dstPath) {
+                                    String v9, int v9X, int v9Y, String dstPath) {
 
-        String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,pad=%d:%d:%d:%d:White [in1]; [1:v] setpts=PTS-STARTPTS [in2];[2:v] setpts=PTS-STARTPTS [in3];[3:v] setpts=PTS-STARTPTS [in4]; [4:v] setpts=PTS-STARTPTS [in5]; [5:v] setpts=PTS-STARTPTS [in6]; [6:v] setpts=PTS-STARTPTS [in7];[7:v] setpts=PTS-STARTPTS [in8]; [8:v] setpts=PTS-STARTPTS [in9]; [in1][in2] overlay=x=%d:y=%d [tmp1]; [tmp1][in3] overlay=x=%d:y=%d [tmp2]; [tmp2][in4] overlay=x=%d:y=%d [tmp3];[tmp3][in5] overlay=x=%d:y=%d [tmp4]; [tmp4][in6] overlay=x=%d:y=%d [tmp5]; [tmp5][in7] overlay=x=%d:y=%d [tmp6]; [tmp6][in8] overlay=x=%d:y=%d [tmp7]; [tmp7][in9] overlay=x=%d:y=%d", outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y, v4X, v4Y, v5X, v5Y, v6X, v6Y, v7X, v7Y, v8X, v8Y, v9X, v9Y);
+        //String filter = String.format(Locale.getDefault(), "[0:v] setpts=PTS-STARTPTS,pad=%d:%d:%d:%d:White [in1]; [1:v] setpts=PTS-STARTPTS [in2];[2:v] setpts=PTS-STARTPTS [in3];[3:v] setpts=PTS-STARTPTS [in4]; [4:v] setpts=PTS-STARTPTS [in5]; [5:v] setpts=PTS-STARTPTS [in6]; [6:v] setpts=PTS-STARTPTS [in7];[7:v] setpts=PTS-STARTPTS [in8]; [8:v] setpts=PTS-STARTPTS [in9]; [in1][in2] overlay=x=%d:y=%d [tmp1]; [tmp1][in3] overlay=x=%d:y=%d [tmp2]; [tmp2][in4] overlay=x=%d:y=%d [tmp3];[tmp3][in5] overlay=x=%d:y=%d [tmp4]; [tmp4][in6] overlay=x=%d:y=%d [tmp5]; [tmp5][in7] overlay=x=%d:y=%d [tmp6]; [tmp6][in8] overlay=x=%d:y=%d [tmp7]; [tmp7][in9] overlay=x=%d:y=%d", outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y, v4X, v4Y, v5X, v5Y, v6X, v6Y, v7X, v7Y, v8X, v8Y, v9X, v9Y);
+        String filter = String.format(Locale.getDefault(),
+                "nullsrc=size=%dx%d [base];" +
+                        "[base][0:v] overlay=x=%d:y=%d [tmp1];"+
+                        "[tmp1][1:v] overlay=x=%d:y=%d [tmp2];"+
+                        "[tmp2][2:v] overlay=x=%d:y=%d [tmp3];"+
+                        "[tmp3][3:v] overlay=x=%d:y=%d [tmp4];"+
+                        "[tmp4][4:v] overlay=x=%d:y=%d [tmp5];"+
+                        "[tmp5][5:v] overlay=x=%d:y=%d [tmp6];"+
+                        "[tmp6][6:v] overlay=x=%d:y=%d [tmp7];"+
+                        "[tmp7][7:v] overlay=x=%d:y=%d [tmp8];"+
+                        "[tmp8][8:v] overlay=x=%d:y=%d",outW, outH, v1X, v1Y, v2X, v2Y, v3X, v3Y,v4X,v4Y,v5X,v5Y,v6X,v6Y
+                ,v7X,v7Y,v8X,v8Y,v9X,v9Y);
         List<String> cmdList = new ArrayList<String>();
 
         if(!isUseSoftDecoder){
@@ -685,30 +646,17 @@ public class VideoLayout extends VideoEditor {
         cmdList.add(filter);
 
         cmdList.add("-t");
+        float dstDuration=getMaxDuration(Arrays.asList(v1,v2,v3,v4,v5,v6,v7,v8,v9));
         cmdList.add(String.valueOf(dstDuration));
 
 
-        cmdList.add("-vcodec");
-        if(isUseSoftEncoder){
-            cmdList.add("libx264");
-        }else{
-            cmdList.add("lansoh264_enc");
-            cmdList.add("-pix_fmt");
-            cmdList.add(getColorFormat());
+        int ret= doVideoLayout(cmdList,outW,outH,dstPath,true);
+        if(ret!=0){ //切换软编码
+            ret= doVideoLayout(cmdList,outW,outH,dstPath,false);
         }
-        cmdList.add("-b:v");
-        cmdList.add(checkBitRate(4 * 1024 * 1024));
-
-
-        cmdList.add("-y");
-        cmdList.add(dstPath);
-        String[] command = new String[cmdList.size()];
-        for (int i = 0; i < cmdList.size(); i++) {
-            command[i] = (String) cmdList.get(i);
-        }
-        return executeVideoEditor(command);
+        return ret;
     }
-    public int executeOverlayScale9Video(int outW, int outH,
+    public int executeLayoutScale9Video(int outW, int outH,
             VideoLayoutParam p1,
             VideoLayoutParam p2,
             VideoLayoutParam p3,
@@ -764,26 +712,12 @@ public class VideoLayout extends VideoEditor {
 		
 		cmdList.add("-t");
 		cmdList.add(String.valueOf(duration));
-		
-		cmdList.add("-vcodec");
-		if(isUseSoftEncoder){
-			cmdList.add("libx264");
-		}else{
-			cmdList.add("lansoh264_enc");
-			cmdList.add("-pix_fmt");
-			cmdList.add(getColorFormat());
-		}
-		cmdList.add("-b:v");
-		cmdList.add(checkBitRate(4 * 1024 * 1024));
-		
-		
-		cmdList.add("-y");
-		cmdList.add(dstPath);
-		String[] command = new String[cmdList.size()];
-		for (int i = 0; i < cmdList.size(); i++) {
-		command[i] = (String) cmdList.get(i);
-		}
-		return executeVideoEditor(command);
+
+        int ret= doVideoLayout(cmdList,outW,outH,dstPath,true);
+        if(ret!=0){ //切换软编码
+            ret= doVideoLayout(cmdList,outW,outH,dstPath,false);
+        }
+        return ret;
 }
     /**
      * 合并音视频文件;
@@ -800,7 +734,6 @@ public class VideoLayout extends VideoEditor {
         MediaInfo info2 = new MediaInfo(video, false);
 
         if (info.prepare() && info.isHaveAudio() && info2.prepare() && info2.isHaveVideo()) {
-            //ffmpeg -i sync_test.mp4 -i syncf.mp4 -map 0:a -map 1:v -acodec copy -vcodec copy syncMap.mp4
             List<String> cmdList = new ArrayList<String>();
             cmdList.add("-i");
             cmdList.add(audio);
@@ -841,6 +774,61 @@ public class VideoLayout extends VideoEditor {
                 }
             }
         }
+        if(retDuration==0){
+            Log.e(TAG,"VideoLayout 没有检测到输入视频的长度, 默认设置为15s");
+            retDuration=15;
+        }
         return retDuration;
+    }
+
+    public int doVideoLayout(List<String> cmdList, int width,int height, String dstPath, boolean isHWEnc)
+    {
+        return executeWithEncoder(cmdList,getSuggestBitRate(width * height),dstPath,isHWEnc);
+    }
+    public static int getSuggestBitRate(int wxh) {
+        if (wxh < 480 * 480) {
+            return 1000 * 1024;
+        } else if (wxh <= 640 * 480) {
+            return 1500 * 1024;
+        } else if (wxh <= 800 * 480) {
+            return 1800 * 1024;
+        } else if (wxh <= 960 * 544) {
+            return 2300 * 1024;
+        } else if (wxh <= 1280 * 720) {
+            return 2800 * 1024;
+        } else if (wxh <= 1920 * 1088) {
+            return 3000 * 1024;
+        } else {
+            return 3500 * 1024;
+        }
+    }
+
+    //---------------------------------------------------------------------
+    /**
+     * 代码测试;
+     */
+    public static void test()
+    {
+        long time=System.currentTimeMillis();
+
+        VideoLayout  layout=new VideoLayout();
+
+        VideoLayoutParam p1= new VideoLayoutParam();
+        p1.video="/sdcard/p1080.jpg";
+        p1.x=0;
+        p1.y=0;
+        p1.scaleW=544/2;
+        p1.scaleH=960/2;
+
+        VideoLayoutParam p2= new VideoLayoutParam();
+        p2.video="/sdcard/shen2.mp4";
+        p2.x=p1.scaleW; //放到第一个视频的右边;
+        p2.y=0;
+        p2.scaleW=544/2;
+        p2.scaleH=960/2;
+        layout.executeLayoutScale2Video(544,960/2,p1,p2,"/sdcard/dd2.mp4");
+
+//        layout.executeLayout2Video(544,480,"/sdcard/p1080.jpg",0,0,"/sdcard/shen1.mp4",280,0,"/sdcard/dx3.mp4");
+        Log.i(TAG,"测试video Layout  耗时:"+(System.currentTimeMillis() - time));
     }
 }

@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.lansoeditor.demo.R;
 import com.lansosdk.videoeditor.LanSoEditor;
-import com.lansosdk.videoeditor.LoadLanSongSdk;
 import com.lansosdk.videoeditor.OpenSegmentsRecordListener;
 import com.lansosdk.videoeditor.OpenSegmentsRecorder;
 

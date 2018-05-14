@@ -24,6 +24,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Surface;
 import android.view.TextureView.SurfaceTextureListener;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,8 @@ public class VideoPlayerActivity extends Activity {
     private MediaInfo mInfo;
     
     private TextView tvSizeHint;
-    
+
+    private  SurfaceTexture surfaceTexture;
     
     @Override  
     protected void onCreate(Bundle savedInstanceState) {  
@@ -103,27 +105,24 @@ public class VideoPlayerActivity extends Activity {
 			@Override
 			public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width,
 					int height) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
 			public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
-				// TODO Auto-generated method stub
 				return false;
 			}
 			
 			@Override
 			public void onSurfaceTextureAvailable(SurfaceTexture surface, int width,
 					int height) {
-				// TODO Auto-generated method stub
 				if(isSupport){
-//					play(new Surface(surface));
-					startVPlayer(new Surface(surface));
+					surfaceTexture=surface;
+					play(new Surface(surfaceTexture));
+//					startVPlayer(new Surface(surface));
 				}
 			}
 		});
-    }  
+    }
     private void showHintDialog(){
     	   
     		new AlertDialog.Builder(this)
@@ -169,8 +168,7 @@ public class VideoPlayerActivity extends Activity {
 				mediaPlayer.setDataSource(videoPath);
 				mediaPlayer.setSurface(surface);  
 		        mediaPlayer.prepare();  
-		        
-		        
+
 		      //因为是竖屏.宽度小于高度.
 		        if(screenWidth>mInfo.vWidth){
 		        	tvSizeHint.setText(R.string.origal_width);
@@ -180,16 +178,16 @@ public class VideoPlayerActivity extends Activity {
 		        	tvSizeHint.setText(R.string.fix_width);
 		        	textureView.setDispalyRatio(TextureRenderView.AR_ASPECT_FIT_PARENT);
 		        }
-		        
-		        
 		        textureView.setVideoSize(mediaPlayer.getVideoWidth(), mediaPlayer.getVideoHeight());
 		        textureView.requestLayout();
+
 		        mediaPlayer.start();  
 		}  catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }  
+    }
+
   
     private void startVPlayer(final Surface surface)
     {
@@ -234,16 +232,16 @@ public class VideoPlayerActivity extends Activity {
     protected void onPause() {  
         super.onPause();
         
-        if (mediaPlayer!=null) {  
-        	mediaPlayer.stop();
-        	mediaPlayer.release();
-        	mediaPlayer=null;  
-        }  
-        if(vplayer!=null){
-    		vplayer.stop();
-    		vplayer.release();
-    		vplayer=null;
-    	}
+        if (mediaPlayer!=null) {
+			mediaPlayer.stop();
+			mediaPlayer.release();
+			mediaPlayer=null;
+		}
+		if(vplayer!=null){
+			vplayer.stop();
+			vplayer.release();
+			vplayer=null;
+		}
     }  
   
     @Override  

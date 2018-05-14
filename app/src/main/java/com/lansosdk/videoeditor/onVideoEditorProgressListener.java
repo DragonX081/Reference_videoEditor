@@ -4,7 +4,7 @@ public interface onVideoEditorProgressListener {
 	/**
 	 * 
 	 * @param v
-	 * @param currentTime  当前正在处理的视频帧的时间戳.即当前的位置.
+	 * @param percent  正在处理进度的百分比;
 	 */
     void onProgress(VideoEditor v, int percent);
 }

@@ -89,6 +89,14 @@ public class SDKFileUtils {
 	{
 		return createFile(SDKDir.TMP_DIR, ".aac");
 	}
+	public static String createM4AFileInBox()
+	{
+		return createFile(SDKDir.TMP_DIR, ".m4a");
+	}
+	public static String createMP3FileInBox()
+	{
+		return createFile(SDKDir.TMP_DIR, ".mp3");
+	}
 	/**
 	 * 在box目录下生成一个指定后缀名的文件,并返回名字的路径.这里仅仅创建一个名字.
 	 * @param suffix  指定的后缀名.

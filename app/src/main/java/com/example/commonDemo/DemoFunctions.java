@@ -231,11 +231,8 @@ public class DemoFunctions {
 	 */
 	public static int demoOnePicture2Video(Context ctx,VideoEditor editor,String dstVideo)
 	{
-		String imagePath=SDKDir.TMP_DIR+"/threeword.png";
-		
-		CopyFileFromAssets.copy(ctx, "threeword.png", SDKDir.TMP_DIR, "threeword.png");
-		
-		Log.i(TAG,"demoOne picture to video :"+imagePath);
+
+		String imagePath=CopyFileFromAssets.copyAssets(ctx, "threeword.png");
 		return editor.executePicture2Video(imagePath,dstVideo,5,2000);
 	}
 

@@ -11,6 +11,9 @@ import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
+import com.lansosdk.videoeditor.VideoLayout;
+import com.lansosdk.videoeditor.VideoLayoutParam;
+import com.lansosdk.videoeditor.onVideoEditorEncodeChangedListener;
 import com.lansosdk.videoeditor.onVideoEditorProgressListener;
 
 import android.app.Activity;
@@ -86,8 +89,6 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
 	        if(isOutAudio==false){
 	        	findViewById(R.id.id_test_cmdaudio_play_btn).setVisibility(View.GONE);
 	        }
-			
-	        
 	      /**
 	       * 第一步,创建VideoEditor对象, 并设置进度监听,当然您也可以不设置监听.
 	       */
@@ -102,6 +103,12 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
 					}
 				}
 			});
+		  mEditor.setOnEncodeChangedListener(new onVideoEditorEncodeChangedListener() {
+			  @Override
+			  public void onChanged(VideoEditor v, boolean isSoftencoder) {
+				  Toast.makeText(getApplicationContext(),"切换为软编码...",Toast.LENGTH_SHORT).show();
+			  }
+		  });
 	        dstVideo=SDKFileUtils.newMp4PathInBox();
 	        dstAudio=SDKFileUtils.newMp4PathInBox();
 	  } 
@@ -116,16 +123,11 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
 		}
 	  @Override
 		protected void onDestroy() {
-			// TODO Auto-generated method stub
 			super.onDestroy();
-			if(SDKFileUtils.fileExist(dstAudio)){
 				SDKFileUtils.deleteFile(dstAudio);
 				dstAudio=null;
-			}
-			if(SDKFileUtils.fileExist(dstVideo)){
 				SDKFileUtils.deleteFile(dstVideo);
 				dstVideo=null;
-			}
 			if(audioPlayer!=null){
 				audioPlayer.stop();
 				audioPlayer.release();
@@ -170,7 +172,7 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
       	    	/**
       	    	 * 真正执行的代码,因演示的方法过多, 用每个方法的ID的形式来区分, 您实际使用中, 可直接填入具体方法的代码.
       	    	 */
-      	    	startRunDemoFunction(); 
+      	    	startRunDemoFunction();
       	    	return null;
       	    }
 	    	@Override
@@ -238,12 +240,6 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
 				case R.string.demo_id_videoaddanglemeta:
 					DemoFunctions.demoSetVideoMetaAngle(mEditor, srcVideo, dstVideo);
 					break;
-				case R.string.demo_id_ontpicturevideo:
-					DemoFunctions.demoOnePicture2Video(AVEditorDemoActivity.this, mEditor, dstVideo);
-					break;
-				case R.string.demo_id_morepicturevideo: 
-					//此方法演示需要多张图片,并放在同一个文件夹内,并有一定的命令规则,暂时不演示, VideoEditor.java中的方法是完全正常的.
-					break;
 				case R.string.demo_id_audiodelaymix:
 					DemoFunctions.demoAudioDelayMix(AVEditorDemoActivity.this, mEditor, dstAudio);
 					break;
@@ -277,7 +273,6 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
 		default:
 			break;
 		}
-		  
 		  return ret;
 	  } 
 	  

@@ -27,45 +27,46 @@
     <uses-feature
         android:name="android.hardware.camera.front"
         android:required="false" />
-    
-    
+
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
-            
-         <activity android:name="com.example.commonDemo.startActivity"
-             android:theme="@style/startTheme"
+
+
+        <activity android:name="com.example.commonDemo.startActivity"
+            android:theme="@style/startTheme"
             android:label="@string/app_name" >
-               <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>  
-             
-         </activity>
-         
+            </intent-filter>
+        </activity>
+
         <activity
             android:name="com.example.commonDemo.MainActivity">
-            
-         
-             
         </activity>
-         
-         <activity android:name="com.example.commonDemo.VideoPlayerActivity"></activity>
-         <activity android:name="com.example.commonDemo.FileExplorerActivity"></activity>
-         <activity android:name="com.example.commonDemo.MediaInfoActivity"></activity>
-         <activity android:name="com.example.commonDemo.CustomFunctionActivity"/>
-         <activity android:name="com.example.commonDemo.BusynessActivity"/>
-         <activity android:name="com.example.commonDemo.AVEditorDemoActivity"/>
-         <activity android:name="com.example.commonDemo.ScaleExecuteDemoActivity"/>
-         
-         <activity android:name="com.example.commonDemo.OnlyTestCmdActivity"/>
-          <activity android:name="com.example.commonDemo.SegmentRecorderActivity"
-                  android:theme="@style/AppTheme2">
-             </activity>
+        <activity android:name="com.example.commonDemo.VideoLayoutDemoActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            >
+        </activity>
+
+
+        <activity android:name="com.example.commonDemo.VideoPlayerActivity"></activity>
+        <activity android:name="com.example.commonDemo.FileExplorerActivity"></activity>
+        <activity android:name="com.example.commonDemo.MediaInfoActivity"></activity>
+        <activity android:name="com.example.commonDemo.CustomFunctionActivity"/>
+        <activity android:name="com.example.commonDemo.BusynessActivity"/>
+        <activity android:name="com.example.commonDemo.AVEditorDemoActivity"/>
+        <activity android:name="com.example.commonDemo.ScaleExecuteDemoActivity"/>
+
+        <activity android:name="com.example.commonDemo.OnlyTestCmdActivity"/>
+        <activity android:name="com.example.commonDemo.SegmentRecorderActivity"
+            android:theme="@style/AppTheme2">
+        </activity>
     </application>
 
 </manifest>

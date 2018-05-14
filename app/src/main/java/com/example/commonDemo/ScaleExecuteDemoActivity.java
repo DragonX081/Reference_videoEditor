@@ -181,7 +181,7 @@ public class ScaleExecuteDemoActivity extends Activity{
 				isExecuting=false;
 				if(SDKFileUtils.fileExist(editTmpPath)){
 					//增加音频信息
-					boolean ret=VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR, dstPath);
+					boolean ret=VideoEditor.encoderAddAudio(videoPath, editTmpPath, dstPath);
 					if(!ret){
 						dstPath=editTmpPath;
 					}
