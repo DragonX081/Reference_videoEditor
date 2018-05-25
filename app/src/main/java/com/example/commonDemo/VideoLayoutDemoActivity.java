@@ -300,7 +300,7 @@ ProgressDialog  mProgressDialog;
     }
     @Override
     protected synchronized Boolean doInBackground(Object... params) {
-      layout.executeLayout4Video(544,960,
+      layout.executeLayout4Video(540,960,
                 video1,0,0,
                 video2,270,0,
                 video3,0,480,

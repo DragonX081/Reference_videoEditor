@@ -149,7 +149,6 @@ public class MainActivity extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO Auto-generated method stub
                 if (position == 0) {
                     if (checkPath()) {
                         startMediaInfoActivity();
@@ -177,13 +176,11 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
     }
 
     @Override
     protected void onDestroy() {
-        // TODO Auto-generated method stub
         super.onDestroy();
         SDKFileUtils.deleteDir(new File(SDKDir.TMP_DIR)); //删除dir
     }
@@ -245,9 +242,6 @@ public class MainActivity extends Activity {
         intent.putExtra("videopath", tvVideoPath.getText().toString());
         startActivity(intent);
     }
-
-
-
     //-----------------------------------------
     private final static int SELECT_FILE_REQUEST_CODE = 10;
 
