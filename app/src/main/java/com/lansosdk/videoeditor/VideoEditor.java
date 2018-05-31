@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.media.MediaCodecInfo;
 import android.media.MediaCodecList;
 import android.media.MediaMetadataRetriever;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -12,7 +13,6 @@ import android.util.Log;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -41,7 +41,14 @@ public class VideoEditor {
 
     private static final String TAG = "LanSoJni";
 
-    public static final String version="20180508_AutoEncoder";
+    public static final String version="20180528_AutoEncoder";
+    /**
+     * 使用软件编码的列表;
+     */
+    public static String[] useSoftEncoderlist ={"EML-AL00",
+            "EML-AL01",
+            "LON-AL00",
+            "MHA-AL00"};
 
     /**
      * 解析参数失败 返回1
@@ -561,7 +568,6 @@ public class VideoEditor {
     /**
      * 把原视频文件中的音频部分, 增加到新的视频中,
      * <p>
-     * LSTODO 删除这个.
      *
      * @param oldMp4 源视频, 需要内部有音频部分, 如没有音频则则方法无动作.
      * @param newMp4 通过视频录制后,保存的新视频.里面只有视频部分或h264裸码流,需确保里面没有音频部分.
@@ -3122,15 +3128,84 @@ public class VideoEditor {
         Log.w(TAG, "not find nv21 or yuv420p. default return yuv420p");
         return "yuv420p";
     }
+    public static boolean encoderAddAudio(String oldMp4, String newMp4,
+                                          String tmpDir, String dstMp4) {
+        //
+        MediaInfo info = new MediaInfo(oldMp4, false);
+        if (info.prepare()) {
+            String audioPath = null;
+            if (info.aCodecName != null) // 只有在有音频的场合,才增加.
+            {
+                if (info.aCodecName.equalsIgnoreCase("aac")) {
+                    audioPath = SDKFileUtils.createFile(tmpDir, ".aac");
+                } else if (info.aCodecName.equalsIgnoreCase("mp3"))
+                    audioPath = SDKFileUtils.createFile(tmpDir, ".mp3");
+
+                if (audioPath != null) {
+                    VideoEditor veditor = new VideoEditor();
+                    veditor.executeDeleteVideo(oldMp4, audioPath); // 获得音频
+                    veditor.executeVideoMergeAudio(newMp4, audioPath, dstMp4); // 合并到新视频文件中.
+                    SDKFileUtils.deleteFile(audioPath);
+                    return true;
+                }
+            } else {
+                Log.w(TAG, "old mp4 file no audio . do not add audio");
+            }
+        } else {
+            Log.w(TAG, "old mp4 file prepare error!!,do not add audio");
+        }
+        return false;
+    }
+    protected native int ConvertEditMode(String input, int inW, int inH, String dstPath);
+    /**
+     * 把普通视频转换为 编辑模式的视频;
+     * @param input
+     * @param dstPath
+     * @return
+     */
+    public int convertToEditMode(String input,String dstPath)
+    {
+        MediaInfo info=new MediaInfo(input,false);
+        if(info.prepare() && info.isHaveVideo()){
+            return ConvertEditMode(input,info.vWidth,info.vHeight,dstPath);
+        }else{
+            return -1;
+        }
+    }
+    /**
+     * 不再使用
+     * @return
+     */
+    @Deprecated
+    public static String mp4AddAudio(String videoPath, String audioPath) {
+        String ret = SDKFileUtils.createMp4FileInBox();
+        VideoEditor editor = new VideoEditor();
+        editor.executeVideoMergeAudio(videoPath, audioPath, ret);
+        return ret;
+    }
+
+    /**
+     * 编码执行, 如果您有特殊的需求, 可以重载这个方法;
+     * @param cmdList
+     * @param bitrate
+     * @param dstPath
+     * @return
+     */
     public int executeAutoSwitch(List<String> cmdList,int bitrate, String dstPath)
     {
         int ret=0;
-
-        //先硬编码
-        ret=executeWithEncoder(cmdList, bitrate, dstPath, true);
-        if(ret!=0){
-            //软编码；
-            ret=executeWithEncoder(cmdList, bitrate, dstPath, false);
+        if(isForceHWEncoder){
+            ret=executeWithEncoder(cmdList, bitrate, dstPath, true);
+        }else if(isForceSoftWareEncoder) {
+            ret = executeWithEncoder(cmdList, bitrate, dstPath, false);
+        }else if(checkSoftEncoder()){
+            ret = executeWithEncoder(cmdList, bitrate, dstPath, false);
+        }else{ //先硬编码, 再软编码;
+            ret=executeWithEncoder(cmdList, bitrate, dstPath, true);
+            if(ret!=0){
+                sendEncoderEnchange();
+                ret=executeWithEncoder(cmdList, bitrate, dstPath, false);
+            }
         }
         if(ret!=0) {
             boolean replace=false;
@@ -3163,18 +3238,14 @@ public class VideoEditor {
         for(String item: cmdList){
             cmdList2.add(item);
         }
-
         cmdList2.add("-vcodec");
-        if(isForceHWEncoder){
-            Log.d(TAG,"用硬件编码器...");
+
+        if(isHWEnc){
             cmdList2.add("lansoh264_enc");
             cmdList2.add("-pix_fmt");
             cmdList2.add("yuv420p");
-        }else if(isForceSoftWareEncoder){
-
-            Log.d(TAG,"强制使用软件编码器...");
+        }else{
             cmdList2.add("libx264");
-
             cmdList2.add("-profile:v");
             cmdList2.add("baseline");
 
@@ -3183,29 +3254,6 @@ public class VideoEditor {
 
             cmdList2.add("-g");
             cmdList2.add("30");
-        }else{
-            if(!isHWEnc){
-                Log.i(TAG,"当前手机的硬件编码器不支持您的设置, 切换为软编码执行,可能有点慢!");
-                sendEncoderEnchange();
-            }else{
-                Log.d(TAG,"先用硬件编码器...");
-            }
-
-            if(isHWEnc){
-                cmdList2.add("lansoh264_enc");
-                cmdList2.add("-pix_fmt");
-                cmdList2.add("yuv420p");
-            }else{
-                cmdList2.add("libx264");
-                cmdList2.add("-profile:v");
-                cmdList2.add("baseline");
-
-                cmdList2.add("-preset");
-                cmdList2.add("ultrafast");
-
-                cmdList2.add("-g");
-                cmdList2.add("30");
-            }
         }
         cmdList2.add("-b:v");
         cmdList2.add(checkBitRate(bitrate));
@@ -3223,5 +3271,19 @@ public class VideoEditor {
 //        }
         int ret=executeVideoEditor(command);
         return ret;
+    }
+    /**
+     * 检测是否需要软编码;
+     * @return
+     */
+    public boolean checkSoftEncoder()
+    {
+        for(String item: useSoftEncoderlist){
+            if(item.equalsIgnoreCase(Build.MODEL)){
+                isForceSoftWareEncoder=true;
+                return true;
+            }
+        }
+        return false;
     }
 }
