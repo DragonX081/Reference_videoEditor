@@ -1,14 +1,8 @@
 package com.lansosdk.videoeditor;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
-
-import android.graphics.Bitmap;
 import android.util.Log;
+
+import java.nio.IntBuffer;
 
 /**
  *  注意: 此类采用的ffmpeg中的软解码来做的, 
@@ -89,10 +83,10 @@ public class AVDecoder {
 		{
 			  	long decoderHandler=0;
 			  	IntBuffer  mGLRgbBuffer;
-			  	MediaInfo  info=new MediaInfo(src);
+			  	MediaInfo info=new MediaInfo(src);
 			  	if(info.prepare())
 			    {
-			    	   decoderHandler=AVDecoder.decoderInit(src);
+			    	   decoderHandler= AVDecoder.decoderInit(src);
 			    	   if(decoderHandler!=0)
 			    	   {
 			    		   mGLRgbBuffer = IntBuffer.allocate(info.vWidth * info.vHeight);

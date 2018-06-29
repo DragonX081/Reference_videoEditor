@@ -11,7 +11,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.content.PermissionChecker;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,24 +28,21 @@ import com.anthonycr.grant.PermissionsManager;
 import com.anthonycr.grant.PermissionsResultAction;
 import com.lansoeditor.demo.R;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
-import com.lansosdk.videoeditor.LanSongMergeAV;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoeditor.VideoLayout;
-import com.lansosdk.videoeditor.VideoLayoutParam;
 
 import java.io.File;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class MainActivity extends Activity {
 
     private DemoInfo[] mTestCmdArray = {
 
-            new DemoInfo(R.string.demo_id_mediainfo, R.string.demo_id_mediainfo, true, false),
+            new DemoInfo(R.string.demo_id_videocompress, R.string
+                    .demo_more_videoscale_hard, false, false),
             new DemoInfo(R.string
                     .demo_id_segmentrecord, R.string.demo_id_segmentrecord, true, false),
             new DemoInfo(R.string
@@ -54,20 +50,25 @@ public class MainActivity extends Activity {
             new DemoInfo(R.string.demo_id_avmerge, R.string.demo_more_avmerge, true, false),
             new DemoInfo(R.string
                     .demo_id_cutaudio, R.string.demo_more_cutaudio, false, true), new DemoInfo(R.string.demo_id_cutvideo, R
-            .string.demo_more_cutvideo, true, false), new DemoInfo(R.string.demo_id_concatvideo, R.string
+            .string.demo_more_cutvideo, true, false),
+            new DemoInfo(R.string.demo_id_concatvideo, R.string
             .demo_more_concatvideo, true, false), new DemoInfo(R.string.demo_id_videocrop, R.string
-            .demo_more_videocrop, true, false), new DemoInfo(R.string.demo_id_videocompress, R.string
-            .demo_more_videocompress, true, false), new DemoInfo(R.string.demo_id_videoscale_soft, R.string
-            .demo_more_videoscale_soft, true, false), new DemoInfo(R.string.demo_id_videoscale_hard, R.string
-            .demo_more_videoscale_hard, false, false), new DemoInfo(R.string.demo_id_videowatermark, R.string
-            .demo_more_videowatermark, true, false), new DemoInfo(R.string.demo_id_videocropwatermark, R.string
-            .demo_more_videocropwatermark, true, false), new DemoInfo(R.string.demo_id_videogetframes, R.string
-            .demo_more_videogetframes, false, false), new DemoInfo(R.string.demo_id_videogetoneframe, R.string
-            .demo_more_videogetoneframe, false, false), new DemoInfo(R.string.demo_id_videoclockwise90, R.string
-            .demo_more_videoclockwise90, true, false), new DemoInfo(R.string.demo_id_videocounterClockwise90, R
-            .string.demo_more_videocounterClockwise90, true, false), new DemoInfo(R.string.demo_id_videoaddanglemeta,
-            R.string.demo_more_videoaddanglemeta, true, false),
+            .demo_more_videocrop, true, false),
+            new DemoInfo(R.string.demo_id_videoscale_soft, R.string
+            .demo_more_videoscale_soft, true, false),
 
+            new DemoInfo(R.string.demo_id_videowatermark, R.string
+            .demo_more_videowatermark, true, false),
+            new DemoInfo(R.string.demo_id_videocropwatermark, R.string
+            .demo_more_videocropwatermark, true, false),
+            new DemoInfo(R.string.demo_id_videogetframes, R.string
+            .demo_more_videogetframes, false, false),
+            new DemoInfo(R.string.demo_id_videogetoneframe, R.string
+            .demo_more_videogetoneframe, false, false),
+            new DemoInfo(R.string.demo_id_videoclockwise90, R.string
+            .demo_more_videoclockwise90, true, false), new DemoInfo(R.string.demo_id_videocounterClockwise90, R
+            .string.demo_more_videocounterClockwise90, true, false),
+            new DemoInfo(R.string.demo_id_videoaddanglemeta, R.string.demo_more_videoaddanglemeta, true, false),
             new DemoInfo(R.string.demo_id_audiodelaymix, R.string.demo_more_audiodelaymix, false, true),
 
             new DemoInfo(R.string.demo_id_audiovolumemix, R.string.demo_more_audiovolumemix, false, true),
@@ -90,7 +91,7 @@ public class MainActivity extends Activity {
                     .demo_more_avreverse, true, false),
             new DemoInfo(R.string.demo_id_videolayout, R.string
                     .demo_id_videolayout, true, false),
-            new DemoInfo(R.string.direct_play_video, R.string.direct_play_video,false, false),
+            new DemoInfo(R.string.direct_play_video, R.string.direct_play_video, false, false),
 
             new DemoInfo(R.string.demo_id_expend_cmd, R.string.demo_more_avsplit, false, false),
 
@@ -111,8 +112,80 @@ public class MainActivity extends Activity {
         LanSoEditor.initSDK(getApplicationContext(), null);
 
 
-        //因为从android6.0系统有各种权限的限制, 这里开始先检查是否有读写的权限,PermissionsManager采用github上开源库,不属于我们sdk的一部分.
-        //下载地址是:https://github.com/anthonycr/Grant,您也可以使用别的方式来检查app所需权限.
+        checkPermissions();
+
+
+        initView();
+
+        showHintDialog();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SDKFileUtils.deleteDir(new File(SDKDir.TMP_DIR)); //删除dir
+    }
+
+    private void startActivity(int position) {
+        DemoInfo demo = mTestCmdArray[position];
+        if (demo.mHintId == R.string.demo_id_videocompress) {
+            startScaleActivity();
+
+        } else {
+            Intent intent = new Intent(MainActivity.this, AVEditorDemoActivity.class);
+
+            intent.putExtra("videopath1", tvVideoPath.getText().toString());
+            intent.putExtra("outvideo", demo.isOutVideo);
+            intent.putExtra("outaudio", demo.isOutAudio);
+            intent.putExtra("demoID", demo.mHintId);
+            intent.putExtra("textID", demo.mTextId);
+            startActivity(intent);
+        }
+    }
+
+    private void startBusynessActivity() {
+        Intent intent = new Intent(MainActivity.this, BusynessActivity.class);
+        startActivity(intent);
+    }
+
+    private void startCustomFunctionActivity() {
+        Intent intent = new Intent(MainActivity.this, CustomFunctionActivity.class);
+        startActivity(intent);
+    }
+
+    //-----------------------
+    private void startScaleActivity()  //开启硬件缩放
+    {
+        Intent intent = new Intent(MainActivity.this, VideoCompressActivity.class);
+        intent.putExtra("videopath", tvVideoPath.getText().toString());
+        startActivity(intent);
+    }
+
+    private void startSegmentRecord() {
+        Intent intent = new Intent(MainActivity.this, SegmentRecorderActivity.class);
+        startActivity(intent);
+    }
+
+    //直接播放视频.
+    private void startVideoPlayer() {
+        Intent intent = new Intent(MainActivity.this, VideoPlayerActivity.class);
+        intent.putExtra("videopath", tvVideoPath.getText().toString());
+        startActivity(intent);
+    }
+
+    private void startVideoLayout() {
+        Intent intent = new Intent(MainActivity.this, VideoLayoutDemoActivity.class);
+        intent.putExtra("videopath", tvVideoPath.getText().toString());
+        startActivity(intent);
+    }
+
+    private void checkPermissions() {
         PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
             @Override
             public void onGranted() {
@@ -124,7 +197,9 @@ public class MainActivity extends Activity {
                 isPermissionOk = false;
             }
         });
+    }
 
+    private void initView() {
         tvVideoPath = (TextView) findViewById(R.id.id_main_tvvideo);
 
         findViewById(R.id.id_main_select_video).setOnClickListener(new OnClickListener() {
@@ -138,7 +213,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                new CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "ping25s2.mp4")
+                new CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "dy_xialu2.mp4")
                         .execute();
             }
         });
@@ -149,11 +224,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    if (checkPath()) {
-                        startMediaInfoActivity();
-                    }
-                } else if (position == 1) {  //分段录制
+                if (position == 1) {  //分段录制
                     startSegmentRecord();
                 } else if (position == mTestCmdArray.length - 2) {  //最后两个, 扩展功能
                     startCustomFunctionActivity();
@@ -171,77 +242,8 @@ public class MainActivity extends Activity {
                 }
             }
         });
-        showHintDialog();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        SDKFileUtils.deleteDir(new File(SDKDir.TMP_DIR)); //删除dir
-    }
-
-    private void startActivity(int position) {
-        DemoInfo demo = mTestCmdArray[position];
-        if (demo.mHintId == R.string.demo_id_videoscale_hard) {
-            startScaleActivity();
-
-        } else {
-            Intent intent = new Intent(MainActivity.this, AVEditorDemoActivity.class);
-
-            intent.putExtra("videopath1", tvVideoPath.getText().toString());
-            intent.putExtra("outvideo", demo.isOutVideo);
-            intent.putExtra("outaudio", demo.isOutAudio);
-            intent.putExtra("demoID", demo.mHintId);
-            intent.putExtra("textID", demo.mTextId);
-            startActivity(intent);
-        }
-    }
-
-    private void startMediaInfoActivity() {
-        Intent intent = new Intent(MainActivity.this, MediaInfoActivity.class);
-        intent.putExtra("videopath", tvVideoPath.getText().toString());
-        startActivity(intent);
-    }
-
-    private void startBusynessActivity() {
-        Intent intent = new Intent(MainActivity.this, BusynessActivity.class);
-        startActivity(intent);
-    }
-
-    private void startCustomFunctionActivity() {
-        Intent intent = new Intent(MainActivity.this, CustomFunctionActivity.class);
-        startActivity(intent);
-    }
-
-    //-----------------------
-    private void startScaleActivity()  //开启硬件缩放
-    {
-        Intent intent = new Intent(MainActivity.this, ScaleExecuteDemoActivity.class);
-        intent.putExtra("videopath", tvVideoPath.getText().toString());
-        startActivity(intent);
-    }
-
-    private void startSegmentRecord() {
-        Intent intent = new Intent(MainActivity.this, SegmentRecorderActivity.class);
-        startActivity(intent);
-    }
-
-    //直接播放视频.
-    private void startVideoPlayer() {
-        Intent intent = new Intent(MainActivity.this, VideoPlayerActivity.class);
-        intent.putExtra("videopath", tvVideoPath.getText().toString());
-        startActivity(intent);
-    }
-    private void startVideoLayout() {
-        Intent intent = new Intent(MainActivity.this, VideoLayoutDemoActivity.class);
-        intent.putExtra("videopath", tvVideoPath.getText().toString());
-        startActivity(intent);
-    }
     //-----------------------------------------
     private final static int SELECT_FILE_REQUEST_CODE = 10;
 
@@ -412,15 +414,16 @@ public class MainActivity extends Activity {
             return convertView;
         }
     }
-    boolean isTestedPermission=false;
-    private void testPermission()
-    {
-        if(isTestedPermission){
+
+    boolean isTestedPermission = false;
+
+    private void testPermission() {
+        if (isTestedPermission) {
             showHintDialog("Demo没有读写权限,请关闭后重新打开demo,并在弹出框中选中[允许]");
             return;
         }
-        Log.d(TAG,"再次检查权限");
-        isTestedPermission=true;
+        Log.d(TAG, "再次检查权限");
+        isTestedPermission = true;
         PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
             @Override
             public void onGranted() {
@@ -434,6 +437,7 @@ public class MainActivity extends Activity {
         });
     }
 
-
+    private void testFile(){
+    }
 
 }

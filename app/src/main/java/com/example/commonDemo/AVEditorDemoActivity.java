@@ -1,37 +1,27 @@
 package com.example.commonDemo;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.lansoeditor.demo.R;
-import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
-import com.lansosdk.videoeditor.MediaInfo;
-import com.lansosdk.videoeditor.SDKDir;
-import com.lansosdk.videoeditor.SDKFileUtils;
-import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoeditor.VideoLayout;
-import com.lansosdk.videoeditor.VideoLayoutParam;
-import com.lansosdk.videoeditor.onVideoEditorEncodeChangedListener;
-import com.lansosdk.videoeditor.onVideoEditorProgressListener;
-
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
-import android.media.MediaPlayer.OnPreparedListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.lansoeditor.demo.R;
+import com.lansosdk.videoeditor.MediaInfo;
+import com.lansosdk.videoeditor.SDKFileUtils;
+import com.lansosdk.videoeditor.VideoEditor;
+import com.lansosdk.videoeditor.onVideoEditorEncodeChangedListener;
+import com.lansosdk.videoeditor.onVideoEditorProgressListener;
+
+import java.io.IOException;
+
 /**
  * 
  * 杭州蓝松科技, 专业的视频开发团队.
@@ -109,8 +99,8 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
 				  Toast.makeText(getApplicationContext(),"切换为软编码...",Toast.LENGTH_SHORT).show();
 			  }
 		  });
-	        dstVideo=SDKFileUtils.newMp4PathInBox();
-	        dstAudio=SDKFileUtils.newMp4PathInBox();
+	        dstVideo= SDKFileUtils.newMp4PathInBox();
+	        dstAudio= SDKFileUtils.newMp4PathInBox();
 	  } 
 	  @Override
 	  public void onBackPressed() {

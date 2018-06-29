@@ -11,7 +11,10 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -2993,6 +2996,38 @@ public class VideoEditor {
         }
     }
 
+    /**
+     * 删除视频中的logo,比如一般在视频的左上角或右上角有视频logo信息,类似"优酷","抖音"等;
+     * 这里把指定位置的图像删除掉;
+     *
+     * @param video 原视频
+     * @param startX  开始横坐标
+     * @param startY  开始的横坐标
+     * @param w 删除的宽度
+     * @param h 删除的高度
+     * @param bitrate 编码后的码率
+     * @param dstvideo 目标保存的地址;
+     * @return
+     */
+    public int executeDeleteLogo(String video,int startX,int startY,int w,int h,int bitrate,String dstvideo){
+        if (fileExist(video)) {
+
+            String filter = String.format(Locale.getDefault(), "delogo=x=%d:y=%d:w=%d:h=%d",startX,
+                    startY,w,h);
+
+            List<String> cmdList = new ArrayList<String>();
+
+            cmdList.add("-vcodec");
+            cmdList.add("lansoh264_dec");
+
+            cmdList.add("-vf");
+            cmdList.add(filter);
+            return executeAutoSwitch(cmdList, bitrate, dstvideo);
+        } else {
+            return VIDEO_EDITOR_EXECUTE_FAILED;
+        }
+    }
+
     //------------------------------------------------
     private boolean isCheckBitRate = true;
 
@@ -3070,6 +3105,7 @@ public class VideoEditor {
         int sugg = getSuggestBitRate(wxh);
         return bitrate < sugg ? sugg : bitrate;   //如果设置过来的码率小于建议码率,则返回建议码率,不然返回设置码率
     }
+
 
     //--------------------------------------------------------------------
     private static final String MIME_TYPE_AVC = "video/avc";
@@ -3264,11 +3300,6 @@ public class VideoEditor {
         for (int i = 0; i < cmdList2.size(); i++) {
             command[i] = (String) cmdList2.get(i);
         }
-
-//        Log.i(TAG,"command is:");
-//        for(String cmd: cmdList2){
-//            Log.i(TAG,cmd);
-//        }
         int ret=executeVideoEditor(command);
         return ret;
     }
@@ -3285,5 +3316,26 @@ public class VideoEditor {
             }
         }
         return false;
+    }
+
+    private static int checkCPUName() {
+        String str1 = "/proc/cpuinfo";
+        String str2 = "";
+        try {
+            FileReader fr = new FileReader(str1);
+            BufferedReader localBufferedReader = new BufferedReader(fr, 8192);
+            str2 = localBufferedReader.readLine();
+            while (str2 != null) {
+                Log.i("testCPU","->"+str2+"<-");
+                str2 = localBufferedReader.readLine();
+                if(str2.contains("SDM845")){  //845的平台;
+
+                }
+            }
+            localBufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

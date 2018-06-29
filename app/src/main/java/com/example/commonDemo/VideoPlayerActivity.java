@@ -1,7 +1,19 @@
 package com.example.commonDemo;
 
-import java.io.File;
-import java.io.IOException;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.SurfaceTexture;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Surface;
+import android.view.TextureView.SurfaceTextureListener;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lansoeditor.demo.R;
 import com.lansosdk.videoeditor.MediaInfo;
@@ -11,22 +23,8 @@ import com.lansosdk.videoplayer.VideoPlayer;
 import com.lansosdk.videoplayer.VideoPlayer.OnPlayerCompletionListener;
 import com.lansosdk.videoplayer.VideoPlayer.OnPlayerPreparedListener;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.graphics.SurfaceTexture;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Surface;
-import android.view.TextureView.SurfaceTextureListener;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -40,7 +38,7 @@ public class VideoPlayerActivity extends Activity {
     
 	private TextureRenderView textureView;
     private MediaPlayer mediaPlayer=null;  
-    private VPlayer  vplayer=null;
+    private VPlayer vplayer=null;
     String videoPath=null;
     private boolean isSupport=false;
     private int screenWidth,screenHeight;
@@ -53,7 +51,7 @@ public class VideoPlayerActivity extends Activity {
     @Override  
     protected void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
-        setContentView(R.layout.player_layout);  
+        setContentView(R.layout.player_layout);
         textureView=(TextureRenderView)findViewById(R.id.surface1);
         
         videoPath=getIntent().getStringExtra("videopath");

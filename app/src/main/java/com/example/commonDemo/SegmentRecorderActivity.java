@@ -1,29 +1,16 @@
 package com.example.commonDemo;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-import com.lansoeditor.demo.R;
-import com.lansosdk.videoeditor.LanSoEditor;
-import com.lansosdk.videoeditor.OpenSegmentsRecordListener;
-import com.lansosdk.videoeditor.OpenSegmentsRecorder;
-
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.hardware.Camera;
 import android.hardware.Camera.Area;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
-import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +19,13 @@ import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import com.lansoeditor.demo.R;
+import com.lansosdk.videoeditor.OpenSegmentsRecordListener;
+import com.lansosdk.videoeditor.OpenSegmentsRecorder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SuppressWarnings("deprecation")
@@ -329,7 +323,7 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 		
 		Rect targetFocusRect = new Rect(rect.left * 2000 / w - 1000, rect.top * 2000 / h - 1000, rect.right * 2000 / w - 1000, rect.bottom * 2000 / h - 1000);
 		try {
-			List<Camera.Area> focusList = new ArrayList<Camera.Area>();
+			List<Area> focusList = new ArrayList<Area>();
 			Area focusA = new Area(targetFocusRect, 1000);
 			focusList.add(focusA);
 			segmentRecorder.doFocus(focusList);

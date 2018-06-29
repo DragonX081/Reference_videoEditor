@@ -1,7 +1,5 @@
 package com.example.commonDemo;
 
-import java.io.File;
-
 import android.content.Context;
 import android.util.Log;
 
@@ -11,6 +9,7 @@ import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
+
 /**
  * 
  * 注意: 此代码仅作为视频处理的演示使用, 不属于sdk的一部分. 
@@ -24,7 +23,7 @@ public class DemoFunctions {
 	 * 
 	 * 音视频合成:\n把一个纯音频文件和纯视频文件合并成一个mp4格式的多媒体文件, 如果源视频之前有音频,会首先删除音频部分. \n\n
 	 */
-	public static int demoAVMerge(Context ctx,VideoEditor editor,String srcVideo,String dstPath)
+	public static int demoAVMerge(Context ctx, VideoEditor editor, String srcVideo, String dstPath)
 	{
 		int ret=-1;
 		MediaInfo info=new MediaInfo(srcVideo,false);
@@ -34,12 +33,12 @@ public class DemoFunctions {
 			String video3=null;
 			//如果源视频中有音频,则先删除音频
 	  		if(info.isHaveAudio()){ 
-	  			video3=SDKFileUtils.createFileInBox(info.fileSuffix);
+	  			video3= SDKFileUtils.createFileInBox(info.fileSuffix);
 	  			editor.executeDeleteAudio(video2, video3);
 	  			
 	  			video2=video3;
 	  		}
-	  		String audio=CopyDefaultVideoAsyncTask.copyFile(ctx,"aac20s.aac");
+	  		String audio= CopyDefaultVideoAsyncTask.copyFile(ctx,"aac20s.aac");
 	  		ret=editor.executeVideoMergeAudio(video2,audio, dstPath);
 	  		SDKFileUtils.deleteFile(video3);
 		}
@@ -51,9 +50,9 @@ public class DemoFunctions {
 	 * 
 	 * 音视频分离:\n把多媒体文件如mp4,flv等中的的音频和视频分离开,形成独立的音频文件和视频文件 \n\n
 	 */
-	public static int demoAVSplite(VideoEditor editor,String srcVideo,String dstVideo,String dstAudio)
+	public static int demoAVSplite(VideoEditor editor, String srcVideo, String dstVideo, String dstAudio)
 	{
-			MediaInfo   info=new MediaInfo(srcVideo);
+			MediaInfo info=new MediaInfo(srcVideo);
 			int ret=-1;
 	    	if(info.prepare())
 	    	{
@@ -67,9 +66,9 @@ public class DemoFunctions {
 	 * 
 	 * 视频剪切:\n剪切视频的长度,可以指定开始位置,指定结束位置.\n这里演示截取视频的前20秒或时长的一半,形成新的视频文件.
 	 */
-	public static int demoVideoCut(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoVideoCut(VideoEditor editor, String srcVideo, String dstVideo)
 	{
-			MediaInfo   info=new MediaInfo(srcVideo);
+			MediaInfo info=new MediaInfo(srcVideo);
 	    	if(info.prepare())
 	    	{
 	    		if(info.vDuration>20)
@@ -84,10 +83,10 @@ public class DemoFunctions {
 	 * 
 	 * 音频剪切:\n剪切音频的长度,可以指定开始位置,指定结束位置.\n这里演示截取音频的前20秒或时长的一半,形成新的音频文件.
 	 */
-	public static int demoAudioCut(Context ctx,VideoEditor editor,String dstAudio)
+	public static int demoAudioCut(Context ctx, VideoEditor editor, String dstAudio)
 	{
-			String srcAudio=CopyDefaultVideoAsyncTask.copyFile(ctx,"honor30s2.m4a");
-			MediaInfo   info=new MediaInfo(srcAudio);
+			String srcAudio= CopyDefaultVideoAsyncTask.copyFile(ctx,"honor30s2.m4a");
+			MediaInfo info=new MediaInfo(srcAudio);
 	    	if(info.prepare() && info.aCodecName!=null)
 	    	{
 	    		if(info.aDuration>15)
@@ -104,18 +103,18 @@ public class DemoFunctions {
 	 * 为了方便演示,需要您的视频大于20秒(或用默认视频).先把原视频从(0到1/3处)和(2/3到结束)截取成两段,这样就有了两个独立的视频, 然后把这两段拼接在一起,来演示视频的拼接, 
 	 * 您实际可任意的组合,注意尽量视频的宽高比等参数一致,不然合成是可以,但有些播放器无法播放.
 	 */
-	public static int demoVideoConcat(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoVideoConcat(VideoEditor editor, String srcVideo, String dstVideo)
 	{
-		MediaInfo   info=new MediaInfo(srcVideo);
+		MediaInfo info=new MediaInfo(srcVideo);
 		int ret=-1;
     	if(info.prepare() && info.vDuration>20)
     	{
     		//第一步:先创建三个视频文件,并剪切好视频.
-    		String seg1=SDKFileUtils.createFileInBox(info.fileSuffix);
-    		String seg2=SDKFileUtils.createFileInBox(info.fileSuffix);
+    		String seg1= SDKFileUtils.createFileInBox(info.fileSuffix);
+    		String seg2= SDKFileUtils.createFileInBox(info.fileSuffix);
     		
-    		String segTs1=SDKFileUtils.createFileInBox("ts");
-    		String segTs2=SDKFileUtils.createFileInBox("ts");
+    		String segTs1= SDKFileUtils.createFileInBox("ts");
+    		String segTs2= SDKFileUtils.createFileInBox("ts");
     		
     		
     		ret=editor.executeVideoCutOut(srcVideo,seg1, 0,info.vDuration/3);
@@ -143,7 +142,7 @@ public class DemoFunctions {
 	 *  
 	 *  视频压缩转码:\n调整视频的码率,让视频文件大小变小一些,方便传输.注意:如调整的小太多,则会导致画面下降.这里演示把码率)降低为70%\n
 	 */
-	public static int demoVideoCompress(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoVideoCompress(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		
 		return editor.executeVideoCompress(srcVideo, dstVideo, 0.7f);
@@ -153,7 +152,7 @@ public class DemoFunctions {
 	 * 
 	 * 视频画面裁剪:裁剪视频的宽度和高度\n 这里演示从左上角裁剪视频高度和宽度为原来的一半保存为新的视频.\n
 	 */
-	public static int demoFrameCrop(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoFrameCrop(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())
@@ -181,7 +180,7 @@ public class DemoFunctions {
 	 * 视频缩放:缩小视频的宽度和高度\n 这里演示把宽度和高度都缩小一半.\n 注意:这里是采用软缩放的形式来做,流程是:硬解码-->软件缩放-->硬编码
 	 * 
 	 */
-	public static int demoVideoScale(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoVideoScale(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())
@@ -199,12 +198,12 @@ public class DemoFunctions {
 	 *  
 	 *  视频上增加图片:\n在视频上增加图片,可以指定开始时间和结束时间,指定在画面中的坐标处增加.
 	 */	
-	public static int demoAddPicture(Context ctx,VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoAddPicture(Context ctx, VideoEditor editor, String srcVideo, String dstVideo)
 	{
 			MediaInfo info=new MediaInfo(srcVideo);
 			if(info.prepare())
 			{
-				String imagePath=CopyDefaultVideoAsyncTask.copyFile(ctx, "watermark.png");
+				String imagePath= CopyDefaultVideoAsyncTask.copyFile(ctx, "watermark.png");
 				return editor.executeAddWaterMark(srcVideo, imagePath, 0, 0, dstVideo, (int)(info.vBitRate*1.5f));
 			}else{
 				return -1;
@@ -216,12 +215,12 @@ public class DemoFunctions {
 	 * 
 	 * 视频提取图片:\n把视频中的画面转换为图片, 可以全部指定图片,也可以每秒钟提取一帧,可以设置开始和结束时间
 	 */
-	public static int demoGetAllFrames(VideoEditor editor,String srcVideo)
+	public static int demoGetAllFrames(VideoEditor editor, String srcVideo)
 	{
-		MediaInfo   info=new MediaInfo(srcVideo);
+		MediaInfo info=new MediaInfo(srcVideo);
     	if(info.prepare())
     	{
-    		return editor.executeGetAllFrames(srcVideo,info.vCodecName,SDKDir.getPath(),"img");
+    		return editor.executeGetAllFrames(srcVideo,info.vCodecName, SDKDir.getPath(),"img");
     	}else{
     		return -1;
     	}
@@ -229,10 +228,10 @@ public class DemoFunctions {
 	/**
 	 *  演示把一张图片转换为视频
 	 */
-	public static int demoOnePicture2Video(Context ctx,VideoEditor editor,String dstVideo)
+	public static int demoOnePicture2Video(Context ctx, VideoEditor editor, String dstVideo)
 	{
 
-		String imagePath=CopyFileFromAssets.copyAssets(ctx, "threeword.png");
+		String imagePath= CopyFileFromAssets.copyAssets(ctx, "threeword.png");
 		return editor.executePicture2Video(imagePath,dstVideo,5,2000);
 	}
 
@@ -240,12 +239,12 @@ public class DemoFunctions {
 	/**
 	 * 演示 先剪切, 再画面裁剪,再图片叠加. 
 	 */
-	public static int demoVideoCropOverlay(Context ctx,VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoVideoCropOverlay(Context ctx, VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())
 		{
-			String imagePath=CopyDefaultVideoAsyncTask.copyFile(ctx, "ic_launcher.png");
+			String imagePath= CopyDefaultVideoAsyncTask.copyFile(ctx, "ic_launcher.png");
 			 int cropW=240;
 	    	 int cropH=240;
 	    	 int max=Math.max(info.vWidth,info.vHeight);
@@ -266,27 +265,27 @@ public class DemoFunctions {
 	/**
 	 * 两个音频在混合时,第二个延时一定时间.
 	 */
-	public static int demoAudioDelayMix(Context ctx,VideoEditor editor,String dstAudio)
+	public static int demoAudioDelayMix(Context ctx, VideoEditor editor, String dstAudio)
 	{
-		String audiostr1=CopyDefaultVideoAsyncTask.copyFile(ctx,"aac20s.aac");
-		String audiostr2=CopyDefaultVideoAsyncTask.copyFile(ctx,"honor30s2.m4a");
+		String audiostr1= CopyDefaultVideoAsyncTask.copyFile(ctx,"aac20s.aac");
+		String audiostr2= CopyDefaultVideoAsyncTask.copyFile(ctx,"honor30s2.m4a");
 		
 		return editor.executeAudioDelayMix(audiostr1, audiostr2, 3000, 3000, dstAudio);
 	}
 	/**
 	 * 两个音频在混合时调整音量
 	 */
-	public static int demoAudioVolumeMix(Context ctx,VideoEditor editor,String dstAudio)
+	public static int demoAudioVolumeMix(Context ctx, VideoEditor editor, String dstAudio)
 	{
-		String audiostr1=CopyDefaultVideoAsyncTask.copyFile(ctx,"aac20s.aac");
-		String audiostr2=CopyDefaultVideoAsyncTask.copyFile(ctx,"honor30s2.m4a");
+		String audiostr1= CopyDefaultVideoAsyncTask.copyFile(ctx,"aac20s.aac");
+		String audiostr2= CopyDefaultVideoAsyncTask.copyFile(ctx,"honor30s2.m4a");
 		
 		return editor.executeAudioVolumeMix(audiostr1,audiostr2, 0.5f, 4, dstAudio);
 	}
 	/**
 	 *垂直平镜像
 	 */
-	public static int demoVideoMirrorH(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoVideoMirrorH(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())
@@ -303,7 +302,7 @@ public class DemoFunctions {
 	/**
 	 * 水平镜像
 	 */
-	public static int demoVideoMirrorV(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoVideoMirrorV(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())
@@ -320,7 +319,7 @@ public class DemoFunctions {
 	/**
 	 * 视频逆向
 	 */
-	public static int demoVideoReverse(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoVideoReverse(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())
@@ -338,7 +337,7 @@ public class DemoFunctions {
 	/**
 	 * 视频增加边框
 	 */
-	public static int demoPaddingVideo(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoPaddingVideo(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())
@@ -358,12 +357,12 @@ public class DemoFunctions {
 	/**
 	 * 获取一张图片
 	 */
-	public static int demoGetOneFrame(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoGetOneFrame(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())
 		{
-			String picPath=SDKFileUtils.createFileInBox("png");  //这里是保存的路径
+			String picPath= SDKFileUtils.createFileInBox("png");  //这里是保存的路径
 			Log.i("lansosdk","picture save at "+picPath);
 			return editor.executeGetOneFrame(srcVideo,info.vCodecName,info.vDuration/2,picPath);
 		}else{
@@ -374,7 +373,7 @@ public class DemoFunctions {
 	 * 视频垂直方向反转
 	 * @return
 	 */
-	public static int demoVideoRotateVertically(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoVideoRotateVertically(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())
@@ -387,7 +386,7 @@ public class DemoFunctions {
 	/**
 	 *  视频水平方向反转
 	 */
-	public static int demoVideoRotateHorizontally(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoVideoRotateHorizontally(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())
@@ -404,7 +403,7 @@ public class DemoFunctions {
 	/**
 	 *  视频顺时针旋转９０度
 	 */
-	public static int demoVideoRotate90Clockwise(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoVideoRotate90Clockwise(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())
@@ -421,7 +420,7 @@ public class DemoFunctions {
 	/**
 	 * 视频逆时针旋转９０度,也即使顺时针旋转270度.
 	 */
-	public static int demoVideoRotate90CounterClockwise(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoVideoRotate90CounterClockwise(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())
@@ -438,7 +437,7 @@ public class DemoFunctions {
 	/**
 	 * 视频和音频都逆序
 	 */
-	public static int demoAVReverse(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoAVReverse(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())
@@ -455,7 +454,7 @@ public class DemoFunctions {
 	/**
 	 * 调整视频的播放速度. 
 	 */
-	public static int demoVideoAdjustSpeed(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoVideoAdjustSpeed(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())
@@ -472,7 +471,7 @@ public class DemoFunctions {
 	/**
 	 * 矫正视频的角度.
 	 */
-	public static int demoVideoZeroAngle(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoVideoZeroAngle(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare() &&info.vRotateAngle!=0)
@@ -489,7 +488,7 @@ public class DemoFunctions {
 	/**
 	 * 设置视频角度元数据.
 	 */
-	public static int demoSetVideoMetaAngle(VideoEditor editor,String srcVideo,String dstVideo)
+	public static int demoSetVideoMetaAngle(VideoEditor editor, String srcVideo, String dstVideo)
 	{
 		MediaInfo info=new MediaInfo(srcVideo);
 		if(info.prepare())

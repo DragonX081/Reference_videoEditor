@@ -7,36 +7,20 @@
  */
 package com.lansosdk.videoeditor;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import android.app.Activity;
+import android.hardware.Camera;
+import android.hardware.Camera.PreviewCallback;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.MediaRecorder;
+import android.view.SurfaceHolder;
+
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-
-
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.graphics.Point;
-import android.hardware.Camera;
-import android.hardware.Camera.CameraInfo;
-import android.hardware.Camera.PreviewCallback;
-import android.media.AudioFormat;
-import android.media.AudioRecord;
-import android.media.MediaRecorder;
-import android.os.Environment;
-import android.util.Log;
-import android.view.Display;
-import android.view.SurfaceHolder;
-import android.view.WindowManager;
 
 @SuppressWarnings("deprecation")
 public class OpenSegmentsRecorder implements PreviewCallback, SurfaceHolder.Callback {
@@ -72,7 +56,7 @@ public class OpenSegmentsRecorder implements PreviewCallback, SurfaceHolder.Call
 
 	private SurfaceHolder mSurfaceHolder = null;	
 
-	private AVEncoder  mEncoder=null;
+	private AVEncoder mEncoder=null;
 	private Activity mActivity;
 	private OpenSegmentsRecordListener segmentRecordListener = null;
 	private int[] previewSize;
@@ -203,7 +187,7 @@ public class OpenSegmentsRecorder implements PreviewCallback, SurfaceHolder.Call
 		if(SDKFileUtils.fileExist(finalVideoFile)){  //如果已经创建,则删除之前的.
 			SDKFileUtils.deleteFile(finalVideoFile);
 		}
-		String cancatFile =SDKFileUtils.createMp4FileInBox();
+		String cancatFile = SDKFileUtils.createMp4FileInBox();
 		VideoEditor editor=new VideoEditor();
 		String[] tsArray=new String[recorderFiles.size()];  
 		for (int i=0;i<recorderFiles.size();i++) {
@@ -216,7 +200,7 @@ public class OpenSegmentsRecorder implements PreviewCallback, SurfaceHolder.Call
 		if(SDKFileUtils.fileExist(cancatFile))
 		{
 			if(mEncoder.mediaRorateDegree!=0){
-				finalVideoFile =SDKFileUtils.createMp4FileInBox();
+				finalVideoFile = SDKFileUtils.createMp4FileInBox();
 				editor.executeSetVideoMetaAngle(cancatFile, mEncoder.mediaRorateDegree, finalVideoFile);
 			}else{
 				finalVideoFile=cancatFile;

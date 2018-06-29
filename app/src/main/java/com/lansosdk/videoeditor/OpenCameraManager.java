@@ -1,9 +1,5 @@
 package com.lansosdk.videoeditor;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
@@ -17,6 +13,10 @@ import android.os.Build;
 import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @SuppressWarnings("deprecation")
 public class OpenCameraManager {

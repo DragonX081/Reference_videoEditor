@@ -1,21 +1,6 @@
 package com.example.commonDemo;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.lansoeditor.demo.R;
-import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
-import com.lansosdk.videoeditor.MediaInfo;
-import com.lansosdk.videoeditor.SDKFileUtils;
-import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoeditor.onVideoEditorProgressListener;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -31,6 +16,15 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lansoeditor.demo.R;
+import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
+import com.lansosdk.videoeditor.MediaInfo;
+import com.lansosdk.videoeditor.SDKFileUtils;
+import com.lansosdk.videoeditor.VideoEditor;
+import com.lansosdk.videoeditor.onVideoEditorProgressListener;
+
+import java.io.IOException;
+
 /**
  * 蓝松科技开发人员测试界面.
  *
@@ -45,7 +39,7 @@ public class OnlyTestCmdActivity extends Activity{
 	VideoEditor mEditor = new VideoEditor();
 	ProgressDialog  mProgressDialog;
 	int videoDuration;
-	MediaInfo   mInfo;
+	MediaInfo mInfo;
 	private String dstMP4="/sdcard/04.mp4";
 	private String dstAAC="/sdcard/01.aac";
 	

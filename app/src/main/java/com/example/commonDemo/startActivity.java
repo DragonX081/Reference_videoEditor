@@ -1,24 +1,20 @@
 package com.example.commonDemo;
 
-import java.util.ArrayList;
-
-import com.lansoeditor.demo.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+
+import com.lansoeditor.demo.R;
+
+import java.util.ArrayList;
 
 
 public class startActivity extends Activity {
@@ -36,7 +32,7 @@ public class startActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewpager);
-        mViewPager = (ViewPager)findViewById(R.id.viewpager);        
+        mViewPager = (ViewPager)findViewById(R.id.viewpager);
         mViewPager.setOnPageChangeListener(new MyOnPageChangeListener());
         
         mPage1 = (ImageView)findViewById(R.id.page1);

@@ -1,10 +1,5 @@
 package com.example.commonDemo;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-
-
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -13,6 +8,9 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class VideoProgressView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 

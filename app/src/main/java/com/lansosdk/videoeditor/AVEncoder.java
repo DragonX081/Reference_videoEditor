@@ -2,10 +2,7 @@ package com.lansosdk.videoeditor;
 
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import android.util.Log;
 
 
 public class AVEncoder {

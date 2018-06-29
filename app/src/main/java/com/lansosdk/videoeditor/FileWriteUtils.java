@@ -1,15 +1,13 @@
 package com.lansosdk.videoeditor;
 
+import android.util.Log;
+
 import java.io.BufferedOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-import java.nio.channels.FileChannel;
-
-import android.util.Log;
 
 public class FileWriteUtils {
 

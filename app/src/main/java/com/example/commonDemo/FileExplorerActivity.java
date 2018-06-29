@@ -1,13 +1,6 @@
 package com.example.commonDemo;
 
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Comparator;
-
-import com.lansoeditor.demo.R;
-import com.lansosdk.videoeditor.MediaInfo;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +8,13 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.lansoeditor.demo.R;
+import com.lansosdk.videoeditor.MediaInfo;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class FileExplorerActivity extends ListActivity {
 

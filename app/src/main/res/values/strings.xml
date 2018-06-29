@@ -40,18 +40,17 @@
 	<string name="cmdwrapper_hint">当前功能已经测试完毕,但还没有编写UI界面,请在VideoEditor.java文件中查看相关的实现方法.如有问题,请联系我们,谢谢!\n\n</string>
 
 	<string name="demo_id_mediainfo">获取视频信息</string>
+	<string name="demo_id_videocompress">视频压缩【强】</string>
 	<string name="demo_id_segmentrecord">分段录制(支持回删/开源)</string>
-
-
 	<string name="demo_id_avsplit">音视频分离</string>
 	<string name="demo_id_avmerge">合成音频/替换音频</string>
 	<string name="demo_id_cutaudio">音频剪切</string>
 	<string name="demo_id_cutvideo">视频剪切</string>
 	<string name="demo_id_concatvideo">视频拼接</string>
 	<string name="demo_id_videocrop">画面裁剪</string>
-	<string name="demo_id_videocompress">码率压缩视频</string>
-	<string name="demo_id_videoscale_soft">  缩放压缩一[软件实现]</string>
-	<string name="demo_id_videoscale_hard">  缩放压缩二[GPU实现]</string>
+
+	<string name="demo_id_videoscale_soft">  缩放压缩[软件实现]</string>
+
 	<string name="demo_id_videowatermark">增加水印</string>
 	<string name="demo_id_videocropwatermark">裁剪和加水印</string>
 	<string name="demo_id_videogetframes">获取所有帧图片</string>
@@ -75,7 +74,7 @@
 	<string name="demo_id_videoreverse">视频倒序</string>
 	<string name="demo_id_avreverse">音视频倒序</string>
 
-	<string name="demo_id_videolayout">多个视频布局【新】</string>
+	<string name="demo_id_videolayout">多个视频布局</string>
 
 
 

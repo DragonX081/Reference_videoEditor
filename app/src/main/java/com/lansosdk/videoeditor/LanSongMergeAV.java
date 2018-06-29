@@ -22,6 +22,49 @@ public class LanSongMergeAV extends VideoEditor {
     protected ArrayList<String> deleteArray = new ArrayList<String>();
 
     /**
+     * 直接混合
+     * 内部不做时长判断,不做mp3,aac判断,不做是否有音频的判断;
+     * @param audio
+     * @param video
+     * @param dstMp4
+     * @return
+     */
+    public static int mergeAVDirectly(String audio, String video, String dstMp4) {
+        MediaInfo aInfo = new MediaInfo(audio, false);
+        MediaInfo vInfo = new MediaInfo(video, false);
+
+        String inputAudio = audio;
+        List<String> cmdList = new ArrayList<String>();
+
+        cmdList.add("-i");
+        cmdList.add(inputAudio);
+        cmdList.add("-i");
+        cmdList.add(video);
+
+        cmdList.add("-map");
+        cmdList.add("0:a");
+        cmdList.add("-map");
+        cmdList.add("1:v");
+
+        cmdList.add("-acodec");
+        cmdList.add("copy");
+        cmdList.add("-vcodec");
+        cmdList.add("copy");
+
+        cmdList.add("-absf");
+        cmdList.add("aac_adtstoasc");
+
+        cmdList.add("-y");
+        cmdList.add(dstMp4);
+        String[] command = new String[cmdList.size()];
+        for (int i = 0; i < cmdList.size(); i++) {
+            command[i] = (String) cmdList.get(i);
+        }
+        VideoEditor editor = new VideoEditor();
+        int ret = editor.executeVideoEditor(command);
+        return ret;
+    }
+    /**
      * 合并音视频,  替换背景音乐;
      *
      * @param audio  含有音乐的完整路径, 可以是 mp3/m4a的音乐, 也可以是含有音频的mp4文件;
@@ -43,7 +86,7 @@ public class LanSongMergeAV extends VideoEditor {
                     cmdList.add("-t");
                     cmdList.add(String.valueOf(vInfo.vDuration));
                 } else{
-                    String aac=SDKFileUtils.createAACFileInBox();
+                    String aac= SDKFileUtils.createAACFileInBox();
                     deleteArray.add(aac);
 
                     convertAudioToAAC(inputAudio,vInfo.vDuration,aac);

@@ -1,10 +1,5 @@
 package com.example.commonDemo;
 
-import java.io.File;
-
-import com.lansoeditor.demo.R;
-import com.lansosdk.videoeditor.MediaInfo;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -13,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.lansoeditor.demo.R;
+
+import java.io.File;
 
 public class FileExplorerAdapter extends BaseAdapter {
 	

@@ -9,7 +9,6 @@ import android.graphics.SurfaceTexture;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
@@ -85,7 +84,7 @@ public class VideoLayoutDemoActivity extends Activity {
         linearLayout.setLayoutParams(params);
         linearLayout.invalidate();// 刷新一下.
 
-        dstPath=SDKFileUtils.createMp4FileInBox();
+        dstPath= SDKFileUtils.createMp4FileInBox();
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override

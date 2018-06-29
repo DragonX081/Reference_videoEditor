@@ -1,5 +1,8 @@
 package com.lansosdk.videoeditor;
 
+import android.text.TextUtils;
+import android.util.Log;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.Closeable;
@@ -12,13 +15,32 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
 
-import android.text.TextUtils;
-import android.util.Log;
-
 public class SDKFileUtils {
 
 	public static final String TAG="SDKFileUtils";
-	public static final boolean VERBOSE = false;  
+	public static final boolean VERBOSE = false;
+
+	/**
+	 * 返回文件大小, 单位M; 2位有效小数;
+	 * @param filePath
+	 * @return
+	 */
+	public static float  getFileSize(String  filePath){
+		if(filePath==null){
+			return  0.0f;
+		}else {
+			File file = new File(filePath);
+			if(file.exists()==false){
+				return 0.0f;
+			}else{
+				long size=file.length();
+				float size2=(float)size/(1024f*1024f);
+
+				int n=(int)(size2*100f);  //截断
+				return (float)n/100f;
+			}
+		}
+	}
 	 /**
     * 在指定的文件夹里创建一个文件名字, 名字是当前时间,指定后缀.
     * @return
@@ -177,7 +199,7 @@ public class SDKFileUtils {
 	 */
 	public static String copyFile(String srcPath,String suffix)
 	{
-			 	String dstPath=SDKFileUtils.createFile(SDKDir.TMP_DIR, suffix);
+			 	String dstPath= SDKFileUtils.createFile(SDKDir.TMP_DIR, suffix);
 			 	
 //			 	String cmd="/system/bin/cp ";
 //			 	cmd+=srcPath;

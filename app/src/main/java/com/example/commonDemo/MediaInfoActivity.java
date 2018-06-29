@@ -1,13 +1,11 @@
 package com.example.commonDemo;
 
-import com.lansoeditor.demo.R;
-import com.lansosdk.videoeditor.MediaInfo;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.TextureView;
 import android.widget.TextView;
+
+import com.lansoeditor.demo.R;
+import com.lansosdk.videoeditor.MediaInfo;
 
 public class MediaInfoActivity extends Activity{
 
@@ -30,7 +28,7 @@ public class MediaInfoActivity extends Activity{
 	private String getMediaInfo()
 	{
 		String retStr="";
-		MediaInfo  info=new MediaInfo(videoPath);
+		MediaInfo info=new MediaInfo(videoPath);
 	
 		if(info.prepare())
 		{

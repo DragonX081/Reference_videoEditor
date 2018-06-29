@@ -1,9 +1,9 @@
 package com.example.commonDemo;
 
-import com.lansoeditor.demo.R;
-
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.lansoeditor.demo.R;
 
 public class BusynessActivity extends Activity{
 

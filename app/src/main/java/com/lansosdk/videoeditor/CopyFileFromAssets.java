@@ -3,7 +3,6 @@ package com.lansosdk.videoeditor;
 import android.content.Context;
 import android.util.Log;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
