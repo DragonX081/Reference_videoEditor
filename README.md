@@ -6,7 +6,7 @@
   -  SDK已运行二年左右,商用APP200+.
   
 ### 免费策略:
--  此SDK已运行二年左右,商用APP200+, 现在免费永久免费.
+-  此SDK已运行二年左右,商用APP200+, 现在永久免费.
 -  SDK不访问网络,完全本地处理.
 -  个人和公司都可以商用,不需要和我们说明.
 -  随我们专业版定期升级,维护.
@@ -15,7 +15,7 @@
 
 ### 使用:
 ```
--  1, 一条命令即可完成:  
+-  1, 一条命令即可完成,:  
 	       VideoEditor editor=VideoEditor();
    举例1: 视频增加水印:
               "处理后的视频"=editor.executeOverLayVideoFrame("视频路径","增加的图片路径","x坐标","y坐标");
@@ -32,8 +32,8 @@
 ```
 ### 辅助代码:    
 ```
-    1, VideoEditor有一些方法:
-    	   1. setonProgressListener()  //executeXXX 正在执行的百分比进度;
+    1, VideoEditor其他公共方法:
+    	   1. setonProgressListener();  //executeXXX 正在执行的百分比进度;
     	   2 setEncoderBitrate();  //给executeXXX 指定码率;
     	   3 VideoEditor.isForceSoftWareEncoder=true; //强制executeXXX 在编码时,采用软编码器;
     	   4 cancel(); //取消正在执行的executeXXX;
