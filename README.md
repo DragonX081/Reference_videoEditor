@@ -1,18 +1,18 @@
-  #可能是android系统中对ffmpeg封装最好的SDK;
-  #增加 H264硬件编码器和H264硬件解码器;
-  #增加40多个方法常见方法;编写各种辅助处理类.
+# 可能是android系统中对ffmpeg封装最好的SDK;
+# 增加 H264硬件编码器和H264硬件解码器;
+# 增加40多个方法常见方法;编写各种辅助处理类.
   
-免费策略:
-*   此SDK已运行二年左右,商用APP200+, 现在免费永久免费.
-*   SDK不访问网络,完全本地处理.
-*   个人和公司都可以商用,不需要和我们说明;
-*   随我们专业版定期升级,维护.
-*   遇到问题在issue中解答;
-*   我们提供有偿技术支持和定制服务,详情见下面.
+# 免费策略:
+-  此SDK已运行二年左右,商用APP200+, 现在免费永久免费.
+-  SDK不访问网络,完全本地处理.
+-  个人和公司都可以商用,不需要和我们说明;
+-  随我们专业版定期升级,维护.
+-  遇到问题在issue中解答;
+-  我们提供有偿技术支持和定制服务,详情见下面.
 
-
-使用:
-*   1, 一条命令即可完成:  
+### 使用:
+```
+-  1, 一条命令即可完成:  
 	       VideoEditor editor=VideoEditor();
    举例1: 视频增加水印:
               "处理后的视频"=editor.executeAddWaterMake("视频路径","增加的图片路径","x坐标","y坐标");
@@ -26,23 +26,29 @@
                倒序,加减速,镜像,音频混合,音频转码,画面填充,缩放,压缩,镜像,增加文字,视频转码,图片视频转GIF等;
                
 *   3, 如果列举的功能不能满足您的需求, 您可以根据ffmpeg的命令自行扩展,代码中有说明;  
-辅助代码:               
+```
+### 辅助代码:    
+```
     1, VideoEditor有一些方法:
-    	   1. setonProgressListener()  //executeXXX正在执行的百分比进度;
-    	   2 setEncoderBitrate();  //给executeXXX指定码率;
-    	   3 VideoEditor.isForceSoftWareEncoder=true; //强制execute在编码时,采用软编码器;
+    	   1. setonProgressListener()  //executeXXX 正在执行的百分比进度;
+    	   2 setEncoderBitrate();  //给executeXXX 指定码率;
+    	   3 VideoEditor.isForceSoftWareEncoder=true; //强制executeXXX 在编码时,采用软编码器;
     	   4 cancel(); //取消正在执行的executeXXX;
-    	   5,当返回null, 我们提供了log采集, 可通过getErrorLog()得到错误信息;
+    	   5,当返回null, 我们提供了log采集, 可通过getErrorLog()得到错误信息;大部分是因为视频参数错误引起的.
     	   
     2, 写了MediaInfo辅助类, 用来很快的获取视频的基本信息,以方便你实际参数的参考, 使用如下:
             MediaInfo info=new MediaInfo("要获取视频的路径");
              if(info.prepare()){
                	; 如果返回true,得到视频宽度,高度,码率,帧率,时长,编码器,总帧数,是否有B帧,旋转角度, 音频采样率,音频通道数, 音频码率等参数;
              }
-     3,
- 
-=========================华丽的分割线
- ###增值服务:
+``` 
+### 集成步骤
+-  直接导入module; 在代码开始的时候,增加SDK初始化代码:
+```
+	LanSoEditor.initSDK(getApplicationContext());
+```
+
+# 增值服务:
  	  我们提供有偿技术支持, 费用3500元一年.包括如下:
  	  	  1,提供定制APK的开放功能代码.
  	  	  2,SDK范围内的功能定制. 
