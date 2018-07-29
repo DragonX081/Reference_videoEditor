@@ -1,55 +1,59 @@
-# LanSoEditor_common  ---android平台的视频编辑SDK
+  #可能是android系统中对ffmpeg封装最好的SDK;
+  #增加 H264硬件编码器和H264硬件解码器;
+  #增加40多个方法常见方法;编写各种辅助处理类.
+  
+免费策略:
+*   此SDK已运行二年左右,商用APP200+, 现在免费永久免费.
+*   SDK不访问网络,完全本地处理.
+*   个人和公司都可以商用,不需要和我们说明;
+*   随我们专业版定期升级,维护.
+*   遇到问题在issue中解答;
+*   我们提供有偿技术支持和定制服务,详情见下面.
 
-### 我们有基于【容器和图层架构】的专业版本
- https://github.com/LanSoSdk/LanSoEditor_advance
- 欢迎您的使用,专业版本采用类似photoshop一样的图层架构， 各种视频， 图片，文字， UI等都被处理成一个个的图层 增加到DrawPad（容器）中。可以实现滤镜, 叠加,混合,标记,涂鸦,贴纸等各种视频编辑效果.
 
-### 当前版本是LanSoEditor-2.9.5
-*  增加视频压缩功能.
-*  增加删除视频中logo的功能;
-### 功能介绍
-*  主要使用在音视频的: 裁剪,剪切,分离,合并,转换,拼接,水印,叠加,混合,转码等场合;
-*  
-*  我们是针对android平台对ffmpeg做了硬件加速优化,经过多款手机的测试,优化性能大概提升4倍左右
-*  
-*  我们在项目中提供了大约40个常用的方法并写了详细的说明注释,基本满足一般视频编辑的需求
-*  
-*  我们另外提供了扩展接口,您完全可以根据强大的ffmpeg命令来扩展您需要的功能
-*  
-*  【新】增加视频分段录制的功能， 支持在录制过程中回删操作，并开放Java端源代码，您可以任意的更改内部参数，以符合您的录制需求。
-*  
-*  【新】提供音视频的编解码器， 针对一些特殊的使用场合使用， 您可以根据实际需求来自己编码或解码。
-*  
-*  此SDK采用低价收费授权,公司性质的合作,为了您项目更好的进行,欢迎和我们联系.谢谢!
-
-### 我们的专业版本下载地址：
-*	https://github.com/LanSoSdk/LanSoEditor_advance
-
-### 举例功能的界面展示
-![](https://github.com/LanSoSdk/LanSoEditor_common/blob/master/editor_common_main.jpg)
-
-### 下载地址: 
-*  https://github.com/LanSoSdk/LanSoEditor_common
-
-### 联系方式:
-*   QQ 1852600324 
-*   Email:support@lansongtech.com
-*   Phone:0571-89052701
-*   网址:www.lansongtech.com
-
-### 本SDK的编解码有:
-*  软解码器H264
-*  硬件加速解码器lansoh264_dec
-*  软编码器libx264
-*  硬件加速编码器lansoh264_enc
-*  音频mp3解码器mp3
-*  音频mp3编码器libmp3lame
-*  音频aac解码器aac
-*  音频aac编码器 faac
-*  音频pcm编解码器 pcm_s16le
-*  编解码器 gif
-
-## 使用案例
-*   我们从事的是：商业SDK开发、更新和维护；
-*   当前包括500强 大公司在内的大约80多个上线APP在使用，行业涉及 社交、微商、广场舞、直播、工具、母婴、舞蹈、厨艺、金融、炫酷等多种行业
-*   欢迎联系我们，索取相关案例信息和授权说明
+使用:
+*   1, 一条命令即可完成:  
+	       VideoEditor editor=VideoEditor();
+   举例1: 视频增加水印:
+              "处理后的视频"=editor.executeAddWaterMake("视频路径","增加的图片路径","x坐标","y坐标");
+   举例2: 裁剪视频时长:
+               dstResult=editor.executeCutVideo("视频路径","开始时间S","结束时间S");
+   举例3: 画面裁剪:
+               dstResult=editor.executeCropVideoFrame("视频路径","x坐标","y坐标","裁剪宽度","裁剪高度");
+               
+*   2, 我们封装好的功能有
+		 替换背景音乐, 声音混合, 多段视频的拼接, 不同视频源的拼接, 视频画面拼接, 读取视频帧, 获取所有帧, 图片转视频, 
+               倒序,加减速,镜像,音频混合,音频转码,画面填充,缩放,压缩,镜像,增加文字,视频转码,图片视频转GIF等;
+               
+*   3, 如果列举的功能不能满足您的需求, 您可以根据ffmpeg的命令自行扩展,代码中有说明;  
+辅助代码:               
+    1, VideoEditor有一些方法:
+    	   1. setonProgressListener()  //executeXXX正在执行的百分比进度;
+    	   2 setEncoderBitrate();  //给executeXXX指定码率;
+    	   3 VideoEditor.isForceSoftWareEncoder=true; //强制execute在编码时,采用软编码器;
+    	   4 cancel(); //取消正在执行的executeXXX;
+    	   5,当返回null, 我们提供了log采集, 可通过getErrorLog()得到错误信息;
+    	   
+    2, 写了MediaInfo辅助类, 用来很快的获取视频的基本信息,以方便你实际参数的参考, 使用如下:
+            MediaInfo info=new MediaInfo("要获取视频的路径");
+             if(info.prepare()){
+               	; 如果返回true,得到视频宽度,高度,码率,帧率,时长,编码器,总帧数,是否有B帧,旋转角度, 音频采样率,音频通道数, 音频码率等参数;
+             }
+     3,
+ 
+=========================华丽的分割线
+ ###增值服务:
+ 	  我们提供有偿技术支持, 费用3500元一年.包括如下:
+ 	  	  1,提供定制APK的开放功能代码.
+ 	  	  2,SDK范围内的功能定制. 
+ 	  	  3,及时的技术支持.
+ 	  	  4,指定需求时的视频技术咨询.
+ 	 编写的定制APK提供:
+ 	 	   *美颜录制. 类似微信的录制界面,包括聚焦,亮度调节,按下录制,拍摄图片.5级美颜.
+ 	 	   *编辑功能: 涂鸦, 增加文字, 增加图片,变速,时长裁剪,画面裁剪.
+ 	 	   *定制APK的功能,会一直更新, 速度和画质会一直优化,并采用GPU来渲染.欢迎你的使用.
+ 	 联系我们: support@lansongtech.com; QQ:1852600324;      	   
+   
+  我们有专业版SDK, 可以做各种特效,并支持AE模板:https://github.com/LanSoSdk/LanSoEditor_advance
+  , 欢迎联系我们. 	   
+               
