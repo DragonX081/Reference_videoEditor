@@ -1,14 +1,14 @@
-# 可能是android系统中对ffmpeg封装最好的免费SDK; 
+## 可能是android系统中对ffmpeg封装最好的免费SDK; 
 
-### 主要特色:
-  -  增加 H264硬件编码器和H264硬件解码器,处理速度极大提升;
+### 主要特点:
+  -  增加 H264硬件编码器 和 H264硬件解码器,  处理速度极大提升;
   -  增加40多个方法常见方法,编写各种辅助处理类.
   -  SDK已运行二年左右,商用APP200+.
   
 ### 免费策略:
 -  此SDK已运行二年左右,商用APP200+, 现在免费永久免费.
 -  SDK不访问网络,完全本地处理.
--  个人和公司都可以商用,不需要和我们说明;
+-  个人和公司都可以商用,不需要和我们说明.
 -  随我们专业版定期升级,维护.
 -  遇到问题在issue中解答;
 -  我们提供有偿技术支持和定制服务,详情见下面.
@@ -18,7 +18,7 @@
 -  1, 一条命令即可完成:  
 	       VideoEditor editor=VideoEditor();
    举例1: 视频增加水印:
-              "处理后的视频"=editor.executeAddWaterMake("视频路径","增加的图片路径","x坐标","y坐标");
+              "处理后的视频"=editor.executeOverLayVideoFrame("视频路径","增加的图片路径","x坐标","y坐标");
    举例2: 裁剪视频时长:
                dstResult=editor.executeCutVideo("视频路径","开始时间S","结束时间S");
    举例3: 画面裁剪:
@@ -42,11 +42,13 @@
     2, 写了MediaInfo辅助类, 用来很快的获取视频的基本信息,以方便你实际参数的参考, 使用如下:
             MediaInfo info=new MediaInfo("要获取视频的路径");
              if(info.prepare()){
-               	; 如果返回true,得到视频宽度,高度,码率,帧率,时长,编码器,总帧数,是否有B帧,旋转角度, 音频采样率,音频通道数, 音频码率等参数;
+               	; 如果返回true,得到视频宽度,高度,码率,帧率,时长,编码器,总帧数,是否有B帧,旋转角度, 音频采样率,音频通道数, 音频码率,是否有音频,视频,视频是否旋转 等参数;
              }
+	     也可以先用MediaInfo判断当前视频的各种信息;
+    3, 文件创建,删除类 LanSongFileUtil.java 方便你在编辑时的各种文件创建,删除, 判断等操作.	     
 ``` 
 ### 集成步骤
--  直接导入module; 在代码开始的时候,增加SDK初始化代码:
+-  直接导入lansongsdk 这个module后; 在代码开始的时候,增加SDK初始化代码:
 ```
 	LanSoEditor.initSDK(getApplicationContext());
 ```
@@ -65,12 +67,14 @@
       -  定制APK的功能,会一直更新, 速度和画质会一直优化,并采用GPU来渲染.欢迎你的使用.
 ```
 
-### 我们有专业版SDK, 可以做各种特效,并支持AE模板: https://github.com/LanSoSdk/LanSoEditor_advance 欢迎您的评估使用.
+-   我们有专业版SDK,图层架构,可以做各种视频特效, 并支持AE模板,微商小视频,抖音趣拍等效果: 
+     https://github.com/LanSoSdk/LanSoEditor_advance 
+     欢迎您的评估使用.
 
 ### 联系方式:
    -  因我们是杭州蓝松科技有限公司,一家正常运行的公司, 没有过多的资源为免费的用户服务, 请在issue中提交你的问题,我们会一一解答,敬请谅解;
    -  联系方式:
-      网站: www.lansongtech.com
-      邮箱: support@lansongtech.com
-      QQ:1852600324;
+      -  网站: www.lansongtech.com
+      -  邮箱: support@lansongtech.com
+      -  QQ : 1852600324
                
