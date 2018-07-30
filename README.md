@@ -51,16 +51,17 @@
 -  直接导入lansongsdk 这个module后; 在代码开始的时候,增加SDK初始化代码:
 ```
 	LanSoEditor.initSDK(getApplicationContext());
-	我们提供了3种指令集:armeabi/armeabi-v7a/arm64-v8a,以方便不同的需求.但大部分是需要一个,我们推荐保留armeabi-v7a,在您导入项目后删除另外两个;
 ```
+我们提供了3种指令集:armeabi/armeabi-v7a/arm64-v8a,以方便不同的需求.但大部分是需要一个,我们推荐保留armeabi-v7a,在您导入项目后删除另外两个;
 
-## 增值服务:
+
+# 增值服务:
 ```
   -  我们提供有偿技术支持, 费用3500元一年.提供如下:
 	  1, 定制APK的开放功能代码.
 	  2, SDK范围内的功能定制. 
 	  3, 及时的技术支持.
-	  4, 指定需求时的视频技术咨询.
+	  4, 规划需求时的视频技术咨询,可以在规划需求的时候,就向我们咨询,或许您感觉很复杂的效果,在我们看来,只需几行代码就可以实现,可以让您少走很多弯路;
 	  
   -  编写的定制APK安装包,可以在当前SDK下载的文件夹中找到:
   -   包含:
@@ -74,7 +75,8 @@
 	
 
 ### 我们有专业版SDK,图层架构,可以做各种视频特效, 并支持AE模板,微商小视频,抖音趣拍等效果: 
-     https://github.com/LanSoSdk/LanSoEditor_advance 
+     [android 专业版](https://github.com/LanSoSdk/LanSoEditor_advance)
+     [ios 专业版](https://github.com/LanSoSdk/LanSongEditor_IOS)
      欢迎您的评估使用.
 
 ### 联系方式:
