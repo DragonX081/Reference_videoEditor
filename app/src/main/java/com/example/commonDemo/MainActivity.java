@@ -4,11 +4,13 @@ package com.example.commonDemo;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.PermissionChecker;
@@ -27,11 +29,9 @@ import android.widget.Toast;
 import com.anthonycr.grant.PermissionsManager;
 import com.anthonycr.grant.PermissionsResultAction;
 import com.lansoeditor.demo.R;
-import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.MediaInfo;
-import com.lansosdk.videoeditor.SDKDir;
-import com.lansosdk.videoeditor.SDKFileUtils;
+import com.lansosdk.videoeditor.LanSongFileUtil;
 import com.lansosdk.videoeditor.VideoEditor;
 
 import java.io.File;
@@ -41,33 +41,20 @@ public class MainActivity extends Activity {
 
     private DemoInfo[] mTestCmdArray = {
 
-            new DemoInfo(R.string.demo_id_videocompress, R.string
-                    .demo_more_videoscale_hard, false, false),
-            new DemoInfo(R.string
-                    .demo_id_segmentrecord, R.string.demo_id_segmentrecord, true, false),
-            new DemoInfo(R.string
-                    .demo_id_avsplit, R.string.demo_more_avsplit, true, true),
             new DemoInfo(R.string.demo_id_avmerge, R.string.demo_more_avmerge, true, false),
-            new DemoInfo(R.string
-                    .demo_id_cutaudio, R.string.demo_more_cutaudio, false, true), new DemoInfo(R.string.demo_id_cutvideo, R
-            .string.demo_more_cutvideo, true, false),
-            new DemoInfo(R.string.demo_id_concatvideo, R.string
-            .demo_more_concatvideo, true, false), new DemoInfo(R.string.demo_id_videocrop, R.string
-            .demo_more_videocrop, true, false),
-            new DemoInfo(R.string.demo_id_videoscale_soft, R.string
-            .demo_more_videoscale_soft, true, false),
+            new DemoInfo(R.string.demo_id_cutaudio, R.string.demo_more_cutaudio, false, true),
+            new DemoInfo(R.string.demo_id_cutvideo, R.string.demo_more_cutvideo, true, false),
+            new DemoInfo(R.string.demo_id_avsplit, R.string.demo_id_avsplit, true, false),
 
-            new DemoInfo(R.string.demo_id_videowatermark, R.string
-            .demo_more_videowatermark, true, false),
-            new DemoInfo(R.string.demo_id_videocropwatermark, R.string
-            .demo_more_videocropwatermark, true, false),
-            new DemoInfo(R.string.demo_id_videogetframes, R.string
-            .demo_more_videogetframes, false, false),
-            new DemoInfo(R.string.demo_id_videogetoneframe, R.string
-            .demo_more_videogetoneframe, false, false),
-            new DemoInfo(R.string.demo_id_videoclockwise90, R.string
-            .demo_more_videoclockwise90, true, false), new DemoInfo(R.string.demo_id_videocounterClockwise90, R
-            .string.demo_more_videocounterClockwise90, true, false),
+            new DemoInfo(R.string.demo_id_concatvideo, R.string.demo_more_concatvideo, true, false),
+
+            new DemoInfo(R.string.demo_id_videocrop, R.string.demo_more_videocrop, true, false),
+            new DemoInfo(R.string.demo_id_videoscale_soft, R.string.demo_more_videoscale_soft, true, false),
+
+            new DemoInfo(R.string.demo_id_videowatermark, R.string.demo_more_videowatermark, true, false),
+            new DemoInfo(R.string.demo_id_videocropwatermark, R.string.demo_more_videocropwatermark, true, false),
+            new DemoInfo(R.string.demo_id_videoclockwise90, R.string.demo_more_videoclockwise90, true, false),
+            new DemoInfo(R.string.demo_id_videocounterClockwise90, R.string.demo_more_videocounterClockwise90, true, false),
             new DemoInfo(R.string.demo_id_videoaddanglemeta, R.string.demo_more_videoaddanglemeta, true, false),
             new DemoInfo(R.string.demo_id_audiodelaymix, R.string.demo_more_audiodelaymix, false, true),
 
@@ -76,7 +63,7 @@ public class MainActivity extends Activity {
             new DemoInfo(R.string.demo_id_videopad, R.string.demo_more_videopad, true, false),
 
             new DemoInfo(R.string.demo_id_videoadjustspeed, R.string
-                    .demo_more_videoadjustspeed, true, false),
+            .demo_more_videoadjustspeed, true, false),
             new DemoInfo(R.string.demo_id_videomirrorh, R.string
                     .demo_more_videomirrorh, true, false),
             new DemoInfo(R.string.demo_id_videomirrorv, R.string
@@ -85,17 +72,21 @@ public class MainActivity extends Activity {
                     .demo_more_videorotateh, true, false),
             new DemoInfo(R.string.demo_id_videorotatev, R.string
                     .demo_more_videorotatev, true, false),
+
             new DemoInfo(R.string.demo_id_videoreverse, R.string
                     .demo_more_videoreverse, true, false),
+
             new DemoInfo(R.string.demo_id_avreverse, R.string
                     .demo_more_avreverse, true, false),
+
             new DemoInfo(R.string.demo_id_videolayout, R.string
                     .demo_id_videolayout, true, false),
-            new DemoInfo(R.string.direct_play_video, R.string.direct_play_video, false, false),
 
-            new DemoInfo(R.string.demo_id_expend_cmd, R.string.demo_more_avsplit, false, false),
+            new DemoInfo(R.string.demo_id_expend_cmd, R.string.demo_id_expend_cmd, false, false),
+            new DemoInfo(R.string.direct_play_video, R.string.direct_play_video, false, false)
+        };
 
-            new DemoInfo(R.string.demo_id_connet_us, R.string.demo_more_avsplit, false, false),};
+
     private ListView mListView = null;
     private TextView tvVideoPath;
     private boolean isPermissionOk = false;
@@ -103,7 +94,6 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.demo_layout);
@@ -111,14 +101,13 @@ public class MainActivity extends Activity {
         //加载so库,并初始化.
         LanSoEditor.initSDK(getApplicationContext(), null);
 
-
         checkPermissions();
-
 
         initView();
 
         showHintDialog();
 
+        testFile();
     }
 
     @Override
@@ -129,15 +118,11 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SDKFileUtils.deleteDir(new File(SDKDir.TMP_DIR)); //删除dir
+        LanSongFileUtil.deleteDir(new File(LanSongFileUtil.TMP_DIR)); //删除dir
     }
 
     private void startActivity(int position) {
-        DemoInfo demo = mTestCmdArray[position];
-        if (demo.mHintId == R.string.demo_id_videocompress) {
-            startScaleActivity();
-
-        } else {
+            DemoInfo demo = mTestCmdArray[position];
             Intent intent = new Intent(MainActivity.this, AVEditorDemoActivity.class);
 
             intent.putExtra("videopath1", tvVideoPath.getText().toString());
@@ -146,32 +131,7 @@ public class MainActivity extends Activity {
             intent.putExtra("demoID", demo.mHintId);
             intent.putExtra("textID", demo.mTextId);
             startActivity(intent);
-        }
     }
-
-    private void startBusynessActivity() {
-        Intent intent = new Intent(MainActivity.this, BusynessActivity.class);
-        startActivity(intent);
-    }
-
-    private void startCustomFunctionActivity() {
-        Intent intent = new Intent(MainActivity.this, CustomFunctionActivity.class);
-        startActivity(intent);
-    }
-
-    //-----------------------
-    private void startScaleActivity()  //开启硬件缩放
-    {
-        Intent intent = new Intent(MainActivity.this, VideoCompressActivity.class);
-        intent.putExtra("videopath", tvVideoPath.getText().toString());
-        startActivity(intent);
-    }
-
-    private void startSegmentRecord() {
-        Intent intent = new Intent(MainActivity.this, SegmentRecorderActivity.class);
-        startActivity(intent);
-    }
-
     //直接播放视频.
     private void startVideoPlayer() {
         Intent intent = new Intent(MainActivity.this, VideoPlayerActivity.class);
@@ -213,7 +173,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                new CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "dy_xialu2.mp4")
+                new CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "dy_xialu.mp4")
                         .execute();
             }
         });
@@ -224,16 +184,14 @@ public class MainActivity extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 1) {  //分段录制
-                    startSegmentRecord();
-                } else if (position == mTestCmdArray.length - 2) {  //最后两个, 扩展功能
-                    startCustomFunctionActivity();
-                } else if (position == mTestCmdArray.length - 1) {  //最后一个, 联系我们
 
-                    startBusynessActivity();
-                } else if (position == mTestCmdArray.length - 3) {  //直接视频播放
+                if (position == mTestCmdArray.length - 1) {  //直接视频播放
                     startVideoPlayer();
-                } else if (position == mTestCmdArray.length - 4) {  //视频布局
+                } else if (position == mTestCmdArray.length - 2) {  //自定义
+                    Intent intent = new Intent(MainActivity.this, CustomFunctionActivity.class);
+                    startActivity(intent);
+
+                } else if (position == mTestCmdArray.length - 3) {  //视频布局
                     startVideoLayout();
                 } else {
                     if (checkPath()) {
@@ -288,7 +246,7 @@ public class MainActivity extends Activity {
                 MediaInfo info = new MediaInfo(path, false);
                 boolean ret = info.prepare();
                 if (ret == false) {
-                    showHintDialog(R.string.sdk_checkerror);
+                    showHintDialog("可能不是音视频文件");
                 }
                 return ret;
             }
@@ -321,28 +279,14 @@ public class MainActivity extends Activity {
 
     private void showHintDialog() {
 
-        String timeHint = getResources().getString(R.string.sdk_limit);
-        timeHint = String.format(timeHint, VideoEditor.getSDKVersion());
-
+       String timeHint = "欢迎使用蓝松短视频SDK 免费版本.\n 当前版本是:"+VideoEditor.getSDKVersion()+
+               "\n\n 我们提供有偿提供技术支持和定制服务,欢迎你的测试与合作; ";
 
         new AlertDialog.Builder(this).setTitle("提示").setMessage(timeHint).setPositiveButton("确定", new DialogInterface
                 .OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Calendar c = Calendar.getInstance();
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH) + 1;
-
-                int lyear = VideoEditor.getLimitYear();
-                int lmonth = VideoEditor.getLimitMonth();
-
-                Log.i(TAG, "current year is:" + year + " month is:" + month + " limit year:" + lyear + " limit " +
-                        "month:" + lmonth);
-                String timeHint = getResources().getString(R.string.sdk_limit2);
-                timeHint = String.format(timeHint, lyear, lmonth);
-
-                showHintDialog(timeHint);
             }
         }).show();
     }
@@ -357,17 +301,6 @@ public class MainActivity extends Activity {
             }
         }).show();
     }
-
-    private void showHintDialog(int hintId) {
-        new AlertDialog.Builder(this).setTitle("提示").setMessage(hintId).setPositiveButton("确定", new DialogInterface
-                .OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        }).show();
-    }
-
     //------------------------------------------
     private class SoftApAdapter extends BaseAdapter {
 
@@ -399,11 +332,8 @@ public class MainActivity extends Activity {
                 convertView = inflater.inflate(R.layout.test_cmd_item, parent, false);
             }
             TextView tvNumber = (TextView) convertView.findViewById(R.id.id_test_cmditem_cnt);
-
             TextView tvName = (TextView) convertView.findViewById(R.id.id_test_cmditem_tv);
-
             DemoInfo cmdInfo = mTestCmdArray[position];
-
             String str = "NO.";
             str += String.valueOf(position + 1);
 
@@ -435,6 +365,57 @@ public class MainActivity extends Activity {
                 isPermissionOk = false;
             }
         });
+    }
+    public class CopyDefaultVideoAsyncTask extends AsyncTask<Object, Object, Boolean> {
+        private ProgressDialog mProgressDialog;
+        private Context mContext = null;
+        private TextView tvHint;
+        private String fileName;
+        /**
+         * @param ctx
+         * @param tvhint 拷贝后, 把拷贝到的目标完整路径显示到这个TextView上.
+         * @param file   需要拷贝的文件名字.
+         */
+        public CopyDefaultVideoAsyncTask(Context ctx, TextView tvhint, String file) {
+            mContext = ctx;
+            tvHint = tvhint;
+            fileName = file;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            mProgressDialog = new ProgressDialog(mContext);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            mProgressDialog.setMessage("正在拷贝...");
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected synchronized Boolean doInBackground(Object... params) {
+            CopyFileFromAssets.copyAssets(mContext, fileName);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            if (mProgressDialog != null) {
+                mProgressDialog.cancel();
+                mProgressDialog = null;
+            }
+
+            String str = LanSongFileUtil.TMP_DIR + fileName;
+            if (LanSongFileUtil.fileExist(str)) {
+                Toast.makeText(mContext, "默认视频文件拷贝完成.视频样片路径:" + str, Toast.LENGTH_SHORT).show();
+                if (tvHint != null)
+                    tvHint.setText(str);
+            } else {
+                Toast.makeText(mContext, "抱歉! 默认视频文件拷贝失败,请联系我们:视频样片路径:" + str, Toast.LENGTH_SHORT).show();
+            }
+
+        }
     }
 
     private void testFile(){

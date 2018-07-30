@@ -18,8 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.lansoeditor.demo.R;
-import com.lansosdk.videoeditor.CopyFileFromAssets;
-import com.lansosdk.videoeditor.SDKFileUtils;
+import com.lansosdk.videoeditor.LanSongFileUtil;
 import com.lansosdk.videoeditor.VideoEditor;
 import com.lansosdk.videoeditor.VideoLayout;
 import com.lansosdk.videoeditor.onVideoEditorProgressListener;
@@ -31,7 +30,7 @@ import com.lansosdk.videoplayer.VideoPlayer.OnPlayerPreparedListener;
  * 因手机端性能有限, 如果加上缩放, 裁剪, 会处理的很慢
  * 建议1: 如果用户选择本地视频, 则在选择的时候, 就裁剪和缩放好;
  * 建议2: 如果录制视频, 则录制时就选择好录制尺寸;
- * 从而避免不必要的消耗;
+ * 从而避免不必要的耗时;
  *
  */
 public class VideoLayoutDemoActivity extends Activity {
@@ -84,8 +83,6 @@ public class VideoLayoutDemoActivity extends Activity {
         linearLayout.setLayoutParams(params);
         linearLayout.invalidate();// 刷新一下.
 
-        dstPath= SDKFileUtils.createMp4FileInBox();
-
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,9 +92,6 @@ public class VideoLayoutDemoActivity extends Activity {
                     }
             }
         });
-        /**
-         * 如果您使用我们的专业版,则不需要用多个布局,直接一个DrawPadView,里面放多个视频图层即可.
-         */
         texture1.setSurfaceTextureListener(new SurfaceTextureListener() {
 
             @Override
@@ -299,12 +293,11 @@ ProgressDialog  mProgressDialog;
     }
     @Override
     protected synchronized Boolean doInBackground(Object... params) {
-      layout.executeLayout4Video(540,960,
+        dstPath=layout.executeLayout4Video(540,960,
                 video1,0,0,
                 video2,270,0,
                 video3,0,480,
-                video4,270,480,
-                dstPath);
+                video4,270,480);
         return null;
     }
     @Override
@@ -315,7 +308,7 @@ ProgressDialog  mProgressDialog;
 
         isRunning=false;
 
-        if(SDKFileUtils.fileExist(dstPath)){
+        if(LanSongFileUtil.fileExist(dstPath)){
             showHintDialog();
         }
     }
