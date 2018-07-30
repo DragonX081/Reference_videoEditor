@@ -75,8 +75,8 @@
 	
 
 ### 我们有专业版SDK,图层架构,可以做各种视频特效, 并支持AE模板,微商小视频,抖音趣拍等效果: 
-     [android 专业版](https://github.com/LanSoSdk/LanSoEditor_advance)
-     [ios 专业版](https://github.com/LanSoSdk/LanSongEditor_IOS)
+     [android 专业版] (https://github.com/LanSoSdk/LanSoEditor_advance)
+     [ios 专业版] (https://github.com/LanSoSdk/LanSongEditor_IOS)
      欢迎您的评估使用.
 
 ### 联系方式:
