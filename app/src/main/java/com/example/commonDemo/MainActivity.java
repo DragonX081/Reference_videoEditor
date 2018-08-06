@@ -173,7 +173,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                new CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "dy_xialu.mp4")
+                new CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "dy_xialu2.mp4")
                         .execute();
             }
         });

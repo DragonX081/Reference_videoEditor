@@ -66,11 +66,15 @@ public class VideoEditor {
      */
     public static boolean  isForceHWEncoder=false;
     /**
-     * 是否强制使用软件编码器
+     * 是否强制使用软件编码器,全局变量
      * 默认先硬件编码,如果无法完成则切换为软编码
      */
     public static boolean  isForceSoftWareEncoder=false;
 
+    /**
+     * 在当前对象中使用
+     */
+    private boolean noCheck16Multi=false;
     /**
      * 给当前方法指定码率.
      * 此静态变量, 在execute执行后, 默认恢复为0;
@@ -91,6 +95,13 @@ public class VideoEditor {
 
     public void setEncodeBitRate(int bitRate){
         encodeBitRate=bitRate;
+    }
+
+    /**
+     * 不检查输入的分辨率是否是16的倍数;
+     */
+    public void setNOCheckSize16Multi(boolean check){
+        noCheck16Multi=check;
     }
     /**
      * 使能在ffmpeg执行的时候, 收集错误信息;
@@ -1667,7 +1678,6 @@ public class VideoEditor {
      * 把视频填充成指定大小的画面, 比视频的宽高 大的部分用黑色来填充.
      *
      * @param videoFile 源视频路径
-     * @param decCodec  视频用到的解码器, 通过MediaInfo得到.
      * @param padWidth  填充成的目标宽度 , 参数需要是16的倍数
      * @param padHeight 填充成的目标高度 , 参数需要是16的倍数
      * @param padX      把视频画面放到填充区时的开始X坐标
@@ -2259,7 +2269,7 @@ public class VideoEditor {
             return 1500 * 1024;
         } else if (wxh <= 800 * 480) {
             return 1800 * 1024;
-        } else if (wxh <= 960 * 544) {
+        } else if (wxh <= 960 * 540) {
             return 2000 * 1024;
         } else if (wxh <= 1280 * 720) {
             return 2500 * 1024;
@@ -2273,6 +2283,12 @@ public class VideoEditor {
         int sugg = getSuggestBitRate(wxh);
         return bitrate < sugg ? sugg : bitrate;   //如果设置过来的码率小于建议码率,则返回建议码率,不然返回设置码率
     }
+
+
+    /**
+     * 用在编码方法中;
+     */
+    private MediaInfo _inputInfo=null;
     /**
      * 编码执行, 如果您有特殊的需求, 可以重载这个方法;
      * @param cmdList
@@ -2282,14 +2298,38 @@ public class VideoEditor {
     {
         int ret=0;
         int bitrate=0;
+        boolean useSoftWareEncoder=false;
         if(encodeBitRate>0){
             bitrate=encodeBitRate;
         }
+
+
+        //2018年08月06日11:21:34增加;
+        if(isForceHWEncoder==false && noCheck16Multi==false){
+            for(int i=0;i<cmdList.size();i++){
+                String cmd=cmdList.get(i);
+                if("-i".equals(cmd) && i>0){  //  找到第一个输入项;
+                    String videoPath=cmdList.get(i+1);
+                    _inputInfo=new MediaInfo(videoPath);
+                    if(_inputInfo.prepare() && _inputInfo.vFrameRate>0){
+                        if(_inputInfo.getWidth()%16 !=0 || _inputInfo.getHeight()%16 !=0){
+                            Log.e(TAG,"您输入的视频分辨率宽度或高度不是16的倍数, 默认切换为软编码");
+                            useSoftWareEncoder=true;
+                        }
+                    }else{
+                        _inputInfo=null;
+                    }
+                }
+            }
+        }
+
+
         String dstPath=LanSongFileUtil.createMp4FileInBox();
+
 
         if(isForceHWEncoder){
             ret=executeWithEncoder(cmdList, bitrate, dstPath, true);
-        }else if(isForceSoftWareEncoder) {
+        }else if(isForceSoftWareEncoder || useSoftWareEncoder) {
             ret = executeWithEncoder(cmdList, bitrate, dstPath, false);
         }else if(checkSoftEncoder()){
             ret = executeWithEncoder(cmdList, bitrate, dstPath, false);
@@ -2311,7 +2351,7 @@ public class VideoEditor {
             ret=executeWithEncoder(cmdList, bitrate, dstPath, false);
         }
 
-        if(ret!=0){
+        if(ret!=0){  //处理失败,再处理一次,拿到错误信息;
             if(lanSongLogCollector !=null){
                 lanSongLogCollector.start();
             }
@@ -2322,8 +2362,10 @@ public class VideoEditor {
                 lanSongLogCollector.stop();
             }
             LanSongFileUtil.deleteFile(dstPath);
+            _inputInfo=null;
             return null;
         }else{
+            _inputInfo=null;
             return dstPath;
         }
     }
@@ -2362,7 +2404,11 @@ public class VideoEditor {
             cmdList2.add("-g");
             cmdList2.add("30");
             if(bitrate==0){
-                bitrate=(int)(1.5f*1024*1024);//LSTODO
+                if(_inputInfo!=null){
+                    bitrate=getSuggestBitRate(_inputInfo.vWidth * _inputInfo.vHeight);
+                }else{
+                    bitrate=(int)(1.5f*1024*1024);
+                }
             }
             cmdList2.add("-b:v");
             cmdList2.add(String.valueOf(bitrate));

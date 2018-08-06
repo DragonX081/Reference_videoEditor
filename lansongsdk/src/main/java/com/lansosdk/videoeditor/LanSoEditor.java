@@ -21,6 +21,7 @@ public class LanSoEditor {
     public static void initSDK(Context context) {
         loadLibraries();
         LanSoEditor.initSo(context,null);
+        VideoEditor.logEnable(context);  //使能;
     }
 
     public static void initSDK(Context context, String str) {
