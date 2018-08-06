@@ -100,7 +100,7 @@ public class VideoEditor {
     /**
      * 不检查输入的分辨率是否是16的倍数;
      */
-    public void setNOCheckSize16Multi(boolean check){
+    public void setNOCheckInput16Multi(boolean check){
         noCheck16Multi=check;
     }
     /**

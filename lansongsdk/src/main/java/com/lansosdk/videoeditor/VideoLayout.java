@@ -706,6 +706,7 @@ public class VideoLayout extends VideoEditor {
     public String doVideoLayout(List<String> cmdList, int width,int height)
     {
         setEncodeBitRate(getSuggestBitRate(width * height));
+        setNOCheckInput16Multi(true);  //不再检测输入是否是16的倍数
         return executeAutoSwitch(cmdList);
     }
     public static int getSuggestBitRate(int wxh) {
