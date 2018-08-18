@@ -47,20 +47,28 @@
 	     也可以先用MediaInfo判断当前视频的各种信息;
     3, 文件创建,删除类 LanSongFileUtil.java 方便你在编辑时的各种文件创建,删除, 判断等操作.	     
 ``` 
+### 常见问题解决：
+```
+   方法1： 80%的问题是因为文件传输错误，可用MediaInfo.checkFile("您的文件绝对路径")； 来查看打印信息， 根据打印信息的提示，排除问题。
+   方法2： 查看打印信息, 如返回 xxx pixel -1之类, 说明找不到对应的节码器; 如其他信息, 查看对应的关键字, 大部分是因为命令错误,或没有覆盖之前的文件等等;
+   
+```
 ### 集成步骤
 -  直接导入lansongsdk 这个module后; 在代码开始的时候,增加SDK初始化代码:
 ```
-	LanSoEditor.initSDK(getApplicationContext());
+	LanSoEditor.initSDK(getApplicationContext())；
+	在您工程的settting.gradle中增加: ,'LanSongSDK' ; 并在app.gradle中 增加: implementation project(':LanSongSDK')
+	
 ```
 我们提供了3种指令集:armeabi/armeabi-v7a/arm64-v8a,以方便不同的需求.但大部分是需要一个,我们推荐保留armeabi-v7a,在您导入项目后删除另外两个;
 
 
 # 增值服务:
 ```
-  -  我们提供有偿技术支持, 费用3500元一年.提供如下:
+  -  我们提供有偿技术支持, 费用7000元. 服务如下:
 	  1, 定制APK的开放功能代码.
 	  2, SDK范围内的功能定制. 
-	  3, 及时的技术支持.
+	  3, 一年的技术支持.
 	  4, 规划需求时的视频技术咨询,可以在规划需求的时候,就向我们咨询,或许您感觉很复杂的效果,在我们看来,只需几行代码就可以实现,可以让您少走很多弯路;
 	  
   -  编写的定制APK安装包,可以在当前SDK下载的文件夹中找到:
@@ -69,7 +77,7 @@
       -  编辑功能: 涂鸦, 增加文字, 增加图片,变速,时长裁剪,画面裁剪.
       -  定制APK的功能,会一直更新, 速度和画质会一直优化,并采用GPU来渲染.欢迎你的使用.
 ```
-	 -  定制APK的界面如下:
+   -  定制APK的界面如下:
 ![](https://github.com/LanSoSdk/LanSoEditor_common/blob/master/customAPK.png)
 	
 	
